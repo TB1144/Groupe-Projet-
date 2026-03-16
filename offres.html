@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="StageFinder — Liste des offres de stage disponibles. Filtrez par compétence, durée et rémunération."/>
+  <title>StageFinder — Offres de stage</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<script>window.CURRENT_PAGE = 'offers';</script>
+<script src="nav.js"></script>
+
+<main class="page">
+  <div class="page-header">
+    <h1>Offres de stage</h1>
+    <button class="btn btn-primary" onclick="openModal('create-offer-modal')">+ Créer une offre</button>
+  </div>
+
+  <div style="display:grid;grid-template-columns:240px 1fr;gap:1.5rem;">
+
+    <!-- Sidebar filtres -->
+    <aside class="sidebar">
+
+      <div class="filter-group">
+        <div class="sidebar-title">Recherche</div>
+        <input id="search-bar" class="form-input" type="text" placeholder="Titre, compétence…" oninput="applyFilters()"/>
+      </div>
+
+      <div class="filter-group">
+        <div class="sidebar-title">Durée</div>
+        <label class="checkbox-item"><input type="checkbox" value="1-2" checked onchange="applyFilters()"> 1–2 mois</label>
+        <label class="checkbox-item"><input type="checkbox" value="3-4" checked onchange="applyFilters()"> 3–4 mois</label>
+        <label class="checkbox-item"><input type="checkbox" value="5-6"       onchange="applyFilters()"> 5–6 mois</label>
+      </div>
+
+      <div class="filter-group">
+        <div class="sidebar-title">Rémunération</div>
+        <label class="checkbox-item"><input type="checkbox"       onchange="applyFilters()"> Non rémunéré</label>
+        <label class="checkbox-item"><input type="checkbox" checked onchange="applyFilters()"> Gratification légale</label>
+        <label class="checkbox-item"><input type="checkbox"       onchange="applyFilters()"> Rémunéré +</label>
+      </div>
+
+      <div class="filter-group">
+        <div class="sidebar-title">Compétences</div>
+        <label class="checkbox-item"><input type="checkbox" data-skill="JavaScript" checked onchange="applyFilters()"> JavaScript</label>
+        <label class="checkbox-item"><input type="checkbox" data-skill="Python"           onchange="applyFilters()"> Python</label>
+        <label class="checkbox-item"><input type="checkbox" data-skill="Java"             onchange="applyFilters()"> Java</label>
+        <label class="checkbox-item"><input type="checkbox" data-skill="React"            onchange="applyFilters()"> React</label>
+        <label class="checkbox-item"><input type="checkbox" data-skill="SQL"              onchange="applyFilters()"> SQL</label>
+        <label class="checkbox-item"><input type="checkbox" data-skill="Docker"           onchange="applyFilters()"> Docker</label>
+      </div>
+
+      <button class="btn" style="width:100%" onclick="resetFilters()">Réinitialiser les filtres</button>
+    </aside>
+
+    <!-- Grille offres -->
+    <div>
+      <div class="filters" id="sort-chips">
+        <span class="filter-chip active" data-sort="all">Toutes</span>
+        <span class="filter-chip" data-sort="recent">Récentes</span>
+        <span class="filter-chip" data-sort="candidates">Moins de candidats</span>
+      </div>
+
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:1rem;" id="results-count"></div>
+
+      <div class="offers-grid" id="offers-container"></div>
+
+      <!-- Pagination (statique) -->
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:2rem;">
+        <button class="btn" disabled>← Précédent</button>
+        <button class="btn btn-primary btn-sm">1</button>
+        <button class="btn btn-sm">2</button>
+        <button class="btn btn-sm">3</button>
+        <button class="btn">Suivant →</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Modal créer offre -->
+<div id="create-offer-modal" class="modal-overlay" onclick="closeModalOut(event,'create-offer-modal')">
+  <div class="modal">
+    <div class="modal-title">Créer une offre de stage</div>
+    <div class="form-group">
+      <label class="form-label">Titre de l'offre</label>
+      <input class="form-input" placeholder="Ex : Développeur web front-end"/>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Entreprise</label>
+        <input class="form-input" placeholder="Nom de l'entreprise"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Rémunération (€/mois)</label>
+        <input class="form-input" type="number" placeholder="600"/>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Date de début</label>
+        <input class="form-input" type="date"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Durée (mois)</label>
+        <input class="form-input" type="number" min="1" max="6" placeholder="3"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Description</label>
+      <textarea class="form-input" rows="3" placeholder="Décrivez le stage…"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Compétences requises (séparées par des virgules)</label>
+      <input class="form-input" placeholder="Ex : React, Node.js, SQL"/>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('create-offer-modal')">Annuler</button>
+      <button class="btn btn-primary">Créer l'offre</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal postuler -->
+<div id="apply-modal" class="modal-overlay" onclick="closeModalOut(event,'apply-modal')">
+  <div class="modal">
+    <div class="modal-title" id="apply-modal-title">Postuler</div>
+    <div class="form-group">
+      <label class="form-label">Lettre de motivation</label>
+      <textarea class="form-input" rows="5" placeholder="Rédigez votre lettre de motivation…"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">CV (PDF)</label>
+      <input class="form-input" type="file" accept=".pdf"/>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('apply-modal')">Annuler</button>
+      <button class="btn btn-primary">Envoyer ma candidature</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Lire paramètre GET ?q=
+  const params = new URLSearchParams(location.search);
+  const qInit  = params.get('q') || '';
+  if (qInit) document.getElementById('search-bar').value = qInit;
+
+  // Tri
+  document.getElementById('sort-chips').addEventListener('click', function (e) {
+    const chip = e.target.closest('.filter-chip');
+    if (!chip) return;
+    this.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    applyFilters();
+  });
+
+  function getActiveSkills() {
+    return [...document.querySelectorAll('[data-skill]:checked')].map(el => el.dataset.skill);
+  }
+
+  function getActiveSort() {
+    const active = document.querySelector('#sort-chips .filter-chip.active');
+    return active ? active.dataset.sort : 'all';
+  }
+
+  function applyFilters() {
+    const q      = document.getElementById('search-bar').value.toLowerCase();
+    const skills = getActiveSkills();
+    const sort   = getActiveSort();
+
+    let results = OFFERS.filter(o => {
+      const matchQ     = !q || o.title.toLowerCase().includes(q) || o.company.toLowerCase().includes(q) || o.skills.some(s => s.toLowerCase().includes(q));
+      const matchSkill = skills.length === 0 || o.skills.some(s => skills.includes(s));
+      return matchQ && matchSkill;
+    });
+
+    if (sort === 'recent')     results = [...results].sort((a, b) => b.id - a.id);
+    if (sort === 'candidates') results = [...results].sort((a, b) => a.candidates - b.candidates);
+
+    document.getElementById('results-count').textContent = `${results.length} offre(s) trouvée(s)`;
+    document.getElementById('offers-container').innerHTML =
+      results.length ? results.map(renderOfferCard).join('') : '<p style="color:var(--text-muted);font-size:14px;">Aucune offre ne correspond à votre recherche.</p>';
+  }
+
+  function resetFilters() {
+    document.getElementById('search-bar').value = '';
+    document.querySelectorAll('.sidebar input[type=checkbox]').forEach(cb => { cb.checked = false; });
+    applyFilters();
+  }
+
+  applyFilters();
+</script>
+</body>
+</html>

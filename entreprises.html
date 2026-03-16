@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="StageFinder — Annuaire des entreprises partenaires CESI."/>
+  <title>StageFinder — Entreprises</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<script>window.CURRENT_PAGE = 'companies';</script>
+<script src="nav.js"></script>
+
+<main class="page">
+  <div class="page-header">
+    <h1>Entreprises</h1>
+    <button class="btn btn-primary" onclick="openModal('create-company-modal')">+ Ajouter une entreprise</button>
+  </div>
+
+  <!-- Barre de recherche -->
+  <div style="display:flex;gap:10px;margin-bottom:1.5rem;">
+    <input id="company-search" class="form-input" type="text"
+      placeholder="Rechercher une entreprise…"
+      oninput="renderCompanies()"
+      style="max-width:360px;"/>
+    <select class="form-input" style="max-width:200px;" onchange="renderCompanies()" id="sort-select">
+      <option value="name">Trier : A–Z</option>
+      <option value="rating">Trier : Mieux notées</option>
+      <option value="offers">Trier : Plus d'offres</option>
+    </select>
+  </div>
+
+  <!-- Grille entreprises -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;" id="companies-grid"></div>
+
+</main>
+
+<!-- Modal créer entreprise -->
+<div id="create-company-modal" class="modal-overlay" onclick="closeModalOut(event,'create-company-modal')">
+  <div class="modal">
+    <div class="modal-title">Ajouter une entreprise</div>
+    <div class="form-group">
+      <label class="form-label">Nom de l'entreprise</label>
+      <input class="form-input" placeholder="Ex : Accenture France"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Description</label>
+      <textarea class="form-input" rows="2" placeholder="Décrivez l'entreprise…"></textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Email de contact</label>
+        <input class="form-input" type="email" placeholder="contact@entreprise.fr"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Téléphone</label>
+        <input class="form-input" placeholder="01 23 45 67 89"/>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('create-company-modal')">Annuler</button>
+      <button class="btn btn-primary">Ajouter</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal évaluer entreprise -->
+<div id="eval-modal" class="modal-overlay" onclick="closeModalOut(event,'eval-modal')">
+  <div class="modal">
+    <div class="modal-title" id="eval-modal-title">Évaluer l'entreprise</div>
+    <div class="form-group">
+      <label class="form-label">Note globale</label>
+      <div id="star-rating" style="display:flex;gap:6px;font-size:24px;cursor:pointer;">
+        <span onclick="setRating(1)">☆</span>
+        <span onclick="setRating(2)">☆</span>
+        <span onclick="setRating(3)">☆</span>
+        <span onclick="setRating(4)">☆</span>
+        <span onclick="setRating(5)">☆</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Commentaire</label>
+      <textarea class="form-input" rows="4" placeholder="Partagez votre expérience…"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('eval-modal')">Annuler</button>
+      <button class="btn btn-primary">Envoyer l'évaluation</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal modifier entreprise -->
+<div id="edit-company-modal" class="modal-overlay" onclick="closeModalOut(event,'edit-company-modal')">
+  <div class="modal">
+    <div class="modal-title">Modifier l'entreprise</div>
+    <div class="form-group">
+      <label class="form-label">Nom</label>
+      <input class="form-input" id="edit-name"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Description</label>
+      <textarea class="form-input" rows="2" id="edit-desc"></textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" id="edit-email"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Téléphone</label>
+        <input class="form-input" id="edit-phone"/>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('edit-company-modal')">Annuler</button>
+      <button class="btn btn-primary">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const COMPANIES = [
+    { id:1, name:'Accenture France',  initials:'AC', desc:'Conseil en stratégie et transformation digitale.',             email:'stages@accenture.fr',       phone:'01 53 23 00 00', rating:4.2, offerCount:3, stagiaires:12 },
+    { id:2, name:'Capgemini',         initials:'CA', desc:'Leader mondial des services en technologies de l\'information.', email:'recrutement@capgemini.com',  phone:'01 47 54 50 00', rating:4.0, offerCount:5, stagiaires:20 },
+    { id:3, name:'Sopra Steria',      initials:'SS', desc:'Entreprise de services du numérique européenne.',              email:'stages@soprasteria.com',      phone:'01 40 67 29 29', rating:3.8, offerCount:2, stagiaires:8  },
+    { id:4, name:'Orange Business',   initials:'OB', desc:'Opérateur de services numériques B2B.',                       email:'rh@orange.com',               phone:'01 44 44 22 22', rating:4.5, offerCount:4, stagiaires:15 },
+    { id:5, name:'Thales Group',      initials:'TH', desc:'Industrie de haute technologie, défense et sécurité.',        email:'stages@thalesgroup.com',      phone:'01 57 77 80 00', rating:4.3, offerCount:3, stagiaires:10 },
+    { id:6, name:'Atos',              initials:'AT', desc:'Entreprise internationale de services numériques.',            email:'careers@atos.net',            phone:'01 73 26 00 00', rating:3.6, offerCount:2, stagiaires:6  },
+  ];
+
+  function stars(rating) {
+    const full = Math.round(rating);
+    return '★'.repeat(full) + '☆'.repeat(5 - full);
+  }
+
+  function renderCompanies() {
+    const q    = document.getElementById('company-search').value.toLowerCase();
+    const sort = document.getElementById('sort-select').value;
+
+    let list = COMPANIES.filter(c =>
+      !q || c.name.toLowerCase().includes(q) || c.desc.toLowerCase().includes(q)
+    );
+
+    if (sort === 'rating') list = [...list].sort((a, b) => b.rating - a.rating);
+    if (sort === 'offers') list = [...list].sort((a, b) => b.offerCount - a.offerCount);
+
+    document.getElementById('companies-grid').innerHTML = list.map(c => `
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+          <div class="company-avatar" style="width:44px;height:44px;font-size:14px;">${c.initials}</div>
+          <div>
+            <div style="font-size:14px;font-weight:500;">${c.name}</div>
+            <div style="font-size:12px;color:var(--text-muted);">
+              <span style="color:#BA7517;">${stars(c.rating)}</span> ${c.rating}
+            </div>
+          </div>
+        </div>
+
+        <p style="font-size:13px;color:var(--text-muted);margin-bottom:10px;line-height:1.5;">${c.desc}</p>
+
+        <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;">
+          <span class="tag">${c.offerCount} offre(s)</span>
+          <span class="tag">${c.stagiaires} stagiaires</span>
+        </div>
+
+        <div style="font-size:12px;color:var(--text-muted);border-top:0.5px solid var(--border);padding-top:10px;margin-bottom:10px;">
+          <div>✉ ${c.email}</div>
+          <div style="margin-top:3px;">☎ ${c.phone}</div>
+        </div>
+
+        <div style="display:flex;gap:6px;">
+          <a href="offres.html?q=${encodeURIComponent(c.name)}" class="btn btn-sm" style="flex:1;text-align:center;">Voir les offres</a>
+          <button class="btn btn-sm" style="flex:1;" onclick="openEval('${c.name}')">Évaluer</button>
+          <button class="btn btn-sm" onclick="openEdit(${c.id})">✎</button>
+          <button class="btn btn-sm" style="color:#A32D2D;" onclick="deleteCompany(${c.id})">✕</button>
+        </div>
+      </div>`).join('');
+  }
+
+  function openEval(name) {
+    document.getElementById('eval-modal-title').textContent = `Évaluer : ${name}`;
+    setRating(0);
+    openModal('eval-modal');
+  }
+
+  let currentRating = 0;
+  function setRating(n) {
+    currentRating = n;
+    const stars = document.querySelectorAll('#star-rating span');
+    stars.forEach((s, i) => { s.textContent = i < n ? '★' : '☆'; });
+  }
+
+  function openEdit(id) {
+    const c = COMPANIES.find(c => c.id === id);
+    if (!c) return;
+    document.getElementById('edit-name').value  = c.name;
+    document.getElementById('edit-desc').value  = c.desc;
+    document.getElementById('edit-email').value = c.email;
+    document.getElementById('edit-phone').value = c.phone;
+    openModal('edit-company-modal');
+  }
+
+  function deleteCompany(id) {
+    if (confirm('Supprimer cette entreprise du système ?')) {
+      const idx = COMPANIES.findIndex(c => c.id === id);
+      if (idx !== -1) { COMPANIES.splice(idx, 1); renderCompanies(); }
+    }
+  }
+
+  renderCompanies();
+</script>
+</body>
+</html>
