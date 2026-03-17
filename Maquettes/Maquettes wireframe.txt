@@ -1,0 +1,78 @@
+Maquettes wireframe
+
+Version ordi
++-----------------------------------------------------------------------------------+
+|                                                                                   |
+|  [ Web4All. ]              Accueil   Offres   Entreprises           [ Connexion ] |
+|                                                                                   |
++-----------------------------------------------------------------------------------+
+|                                                                                   |
+|                                                                                   |
+|                                                                                   |
+|                                                                                   |
+|                  Trouvez le stage de vos rêves en un clic.                        |
+|                                                                                   |
+|         La plateforme exclusive pour les étudiants du CESI. Explorez              |
+|              des centaines d'offres et propulsez votre carrière.                  |
+|                                                                                   |
+|                                                                                   |
+|         +--------------------------------------------------------+ +----------+   |
+|         | Quel stage recherchez-vous ? (ex: Développeur Web)     | |Rechercher|   |
+|         +--------------------------------------------------------+ +----------+   |
+|                                                                                   |
+|                                                                                   |
+|                                                                                   |
+|                                                                                   |
++-----------------------------------------------------------------------------------+
+|                                                                                   |
+|  © 2026 Web4All - Tous droits réservés.             Mentions légales | Contact    |
+|                                                                                   |
++-----------------------------------------------------------------------------------+
+
+Vue mobile (vue fermé)
+
++---------------------------------------+
+|                                       |                                
+|  [ Web4All. ]                   [ ☰ ] | <-- Menu Burger
+|                                       |
++---------------------------------------+
+|                                       |
+|                                       |
+|       Trouvez le stage de vos         |
+|          rêves en un clic.            |
+|                                       |
+|   La plateforme exclusive pour les    |
+|   étudiants du CESI. Explorez des     |
+|   centaines d'offres et propulsez...  |
+|                                       |
+|  +---------------------------------+  |
+|  | Quel stage recherchez-vous ?    |  |
+|  +---------------------------------+  |
+|  +---------------------------------+  |
+|  |           Rechercher            |  |
+|  +---------------------------------+  |
+|                                       |
+|                                       |
++---------------------------------------+
+|                                       |
+|  © 2026 Web4All                       |
+|  Mentions légales | Contact           |
+|                                       |
++---------------------------------------+
+
+Vue mobile (vue ouverte)
+
++---------------------------------------+
+|                                       |
+|  [ Web4All. ]                   [ X ] | 
+|  -----------------------------------  |
+|  > Accueil                            |
+|  > Offres                             |
+|  > Entreprises                        |
+|  [ Connexion ]                        |
+|                                       |
++---------------------------------------+
+|  (Le reste de la page est en          |
+|   dessous du menu déroulant)          |
++---------------------------------------+
+
