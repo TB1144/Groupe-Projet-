@@ -59,3 +59,19 @@ CREATE TABLE IF NOT EXISTS wishlist (
     FOREIGN KEY (etudiant_id) REFERENCES users(id),
     FOREIGN KEY (offre_id) REFERENCES offres(id)
 );
+
+--rajout de la table évaluations qu'on a pas
+--mit de base (SFx5 dans le cahier des charges)
+
+CREATE TABLE IF NOT EXISTS evaluations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    entreprise_id INT NOT NULL,
+    etudiant_id INT NOT NULL,
+    note TINYINT NOT NULL CHECK (note BETWEEN 1 AND 5),
+    commentaire TEXT,
+    date_evaluation DATE DEFAULT (CURRENT_DATE),
+    FOREIGN KEY (entreprise_id) REFERENCES entreprises(id) ON DELETE CASCADE,
+    FOREIGN KEY (etudiant_id) REFERENCES users(id) ON DELETE CASCADE,
+    -- Un étudiant ne peut évaluer une entreprise qu'une seule fois
+    UNIQUE KEY unique_eval (entreprise_id, etudiant_id)
+);
