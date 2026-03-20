@@ -1,27 +1,20 @@
-/* Fichier html  créé par Adem*/
 /* =========================================
-   1. VARIABLES & FONDATIONS (La Charte Graphique)
+   1. VARIABLES & FONDATIONS
    ========================================= */
 :root {
-    /* Ta palette de couleurs minimaliste */
     --bg-blanc: #FFFFFF;
-    --texte-noir: #111111; /* Un noir très profond, très pro */
-    --accent-jaune: #FFD500; /* Un jaune "Tech" bien punchy */
-    
-    /* Une couleur bonus invisible mais indispensable pour les bordures/ombres */
-    --gris-tres-clair: #F3F4F6; 
+    --texte-noir: #111111;
+    --accent-jaune: #FFD500;
+    --gris-tres-clair: #F3F4F6;
 }
 
-/* Le "Reset" pour enlever les marges par défaut des navigateurs */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Style général de la page */
 body {
-    /* Une police sans-serif très moderne et minimaliste */
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: var(--bg-blanc);
     color: var(--texte-noir);
@@ -29,163 +22,137 @@ body {
 }
 
 /* =========================================
-   2. TYPOGRAPHIE (Les Titres)
+   2. TYPOGRAPHIE
    ========================================= */
 h1, h2, h3 {
-    font-weight: 800; /* Des titres bien gras pour le côté "jeune/bold" */
-    letter-spacing: -1px; /* Resserre un peu les lettres, effet moderne garanti */
+    font-weight: 800;
+    letter-spacing: -1px;
 }
 
 /* =========================================
-   3. HEADER & NAVIGATION (La Vitrine)
+   3. HEADER & NAVIGATION
    ========================================= */
-
-/* Le conteneur principal de la barre de navigation */
 .navbar {
-    display: flex; /* Aligne le logo, le menu et le bouton sur une même ligne */
-    justify-content: space-between; /* Pousse les éléments au maximum vers les bords */
-    align-items: center; /* Centre tout verticalement */
-    padding: 20px 50px; /* Espace intérieur (20px en haut/bas, 50px sur les côtés) */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
     background-color: var(--bg-blanc);
-    
-    /* La petite touche design : une ligne noire bien nette en bas */
-    border-bottom: 3px solid var(--texte-noir); 
+    border-bottom: 3px solid var(--texte-noir);
 }
 
-/* --- LE LOGO --- */
 .logo h2 {
     font-size: 28px;
     color: var(--texte-noir);
     cursor: pointer;
 }
 
-/* Le mot "All" en jaune */
 .logo .highlight {
     color: var(--accent-jaune);
 }
 
-/* --- LES LIENS DU MENU --- */
 .nav-links ul {
-    display: flex; /* Met les liens (Accueil, Offres...) côte à côte */
-    list-style: none; /* Enlève les gros points moches de la liste */
-    gap: 40px; /* L'écart parfait entre chaque lien */
+    display: flex;
+    list-style: none;
+    gap: 40px;
 }
 
 .nav-links a {
-    text-decoration: none; /* Enlève le trait de soulignement par défaut */
+    text-decoration: none;
     color: var(--texte-noir);
-    font-weight: 600; /* Un texte un peu épais pour faire moderne */
+    font-weight: 600;
     font-size: 16px;
-    transition: color 0.2s ease; /* Petite animation fluide au survol */
+    transition: color 0.2s ease;
 }
 
-/* L'effet quand tu passes ta souris sur un lien du menu */
 .nav-links a:hover {
     color: var(--accent-jaune);
 }
 
-/* --- LE BOUTON CONNEXION --- */
 .btn-primary {
-    background-color: var(--accent-jaune); /* Fond jaune */
-    color: var(--texte-noir); /* Texte noir */
+    background-color: var(--accent-jaune);
+    color: var(--texte-noir);
     text-decoration: none;
-    padding: 10px 24px; /* Épaisseur du bouton */
-    font-weight: 800; /* Texte très gras */
-    
-    /* Style brutaliste : une grosse bordure noire et des coins très peu arrondis */
-    border: 3px solid var(--texte-noir); 
-    border-radius: 4px; 
-    
-    /* Petite ombre noire décalée, typique de ce style de design */
+    padding: 10px 24px;
+    font-weight: 800;
+    border: 3px solid var(--texte-noir);
+    border-radius: 4px;
     box-shadow: 4px 4px 0px var(--texte-noir);
     transition: all 0.2s ease;
 }
 
-/* L'effet quand tu cliques ou passes la souris sur le bouton */
 .btn-primary:hover {
     background-color: var(--texte-noir);
     color: var(--accent-jaune);
-    /* On rentre l'ombre pour donner un effet de "bouton pressé" */
-    box-shadow: 0px 0px 0px var(--texte-noir); 
-    transform: translate(4px, 4px); /* Décale le bouton vers le bas et la droite */
+    box-shadow: 0px 0px 0px var(--texte-noir);
+    transform: translate(4px, 4px);
 }
 
 /* =========================================
-   4. LA SECTION HERO (L'accueil)
+   4. SECTION HERO
    ========================================= */
 .hero {
-    /* On centre tout au milieu de l'écran avec Flexbox */
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    
-    /* On lui donne une bonne hauteur (80vh = 80% de la hauteur de l'écran) */
-    min-height: 80vh; 
+    min-height: 80vh;
     padding: 40px 20px;
     background-color: var(--bg-blanc);
 }
 
 .hero-content {
-    max-width: 800px; /* Empêche le texte d'être trop large sur grand écran */
+    max-width: 800px;
 }
 
 .hero-content h1 {
-    font-size: 54px; /* Un titre énooooorme */
+    font-size: 54px;
     color: var(--texte-noir);
     margin-bottom: 20px;
-    line-height: 1.1; /* Resserre les lignes du titre */
+    line-height: 1.1;
 }
 
 .hero-content p {
     font-size: 20px;
-    color: #555; /* Un gris foncé pour que le titre noir ressorte mieux */
+    color: #555;
     margin-bottom: 40px;
 }
 
-/* --- LA BARRE DE RECHERCHE --- */
 .search-bar-fake {
     display: flex;
     justify-content: center;
-    gap: 15px; /* Espace entre le champ texte et le bouton */
+    gap: 15px;
     max-width: 600px;
-    margin: 0 auto; /* Centre la barre parfaitement au milieu */
+    margin: 0 auto;
 }
 
-/* Le champ pour taper le texte */
 .search-bar-fake input {
-    flex: 1; /* L'input prend toute la place disponible */
+    flex: 1;
     padding: 15px 20px;
     font-size: 16px;
-    font-family: inherit; /* Reprend la police du site */
+    font-family: inherit;
     border: 3px solid var(--texte-noir);
     border-radius: 4px;
-    outline: none; /* Enlève le contour bleu par défaut du navigateur */
-    
-    /* La fameuse ombre décalée brutaliste */
+    outline: none;
     box-shadow: 4px 4px 0px var(--texte-noir);
     transition: all 0.2s ease;
 }
 
-/* Quand on clique pour taper dedans */
 .search-bar-fake input:focus {
     transform: translate(2px, 2px);
     box-shadow: 2px 2px 0px var(--texte-noir);
 }
 
-/* Le bouton Rechercher */
 .btn-search {
-    background-color: var(--texte-noir); /* Bouton noir */
-    color: var(--bg-blanc); /* Texte blanc */
+    background-color: var(--texte-noir);
+    color: var(--bg-blanc);
     padding: 15px 30px;
     font-size: 16px;
     font-weight: 800;
     border: 3px solid var(--texte-noir);
     border-radius: 4px;
     cursor: pointer;
-    
-    /* On met une ombre JAUNE ici pour que ça claque ! */
-    box-shadow: 4px 4px 0px var(--accent-jaune); 
+    box-shadow: 4px 4px 0px var(--accent-jaune);
     transition: all 0.2s ease;
 }
 
@@ -195,15 +162,13 @@ h1, h2, h3 {
 }
 
 /* =========================================
-   5. LE PIED DE PAGE (Footer)
+   5. FOOTER
    ========================================= */
 .main-footer {
-    background-color: var(--texte-noir); /* Fond tout noir */
-    color: var(--bg-blanc); /* Texte blanc */
+    background-color: var(--texte-noir);
+    color: var(--bg-blanc);
     padding: 30px 50px;
-    
-    /* Une belle ligne jaune épaisse pour séparer la page du footer */
-    border-top: 5px solid var(--accent-jaune); 
+    border-top: 5px solid var(--accent-jaune);
 }
 
 .footer-content {
@@ -223,20 +188,18 @@ h1, h2, h3 {
     color: var(--accent-jaune);
     text-decoration: underline;
 }
-/* =========================================
-   6. RESPONSIVE DESIGN (Mobiles & Tablettes)
-   ========================================= */
 
-/* Par défaut (sur PC), on cache le bouton burger */
+/* =========================================
+   6. RESPONSIVE DESIGN
+   ========================================= */
 .burger-menu {
     display: none;
     cursor: pointer;
     flex-direction: column;
     gap: 6px;
-    z-index: 100; /* Pour qu'il reste au-dessus du menu quand il est ouvert */
+    z-index: 100;
 }
 
-/* Les 3 petites lignes noires du burger */
 .burger-menu .line {
     width: 35px;
     height: 4px;
@@ -245,41 +208,34 @@ h1, h2, h3 {
     transition: all 0.3s ease;
 }
 
-/* LA MEDIA QUERY : Si l'écran fait moins de 768px de large (Tablette/Mobile) */
 @media screen and (max-width: 768px) {
-    
-    /* 1. On affiche le bouton burger */
+
     .burger-menu {
         display: flex;
     }
 
-    /* 2. On cache le bouton "Connexion" classique pour gagner de la place */
     .nav-actions {
-        display: none; 
+        display: none;
     }
 
-    /* 3. On transforme le menu horizontal en un grand panneau caché sur la gauche */
     .nav-links {
         position: fixed;
-        top: 80px; /* On le place juste en dessous du header */
-        left: -100%; /* On le cache hors de l'écran (à gauche) */
+        top: 80px;
+        left: -100%;
         width: 100%;
         height: calc(100vh - 80px);
         background-color: var(--bg-blanc);
         border-top: 3px solid var(--texte-noir);
-        transition: left 0.4s ease; /* L'animation de glissement */
-        
+        transition: left 0.4s ease;
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
-    /* 4. Quand le menu recevra la classe "active" (grâce au Javascript) */
     .nav-links.active {
-        left: 0; /* Il glisse au centre de l'écran */
+        left: 0;
     }
 
-    /* 5. On met les liens les uns sous les autres en très gros */
     .nav-links ul {
         flex-direction: column;
         gap: 40px;
@@ -287,15 +243,13 @@ h1, h2, h3 {
     }
 
     .nav-links a {
-        font-size: 24px; /* Plus gros sur mobile pour pouvoir cliquer avec le doigt */
+        font-size: 24px;
     }
 }
 
 /* =========================================
-   7. PAGE DE CONNEXION (Login)
+   7. PAGE DE CONNEXION
    ========================================= */
-
-/* On centre la boîte au milieu de l'écran */
 .login-page {
     display: flex;
     justify-content: center;
@@ -305,14 +259,11 @@ h1, h2, h3 {
     padding: 40px 20px;
 }
 
-/* La grosse boîte du formulaire façon Brutalisme */
 .login-box {
     background-color: var(--bg-blanc);
     width: 100%;
-    max-width: 450px; /* Pas trop large pour rester lisible */
+    max-width: 450px;
     padding: 40px;
-    
-    /* Les fameuses bordures et ombres dures */
     border: 3px solid var(--texte-noir);
     border-radius: 8px;
     box-shadow: 8px 8px 0px var(--accent-jaune);
@@ -328,10 +279,9 @@ h1, h2, h3 {
     margin-bottom: 30px;
 }
 
-/* --- LES CHAMPS DU FORMULAIRE --- */
 .input-group {
     display: flex;
-    flex-direction: column; /* Met le label au-dessus du champ */
+    flex-direction: column;
     margin-bottom: 20px;
     text-align: left;
 }
@@ -351,15 +301,13 @@ h1, h2, h3 {
     transition: all 0.2s ease;
 }
 
-/* Effet quand on clique dans le champ pour taper */
 .input-group input:focus {
     box-shadow: 4px 4px 0px var(--texte-noir);
-    transform: translate(-2px, -2px); /* Fait un petit saut vers le haut */
+    transform: translate(-2px, -2px);
 }
 
-/* --- LE BOUTON DE VALIDATION --- */
 .btn-submit {
-    width: 100%; /* Le bouton prend toute la largeur */
+    width: 100%;
     background-color: var(--texte-noir);
     color: var(--bg-blanc);
     padding: 15px;
@@ -375,7 +323,6 @@ h1, h2, h3 {
 .btn-submit:hover {
     background-color: var(--bg-blanc);
     color: var(--texte-noir);
-    /* On inverse les couleurs au survol ! */
 }
 
 .login-links {
@@ -391,14 +338,12 @@ h1, h2, h3 {
 /* =========================================
    8. PAGE LISTE (Offres & Entreprises)
    ========================================= */
-
 .page-container {
-    max-width: 1200px; /* On limite la largeur sur les très grands écrans */
-    margin: 0 auto; /* On centre le tout */
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 40px 20px;
 }
 
-/* L'en-tête de la page avec les filtres */
 .page-header {
     margin-bottom: 40px;
     border-bottom: 3px solid var(--texte-noir);
@@ -419,32 +364,26 @@ h1, h2, h3 {
     font-size: 16px;
 }
 
-/* --- LA GRILLE DES CARTES --- */
 .cards-grid {
     display: grid;
-    /* La formule magique Responsive : crée des colonnes d'au moins 300px. S'il n'y a pas la place, passe à la ligne ! */
     grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
     gap: 30px;
     margin-bottom: 40px;
 }
 
-/* --- LE DESIGN D'UNE CARTE --- */
 .card {
     background-color: var(--bg-blanc);
     border: 3px solid var(--texte-noir);
     padding: 20px;
     display: flex;
-    flex-direction: column; /* Permet de pousser le footer de la carte tout en bas */
-    
-    /* L'ombre de base */
+    flex-direction: column;
     box-shadow: 6px 6px 0px var(--texte-noir);
     transition: all 0.2s ease;
 }
 
-/* L'effet Wahou quand tu passes la souris sur une carte */
 .card:hover {
-    transform: translate(-4px, -4px); /* La carte monte un peu */
-    box-shadow: 10px 10px 0px var(--accent-jaune); /* L'ombre devient jaune et plus grande */
+    transform: translate(-4px, -4px);
+    box-shadow: 10px 10px 0px var(--accent-jaune);
 }
 
 .card-header h3 {
@@ -460,10 +399,9 @@ h1, h2, h3 {
 
 .card-body {
     margin: 15px 0;
-    flex-grow: 1; /* Pousse le footer vers le bas si le texte est court */
+    flex-grow: 1;
 }
 
-/* Les petits tags (compétences, durée) */
 .tags {
     display: flex;
     flex-wrap: wrap;
@@ -488,7 +426,6 @@ h1, h2, h3 {
     padding-top: 15px;
 }
 
-/* Bouton secondaire (pour voir l'offre) */
 .btn-secondary {
     background-color: transparent;
     color: var(--texte-noir);
@@ -503,7 +440,6 @@ h1, h2, h3 {
     background-color: var(--accent-jaune);
 }
 
-/* Bouton Wish-list (le coeur) */
 .btn-wishlist {
     background: none;
     border: none;
@@ -513,10 +449,9 @@ h1, h2, h3 {
 }
 
 .btn-wishlist:hover {
-    transform: scale(1.2); /* Grossit un peu au survol */
+    transform: scale(1.2);
 }
 
-/* --- LA PAGINATION --- */
 .pagination {
     display: flex;
     justify-content: center;
@@ -531,7 +466,147 @@ h1, h2, h3 {
     cursor: pointer;
 }
 
-.btn-page:hover, .btn-page.active {
+.btn-page:hover,
+.btn-page.active {
     background-color: var(--texte-noir);
     color: var(--bg-blanc);
+}
+
+/* =========================================
+   9. PAGE MENTIONS LÉGALES
+   ========================================= */
+.mentions-page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 20px 80px;
+}
+
+.mentions-hero {
+    border: 3px solid var(--texte-noir);
+    padding: 40px;
+    margin-bottom: 50px;
+    box-shadow: 8px 8px 0px var(--accent-jaune);
+}
+
+.mentions-hero .label {
+    display: inline-block;
+    background-color: var(--accent-jaune);
+    color: var(--texte-noir);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 2px solid var(--texte-noir);
+    margin-bottom: 16px;
+}
+
+.mentions-hero h1 {
+    font-size: 48px;
+    line-height: 1.05;
+    letter-spacing: -2px;
+}
+
+.mentions-hero .last-update {
+    margin-top: 16px;
+    font-size: 14px;
+    color: #555;
+    font-weight: 600;
+}
+
+.mention-block {
+    border-left: 5px solid var(--texte-noir);
+    padding: 30px 30px 30px 35px;
+    margin-bottom: 30px;
+    background-color: var(--gris-tres-clair);
+    transition: all 0.2s ease;
+}
+
+.mention-block:hover {
+    border-left-color: var(--accent-jaune);
+    background-color: var(--bg-blanc);
+    box-shadow: 6px 6px 0px var(--texte-noir);
+    transform: translateX(-4px);
+}
+
+.mention-block h2 {
+    font-size: 20px;
+    letter-spacing: -0.5px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.mention-block h2 .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background-color: var(--accent-jaune);
+    color: var(--texte-noir);
+    font-size: 14px;
+    font-weight: 800;
+    flex-shrink: 0;
+    border: 2px solid var(--texte-noir);
+}
+
+.mention-block p {
+    font-size: 15px;
+    line-height: 1.75;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.mention-block p:last-child { margin-bottom: 0; }
+
+.mention-block strong {
+    color: var(--texte-noir);
+    font-weight: 800;
+}
+
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.info-table tr { border-bottom: 2px solid var(--texte-noir); }
+.info-table tr:last-child { border-bottom: none; }
+.info-table td { padding: 10px 8px; vertical-align: top; }
+.info-table td:first-child { font-weight: 800; width: 40%; color: var(--texte-noir); }
+.info-table td:last-child { color: #444; }
+
+.mention-link {
+    color: var(--texte-noir);
+    font-weight: 800;
+    text-decoration: none;
+    border-bottom: 3px solid var(--accent-jaune);
+    padding: 0 2px;
+    transition: background-color 0.15s;
+}
+
+.mention-link:hover { background-color: var(--accent-jaune); }
+
+.rgpd-banner {
+    border: 3px solid var(--texte-noir);
+    padding: 24px 30px;
+    margin-top: 50px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    background-color: var(--accent-jaune);
+    box-shadow: 6px 6px 0px var(--texte-noir);
+}
+
+.rgpd-banner .icon { font-size: 36px; flex-shrink: 0; line-height: 1; }
+.rgpd-banner h3 { font-size: 18px; margin-bottom: 8px; letter-spacing: -0.5px; }
+.rgpd-banner p { font-size: 14px; color: var(--texte-noir); line-height: 1.7; }
+
+@media screen and (max-width: 768px) {
+    .mentions-hero h1 { font-size: 32px; }
+    .mention-block { padding: 20px 20px 20px 22px; }
+    .rgpd-banner { flex-direction: column; gap: 12px; }
 }
