@@ -42,6 +42,7 @@ L'application permet d'informatiser l'aide à la recherche de stages. Elle regro
    ```bash
    git clone (à rajouter)
 
+
 ## Cahier des Charges - Suivi d'avancement
 
 ### Spécifications Fonctionnelles (SFx)
