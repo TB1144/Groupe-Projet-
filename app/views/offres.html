@@ -1,0 +1,142 @@
+/* Fichier html  créé par Adem*/
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maquette - Web4All</title>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <h2>Web4<span class="highlight">All</span>.</h2>
+        </div>
+        
+        <nav class="nav-links">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="offres.html">Offres</a></li>
+                <li><a href="entreprises.html">Entreprises</a></li>
+            </ul>
+        </nav>
+
+        <div class="nav-actions">
+            <a href="login.html" class="btn-primary">Connexion</a>
+        </div>
+
+        <div class="burger-menu" id="burger-menu">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+        </div>
+    </header>
+
+    <main class="page-container">
+        
+        <section class="page-header">
+            <h1>Trouvez votre stage</h1>
+            <div class="search-filters">
+                <input type="text" placeholder="Mots-clés (ex: React, Data...)">
+                <input type="text" placeholder="Ville">
+                <button class="btn-primary">Filtrer</button>
+            </div>
+        </section>
+
+        <section class="cards-grid">
+            
+            <article class="card">
+                <div class="card-header">
+                    <h3>Développeur Web Fullstack</h3>
+                    <span class="company-name">TechCorp SAS</span>
+                </div>
+                <div class="card-body">
+                    <p>Rejoignez notre équipe pour développer des applications web innovantes. Stage de fin d'études.</p>
+                    <div class="tags">
+                        <span class="tag">PHP</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">6 mois</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn-secondary">Voir l'offre</a>
+                    <button class="btn-wishlist">🤍</button>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-header">
+                    <h3>Assistant Chef de Projet IT</h3>
+                    <span class="company-name">Web4All Agency</span>
+                </div>
+                <div class="card-body">
+                    <p>Accompagnement sur la gestion de projets agiles (Scrum). Rédaction de cahiers des charges.</p>
+                    <div class="tags">
+                        <span class="tag">Scrum</span>
+                        <span class="tag">Gestion</span>
+                        <span class="tag">4 mois</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn-secondary">Voir l'offre</a>
+                    <button class="btn-wishlist">🤍</button>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-header">
+                    <h3>Data Analyst Junior</h3>
+                    <span class="company-name">DataMetrics</span>
+                </div>
+                <div class="card-body">
+                    <p>Analyse de bases de données clients et création de tableaux de bord prédictifs.</p>
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">SQL</span>
+                        <span class="tag">6 mois</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn-secondary">Voir l'offre</a>
+                    <button class="btn-wishlist">🤍</button>
+                </div>
+            </article>
+
+        </section>
+
+        <div class="pagination">
+            <button class="btn-page">&laquo; Précédent</button>
+            <button class="btn-page active">1</button>
+            <button class="btn-page">2</button>
+            <button class="btn-page">3</button>
+            <button class="btn-page">Suivant &raquo;</button>
+        </div>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Web4All - Tous droits réservés.</p>
+            <div class="footer-links">
+                <a href="mentions-legales.html">Mentions légales</a>
+                <a href="contacter.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+<script>
+        // On récupère le bouton burger et le menu dans le code HTML
+        const burgerMenu = document.getElementById('burger-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        // On écoute le "clic" sur le bouton burger
+        burgerMenu.addEventListener('click', () => {
+            // "toggle" ajoute la classe 'active' si elle n'y est pas, ou l'enlève si elle y est
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</html>
+</body>
+</html>

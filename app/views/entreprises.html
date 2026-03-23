@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Entreprises - Web4All</title>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ 
+    <header class="navbar">
+        <div class="logo">
+            <h2>Web4<span class="highlight">All</span>.</h2>
+        </div>
+        
+        <nav class="nav-links">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="offres.html">Offres</a></li>
+                <li><a href="entreprises.html">Entreprises</a></li>
+            </ul>
+        </nav>
+ 
+        <div class="nav-actions">
+            <a href="login.html" class="btn-primary">Connexion</a>
+        </div>
+ 
+        <div class="burger-menu" id="burger-menu">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+        </div>
+    </header>
+ 
+    <main class="page-container">
+        
+        <section class="page-header">
+            <h1>Découvrez les entreprises qui recrutent</h1>
+            <div class="search-filters">
+                <input type="text" id="search-nom" placeholder="Nom de l'entreprise, secteur (ex: IT, Finance...)">
+                <input type="text" id="search-ville" placeholder="Ville ou Région">
+                <button class="btn-primary" id="btn-filtrer">Filtrer</button>
+            </div>
+        </section>
+ 
+        <section class="cards-grid">
+            
+            <article class="card" data-nom="TechCorp SAS" data-secteur="IT Logiciel" data-ville="Paris">
+                <div class="card-header">
+                    <h3>TechCorp SAS</h3>
+                    <span class="company-name">Paris (75)</span>
+                </div>
+                <div class="card-body">
+                    <p>Leader dans le développement de solutions cloud et cybersécurité. Nous recherchons régulièrement de nouveaux talents passionnés par la tech.</p>
+                    <div class="tags">
+                        <span class="tag">IT & Logiciel</span>
+                        <span class="tag">250+ employés</span>
+                        <span class="tag">3 offres en cours</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn-secondary">Voir l'entreprise</a>
+                    <button class="btn-wishlist">🤍</button>
+                </div>
+            </article>
+ 
+            <article class="card" data-nom="Web4All Agency" data-secteur="Agence Web" data-ville="Lyon">
+                <div class="card-header">
+                    <h3>Web4All Agency</h3>
+                    <span class="company-name">Lyon (69)</span>
+                </div>
+                <div class="card-body">
+                    <p>Agence web créative spécialisée dans la création d'expériences digitales sur mesure pour les grands comptes et les startups.</p>
+                    <div class="tags">
+                        <span class="tag">Agence Web</span>
+                        <span class="tag">10-50 employés</span>
+                        <span class="tag">1 offre en cours</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn-secondary">Voir l'entreprise</a>
+                    <button class="btn-wishlist">🤍</button>
+                </div>
+            </article>
+ 
+            <article class="card" data-nom="DataMetrics" data-secteur="IA Data" data-ville="Sophia-Antipolis">
+                <div class="card-header">
+                    <h3>DataMetrics</h3>
+                    <span class="company-name">Sophia-Antipolis (06)</span>
+                </div>
+                <div class="card-body">
+                    <p>Startup innovante spécialisée dans le Big Data et l'Intelligence Artificielle appliquée au secteur de la santé.</p>
+                    <div class="tags">
+                        <span class="tag">IA & Data</span>
+                        <span class="tag">Startup</span>
+                        <span class="tag">5 offres en cours</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn-secondary">Voir l'entreprise</a>
+                    <button class="btn-wishlist">🤍</button>
+                </div>
+            </article>
+ 
+        </section>
+ 
+        <div class="pagination">
+            <button class="btn-page">&laquo; Précédent</button>
+            <button class="btn-page active">1</button>
+            <button class="btn-page">2</button>
+            <button class="btn-page">3</button>
+            <button class="btn-page">Suivant &raquo;</button>
+        </div>
+ 
+    </main>
+ 
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Web4All - Tous droits réservés.</p>
+            <div class="footer-links">
+                <a href="mentions-legales.html">Mentions légales</a>
+                <a href="contacter.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+ 
+    <script>
+        // Burger menu
+        const burgerMenu = document.getElementById('burger-menu');
+        const navLinks = document.querySelector('.nav-links');
+        burgerMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+ 
+        // Filtrage des entreprises
+        const btnFiltrer = document.getElementById('btn-filtrer');
+        const searchNom  = document.getElementById('search-nom');
+        const searchVille = document.getElementById('search-ville');
+ 
+        function filtrerEntreprises() {
+            const nom   = searchNom.value.toLowerCase().trim();
+            const ville = searchVille.value.toLowerCase().trim();
+            const cartes = document.querySelectorAll('.cards-grid .card');
+            let aucunResultat = true;
+ 
+            cartes.forEach(carte => {
+                const carteNom     = carte.dataset.nom.toLowerCase();
+                const carteSecteur = carte.dataset.secteur.toLowerCase();
+                const carteVille   = carte.dataset.ville.toLowerCase();
+ 
+                // La carte correspond si le champ nom matche le nom OU le secteur
+                const matchNom   = !nom   || carteNom.includes(nom)   || carteSecteur.includes(nom);
+                const matchVille = !ville || carteVille.includes(ville);
+ 
+                if (matchNom && matchVille) {
+                    carte.style.display = 'flex';
+                    aucunResultat = false;
+                } else {
+                    carte.style.display = 'none';
+                }
+            });
+ 
+            // Message si aucun résultat
+            let msgVide = document.getElementById('msg-vide');
+            if (aucunResultat) {
+                if (!msgVide) {
+                    msgVide = document.createElement('p');
+                    msgVide.id = 'msg-vide';
+                    msgVide.style.cssText = 'text-align:center;font-size:18px;font-weight:bold;padding:40px 0;grid-column:1/-1;';
+                    msgVide.textContent = 'Aucune entreprise ne correspond à votre recherche.';
+                    document.querySelector('.cards-grid').appendChild(msgVide);
+                }
+            } else if (msgVide) {
+                msgVide.remove();
+            }
+        }
+ 
+        // Filtrage au clic sur le bouton
+        btnFiltrer.addEventListener('click', filtrerEntreprises);
+ 
+        // Filtrage en temps réel pendant la frappe
+        searchNom.addEventListener('input', filtrerEntreprises);
+        searchVille.addEventListener('input', filtrerEntreprises);
+ 
+        // Filtrage avec la touche Entrée
+        searchNom.addEventListener('keydown',   e => { if (e.key === 'Enter') filtrerEntreprises(); });
+        searchVille.addEventListener('keydown', e => { if (e.key === 'Enter') filtrerEntreprises(); });
+    </script>
+</body>
+</html>
