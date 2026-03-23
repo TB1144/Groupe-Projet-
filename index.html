@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maquette - Web4All</title>
-    
+    <meta name="description" content="Web4All — La plateforme exclusive de stages pour les étudiants du CESI. Trouvez votre stage parmi des centaines d'offres.">
+    <meta name="keywords" content="stage, CESI, offre de stage, alternance, développeur, informatique, ingénieur">
+    <title>Accueil — Web4All</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,12 +14,14 @@
         <div class="logo">
             <h2>Web4<span class="highlight">All</span>.</h2>
         </div>
-        
+
         <nav class="nav-links">
             <ul>
                 <li><a href="index.html">Accueil</a></li>
                 <li><a href="offres.html">Offres</a></li>
                 <li><a href="entreprises.html">Entreprises</a></li>
+                <li><a href="statistiques.html">Statistiques</a></li>
+                <li><a href="contacter.html">Contact</a></li>
             </ul>
         </nav>
 
@@ -38,7 +41,7 @@
             <div class="hero-content">
                 <h1>Trouvez le stage de vos rêves en un clic.</h1>
                 <p>La plateforme exclusive pour les étudiants du CESI. Explorez des centaines d'offres et propulsez votre carrière.</p>
-                
+
                 <div class="search-bar-fake">
                     <input type="text" placeholder="Quel stage recherchez-vous ? (ex: Développeur Web)">
                     <button class="btn-search">Rechercher</button>
@@ -49,7 +52,7 @@
 
     <footer class="main-footer">
         <div class="footer-content">
-            <p>&copy; 2026 Web4All - Tous droits réservés.</p>
+            <p>&copy; 2026 Web4All — Tous droits réservés.</p>
             <div class="footer-links">
                 <a href="mentions-legales.html">Mentions légales</a>
                 <a href="contacter.html">Contact</a>
@@ -57,17 +60,12 @@
         </div>
     </footer>
 
-<script>
-        // On récupère le bouton burger et le menu dans le code HTML
+    <script>
         const burgerMenu = document.getElementById('burger-menu');
         const navLinks = document.querySelector('.nav-links');
-
-        // On écoute le "clic" sur le bouton burger
         burgerMenu.addEventListener('click', () => {
-            // "toggle" ajoute la classe 'active' si elle n'y est pas, ou l'enlève si elle y est
             navLinks.classList.toggle('active');
         });
     </script>
-</html>
 </body>
 </html>

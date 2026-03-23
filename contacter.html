@@ -3,264 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contactez l'équipe Web4All pour toute question, signalement ou demande de partenariat. Réponse sous 48h.">
+    <meta name="keywords" content="contact, Web4All, CESI, support, partenariat, stage">
     <title>Nous Contacter — Web4All</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* ---- Page Contact ---- */
-        .contact-page {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 60px 20px 80px;
-        }
-
-        .contact-hero {
-            border: 3px solid var(--texte-noir);
-            padding: 40px;
-            margin-bottom: 50px;
-            box-shadow: 8px 8px 0px var(--accent-jaune);
-        }
-
-        .contact-hero .label {
-            display: inline-block;
-            background-color: var(--accent-jaune);
-            color: var(--texte-noir);
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 4px 10px;
-            border: 2px solid var(--texte-noir);
-            margin-bottom: 16px;
-        }
-
-        .contact-hero h1 {
-            font-size: 48px;
-            line-height: 1.05;
-            letter-spacing: -2px;
-        }
-
-        .contact-hero p {
-            margin-top: 14px;
-            font-size: 16px;
-            color: #555;
-            max-width: 500px;
-        }
-
-        /* --- Grille principale --- */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            align-items: start;
-        }
-
-        /* --- Formulaire --- */
-        .contact-form-box {
-            border: 3px solid var(--texte-noir);
-            padding: 36px;
-            box-shadow: 6px 6px 0px var(--texte-noir);
-        }
-
-        .contact-form-box h2 {
-            font-size: 22px;
-            margin-bottom: 24px;
-            letter-spacing: -0.5px;
-            border-bottom: 3px solid var(--accent-jaune);
-            padding-bottom: 10px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 18px;
-        }
-
-        .form-group label {
-            font-weight: 800;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            padding: 12px 14px;
-            font-size: 15px;
-            font-family: inherit;
-            border: 3px solid var(--texte-noir);
-            outline: none;
-            background-color: var(--bg-blanc);
-            transition: all 0.2s ease;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            box-shadow: 4px 4px 0px var(--texte-noir);
-            transform: translate(-2px, -2px);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 130px;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .btn-send {
-            width: 100%;
-            background-color: var(--texte-noir);
-            color: var(--bg-blanc);
-            padding: 15px;
-            font-size: 16px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: 3px solid var(--texte-noir);
-            cursor: pointer;
-            margin-top: 8px;
-            box-shadow: 4px 4px 0px var(--accent-jaune);
-            transition: all 0.2s ease;
-        }
-
-        .btn-send:hover {
-            transform: translate(4px, 4px);
-            box-shadow: 0px 0px 0px var(--accent-jaune);
-            background-color: var(--accent-jaune);
-            color: var(--texte-noir);
-        }
-
-        /* --- Infos de contact --- */
-        .contact-infos {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .info-card {
-            border: 3px solid var(--texte-noir);
-            padding: 24px;
-            display: flex;
-            align-items: flex-start;
-            gap: 18px;
-            transition: all 0.2s ease;
-        }
-
-        .info-card:hover {
-            background-color: var(--accent-jaune);
-            box-shadow: 6px 6px 0px var(--texte-noir);
-            transform: translate(-4px, -4px);
-        }
-
-        .info-card .ic-icon {
-            font-size: 28px;
-            flex-shrink: 0;
-            line-height: 1;
-        }
-
-        .info-card h3 {
-            font-size: 14px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 6px;
-        }
-
-        .info-card p {
-            font-size: 15px;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        /* --- Message de confirmation --- */
-        .success-msg {
-            display: none;
-            margin-top: 20px;
-            border: 3px solid var(--texte-noir);
-            background-color: var(--accent-jaune);
-            padding: 18px 24px;
-            font-weight: 800;
-            font-size: 15px;
-            box-shadow: 4px 4px 0px var(--texte-noir);
-        }
-
-        /* --- FAQ rapide --- */
-        .faq-section {
-            margin-top: 50px;
-        }
-
-        .faq-section h2 {
-            font-size: 26px;
-            letter-spacing: -1px;
-            margin-bottom: 24px;
-            border-left: 6px solid var(--accent-jaune);
-            padding-left: 16px;
-        }
-
-        .faq-item {
-            border: 3px solid var(--texte-noir);
-            margin-bottom: 12px;
-            overflow: hidden;
-        }
-
-        .faq-question {
-            width: 100%;
-            background: none;
-            border: none;
-            padding: 18px 24px;
-            font-family: inherit;
-            font-size: 15px;
-            font-weight: 800;
-            text-align: left;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: background-color 0.2s;
-        }
-
-        .faq-question:hover {
-            background-color: var(--accent-jaune);
-        }
-
-        .faq-question .arrow {
-            font-size: 18px;
-            transition: transform 0.25s ease;
-        }
-
-        .faq-question.open .arrow {
-            transform: rotate(180deg);
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
-            font-size: 15px;
-            color: #444;
-            line-height: 1.7;
-            padding: 0 24px;
-        }
-
-        .faq-answer.open {
-            max-height: 200px;
-            padding: 16px 24px 20px;
-            border-top: 2px solid var(--texte-noir);
-        }
-
-        /* --- Responsive --- */
-        @media screen and (max-width: 768px) {
-            .contact-grid { grid-template-columns: 1fr; }
-            .form-row { grid-template-columns: 1fr; }
-            .contact-hero h1 { font-size: 34px; }
-        }
-    </style>
 </head>
 <body>
 
@@ -273,6 +19,8 @@
                 <li><a href="index.html">Accueil</a></li>
                 <li><a href="offres.html">Offres</a></li>
                 <li><a href="entreprises.html">Entreprises</a></li>
+                <li><a href="statistiques.html">Statistiques</a></li>
+                <li><a href="contacter.html">Contact</a></li>
             </ul>
         </nav>
         <div class="nav-actions">
@@ -462,11 +210,9 @@
                 const answer = btn.nextElementSibling;
                 const isOpen = answer.classList.contains('open');
 
-                // Ferme tout
                 document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
                 document.querySelectorAll('.faq-question').forEach(b => b.classList.remove('open'));
 
-                // Ouvre celui cliqué (sauf si déjà ouvert)
                 if (!isOpen) {
                     answer.classList.add('open');
                     btn.classList.add('open');
