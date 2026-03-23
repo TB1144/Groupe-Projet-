@@ -1,9 +1,0 @@
-User-agent: *
-Allow: /
-
-# Pages privées (espace étudiant)
-Disallow: /wishlist
-Disallow: /candidatures
-Disallow: /admin
-
-Sitemap: https://www.web4all-cesi.fr/sitemap.xml
