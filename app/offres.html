@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Recherchez parmi toutes les offres de stage disponibles sur Web4All. Filtrez par compétences, ville et durée.">
+    <meta name="keywords" content="offres de stage, stage, CESI, PHP, JavaScript, Python, développeur, data, informatique">
+    <title>Offres de stage — Web4All</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <h2>Web4<span class="highlight">All</span>.</h2>
+        </div>
+
+        <nav class="nav-links">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="offres.html">Offres</a></li>
+                <li><a href="entreprises.html">Entreprises</a></li>
+                <li><a href="statistiques.html">Statistiques</a></li>
+                <li><a href="contacter.html">Contact</a></li>
+            </ul>
+        </nav>
+
+        <div class="nav-actions">
+            <a href="login.html" class="btn-primary">Connexion</a>
+        </div>
+
+        <div class="burger-menu" id="burger-menu">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+        </div>
+    </header>
+
+    <main class="page-container">
+
+        <section class="page-header">
+            <h1>Trouvez votre stage</h1>
+            <div class="search-filters">
+                <input type="text" id="search-titre" placeholder="Titre ou compétence (ex: React, PHP, Data…)">
+                <input type="text" id="search-ville" placeholder="Ville ou région">
+                <select id="search-duree">
+                    <option value="">Toutes durées</option>
+                    <option value="1">1 mois</option>
+                    <option value="2">2 mois</option>
+                    <option value="3">3 mois</option>
+                    <option value="4">4 mois</option>
+                    <option value="6">6 mois</option>
+                </select>
+                <button class="btn-primary" id="btn-filtrer">Filtrer</button>
+            </div>
+        </section>
+
+        <section class="cards-grid" id="offres-grid">
+
+            <article class="card"
+                data-titre="Développeur Web Fullstack"
+                data-competences="php javascript mysql html css"
+                data-ville="Paris"
+                data-duree="6">
+                <div class="card-header">
+                    <h3>Développeur Web Fullstack</h3>
+                    <span class="company-name">TechCorp SAS — Paris (75)</span>
+                </div>
+                <div class="card-body">
+                    <p>Rejoignez notre équipe pour développer des applications web innovantes. Stage de fin d'études.</p>
+                    <div class="tags">
+                        <span class="tag">PHP</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">MySQL</span>
+                        <span class="tag">6 mois</span>
+                    </div>
+                </div>
+                <div class="card-meta">
+                    <span class="meta-item">Gratification : 650 €/mois</span>
+                    <span class="meta-item">Publié le 15 mars 2026</span>
+                    <span class="meta-item">4 candidatures</span>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn-secondary">Voir l'offre</a>
+                    <button class="btn-wishlist" title="Ajouter à ma wishlist">🤍</button>
+                </div>
+            </article>
+
+            <article class="card"
+                data-titre="Assistant Chef de Projet IT"
+                data-competences="scrum gestion projet agile jira"
+                data-ville="Lyon"
+                data-duree="4">
+                <div class="card-header">
+                    <h3>Assistant Chef de Projet IT</h3>
+                    <span class="company-name">Web4All Agency — Lyon (69)</span>
+                </div>
+                <div class="card-body">
+                    <p>Accompagnement sur la gestion de projets agiles (Scrum). Rédaction de cahiers des charges et suivi des sprints.</p>
+                    <div class="tags">
+                        <span class="tag">Scrum</span>
+                        <span class="tag">Gestion</span>
+                        <span class="tag">Jira</span>
+                        <span class="tag">4 mois</span>
+                    </div>
+                </div>
+                <div class="card-meta">
+                    <span class="meta-item">Gratification : 600 €/mois</span>
+                    <span class="meta-item">Publié le 10 mars 2026</span>
+                    <span class="meta-item">2 candidatures</span>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn-secondary">Voir l'offre</a>
+                    <button class="btn-wishlist" title="Ajouter à ma wishlist">🤍</button>
+                </div>
+            </article>
+
+            <article class="card"
+                data-titre="Data Analyst Junior"
+                data-competences="python sql data analyse pandas powerbi"
+                data-ville="Sophia-Antipolis"
+                data-duree="6">
+                <div class="card-header">
+                    <h3>Data Analyst Junior</h3>
+                    <span class="company-name">DataMetrics — Sophia-Antipolis (06)</span>
+                </div>
+                <div class="card-body">
+                    <p>Analyse de bases de données clients et création de tableaux de bord prédictifs. Mission IA santé.</p>
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">SQL</span>
+                        <span class="tag">Power BI</span>
+                        <span class="tag">6 mois</span>
+                    </div>
+                </div>
+                <div class="card-meta">
+                    <span class="meta-item">Gratification : 700 €/mois</span>
+                    <span class="meta-item">Publié le 5 mars 2026</span>
+                    <span class="meta-item">7 candidatures</span>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn-secondary">Voir l'offre</a>
+                    <button class="btn-wishlist" title="Ajouter à ma wishlist">🤍</button>
+                </div>
+            </article>
+
+            <article class="card"
+                data-titre="Développeur Mobile React Native"
+                data-competences="react native javascript mobile ios android"
+                data-ville="Bordeaux"
+                data-duree="6">
+                <div class="card-header">
+                    <h3>Développeur Mobile React Native</h3>
+                    <span class="company-name">AppFactory — Bordeaux (33)</span>
+                </div>
+                <div class="card-body">
+                    <p>Développement d'une application mobile cross-platform pour une startup en forte croissance.</p>
+                    <div class="tags">
+                        <span class="tag">React Native</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Mobile</span>
+                        <span class="tag">6 mois</span>
+                    </div>
+                </div>
+                <div class="card-meta">
+                    <span class="meta-item">Gratification : 680 €/mois</span>
+                    <span class="meta-item">Publié le 18 mars 2026</span>
+                    <span class="meta-item">3 candidatures</span>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn-secondary">Voir l'offre</a>
+                    <button class="btn-wishlist" title="Ajouter à ma wishlist">🤍</button>
+                </div>
+            </article>
+
+            <article class="card"
+                data-titre="Technicien Cybersécurité"
+                data-competences="sécurité réseau linux pentesting cybersécurité"
+                data-ville="Paris"
+                data-duree="3">
+                <div class="card-header">
+                    <h3>Technicien Cybersécurité</h3>
+                    <span class="company-name">SecureNet — Paris (75)</span>
+                </div>
+                <div class="card-body">
+                    <p>Participation aux audits de sécurité, tests d'intrusion et mise en place de politiques de sécurité.</p>
+                    <div class="tags">
+                        <span class="tag">Cybersécurité</span>
+                        <span class="tag">Linux</span>
+                        <span class="tag">Réseau</span>
+                        <span class="tag">3 mois</span>
+                    </div>
+                </div>
+                <div class="card-meta">
+                    <span class="meta-item">Gratification : 620 €/mois</span>
+                    <span class="meta-item">Publié le 12 mars 2026</span>
+                    <span class="meta-item">5 candidatures</span>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn-secondary">Voir l'offre</a>
+                    <button class="btn-wishlist" title="Ajouter à ma wishlist">🤍</button>
+                </div>
+            </article>
+
+        </section>
+
+        <div class="pagination">
+            <button class="btn-page">&laquo; Précédent</button>
+            <button class="btn-page active">1</button>
+            <button class="btn-page">2</button>
+            <button class="btn-page">3</button>
+            <button class="btn-page">Suivant &raquo;</button>
+        </div>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Web4All — Tous droits réservés.</p>
+            <div class="footer-links">
+                <a href="mentions-legales.html">Mentions légales</a>
+                <a href="contacter.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const burgerMenu = document.getElementById('burger-menu');
+        const navLinks = document.querySelector('.nav-links');
+        burgerMenu.addEventListener('click', () => navLinks.classList.toggle('active'));
+
+        function filtrer() {
+            const titre = document.getElementById('search-titre').value.toLowerCase().trim();
+            const ville = document.getElementById('search-ville').value.toLowerCase().trim();
+            const duree = document.getElementById('search-duree').value;
+            const cartes = document.querySelectorAll('#offres-grid .card');
+            let aucun = true;
+
+            cartes.forEach(carte => {
+                const matchTitre = !titre || carte.dataset.titre.toLowerCase().includes(titre) || carte.dataset.competences.toLowerCase().includes(titre);
+                const matchVille = !ville || carte.dataset.ville.toLowerCase().includes(ville);
+                const matchDuree = !duree || carte.dataset.duree === duree;
+
+                if (matchTitre && matchVille && matchDuree) {
+                    carte.style.display = 'flex';
+                    aucun = false;
+                } else {
+                    carte.style.display = 'none';
+                }
+            });
+
+            let msgVide = document.getElementById('msg-vide');
+            if (aucun) {
+                if (!msgVide) {
+                    msgVide = document.createElement('p');
+                    msgVide.id = 'msg-vide';
+                    msgVide.style.cssText = 'text-align:center;font-size:18px;font-weight:bold;padding:40px 0;grid-column:1/-1;';
+                    msgVide.textContent = 'Aucune offre ne correspond à votre recherche.';
+                    document.getElementById('offres-grid').appendChild(msgVide);
+                }
+            } else if (msgVide) {
+                msgVide.remove();
+            }
+        }
+
+        document.getElementById('btn-filtrer').addEventListener('click', filtrer);
+        document.getElementById('search-titre').addEventListener('input', filtrer);
+        document.getElementById('search-ville').addEventListener('input', filtrer);
+        document.getElementById('search-duree').addEventListener('change', filtrer);
+
+        // Wishlist toggle
+        document.querySelectorAll('.btn-wishlist').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.textContent = btn.textContent === '🤍' ? '❤️' : '🤍';
+            });
+        });
+    </script>
+</body>
+</html>
