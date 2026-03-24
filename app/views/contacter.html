@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contactez l'équipe Web4All pour toute question, signalement ou demande de partenariat. Réponse sous 48h.">
+    <meta name="keywords" content="contact, Web4All, CESI, support, partenariat, stage">
+    <title>Nous Contacter — Web4All</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <h2>Web4<span class="highlight">All</span>.</h2>
+        </div>
+        <nav class="nav-links">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="offres.html">Offres</a></li>
+                <li><a href="entreprises.html">Entreprises</a></li>
+                <li><a href="statistiques.html">Statistiques</a></li>
+                <li><a href="contacter.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="nav-actions">
+            <a href="login.html" class="btn-primary">Connexion</a>
+        </div>
+        <div class="burger-menu" id="burger-menu">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+        </div>
+    </header>
+
+    <main class="contact-page">
+
+        <!-- Hero -->
+        <div class="contact-hero">
+            <span class="label">Support</span>
+            <h1>Nous<br>Contacter</h1>
+            <p>Une question, un bug, un partenariat ? L'équipe Web4All vous répond sous 48h.</p>
+        </div>
+
+        <!-- Grille formulaire + infos -->
+        <div class="contact-grid">
+
+            <!-- Formulaire -->
+            <div class="contact-form-box">
+                <h2>Envoyer un message</h2>
+                <form id="contact-form" novalidate>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="prenom">Prénom</label>
+                            <input type="text" id="prenom" name="prenom" placeholder="Jean" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nom">Nom</label>
+                            <input type="text" id="nom" name="nom" placeholder="Dupont" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Adresse email</label>
+                        <input type="email" id="email" name="email" placeholder="jean.dupont@cesi.fr" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sujet">Sujet</label>
+                        <select id="sujet" name="sujet" required>
+                            <option value="" disabled selected>Choisissez un sujet…</option>
+                            <option value="technique">Problème technique</option>
+                            <option value="offre">Question sur une offre</option>
+                            <option value="compte">Mon compte</option>
+                            <option value="partenariat">Partenariat / Entreprise</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Décrivez votre demande en détail…" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-send">Envoyer le message →</button>
+
+                    <div class="success-msg" id="success-msg">
+                        ✔ Message envoyé ! On vous répond sous 48h.
+                    </div>
+                </form>
+            </div>
+
+            <!-- Infos -->
+            <div class="contact-infos">
+                <div class="info-card">
+                    <div class="ic-icon">📧</div>
+                    <div>
+                        <h3>Email</h3>
+                        <p>contact@web4all-cesi.fr<br>Pour toute demande générale.</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="ic-icon">📍</div>
+                    <div>
+                        <h3>Adresse</h3>
+                        <p>CESI École d'Ingénieurs<br>30 Rue Cambronne, 75015 Paris</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="ic-icon">⏱️</div>
+                    <div>
+                        <h3>Délai de réponse</h3>
+                        <p>Nous répondons sous <strong>48h</strong> les jours ouvrés (lun–ven).</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="ic-icon">🎓</div>
+                    <div>
+                        <h3>Vous êtes une entreprise ?</h3>
+                        <p>Pour référencer vos offres de stage sur Web4All, contactez-nous à <strong>partenaires@web4all-cesi.fr</strong>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ rapide -->
+        <div class="faq-section">
+            <h2>Questions fréquentes</h2>
+
+            <div class="faq-item">
+                <button class="faq-question" type="button">
+                    Comment créer un compte étudiant ?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    Cliquez sur le bouton <strong>Connexion</strong> en haut à droite, puis sur « Créer un compte ». Renseignez votre email CESI et suivez les étapes d'inscription. L'accès est réservé aux étudiants de l'école.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" type="button">
+                    J'ai oublié mon mot de passe, que faire ?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    Sur la page de connexion, cliquez sur « Mot de passe oublié ». Un lien de réinitialisation sera envoyé à votre adresse email enregistrée sous 5 minutes.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" type="button">
+                    Comment signaler une offre de stage incorrecte ?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    Sur la page de l'offre, cliquez sur le bouton « Signaler » en bas de la fiche. Notre équipe vérifiera et mettra à jour l'offre dans les plus brefs délais.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" type="button">
+                    Mon entreprise peut-elle publier des offres sur Web4All ?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    Oui ! Contactez-nous à <strong>partenaires@web4all-cesi.fr</strong> ou utilisez le formulaire ci-dessus en sélectionnant le sujet « Partenariat / Entreprise ». Nous étudierons votre demande rapidement.
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Web4All — Tous droits réservés.</p>
+            <div class="footer-links">
+                <a href="mentions-legales.html">Mentions légales</a>
+                <a href="contacter.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Burger menu
+        const burgerMenu = document.getElementById('burger-menu');
+        const navLinks = document.querySelector('.nav-links');
+        burgerMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Formulaire — confirmation visuelle
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const fields = this.querySelectorAll('[required]');
+            let valid = true;
+            fields.forEach(f => {
+                if (!f.value.trim()) { f.style.borderColor = '#E53E3E'; valid = false; }
+                else f.style.borderColor = 'var(--texte-noir)';
+            });
+            if (valid) {
+                document.getElementById('success-msg').style.display = 'block';
+                this.reset();
+            }
+        });
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const answer = btn.nextElementSibling;
+                const isOpen = answer.classList.contains('open');
+
+                document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+                document.querySelectorAll('.faq-question').forEach(b => b.classList.remove('open'));
+
+                if (!isOpen) {
+                    answer.classList.add('open');
+                    btn.classList.add('open');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
