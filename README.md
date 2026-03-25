@@ -35,21 +35,12 @@ L'application permet d'informatiser l'aide à la recherche de stages. Elle regro
 ### Prérequis
 - Serveur LAMP (Linux, Apache, MySQL, PHP)
 - [Composer](https://getcomposer.org/) (pour PHPUnit)
-<<<<<<< HEAD
 - Git
-=======
-- Git   
->>>>>>> claude/gifted-swanson
 
 ### Installation rapide
 1. **Cloner le dépôt :**
    ```bash
-<<<<<<< HEAD
    git clone (https://github.com/TB1144/Groupe-Projet-.git)
-=======
-   git clone (à rajouter)
-
->>>>>>> claude/gifted-swanson
 
 ## Cahier des Charges - Suivi d'avancement
 
@@ -98,7 +89,3 @@ L'application permet d'informatiser l'aide à la recherche de stages. Elle regro
 - [ ] **STx 12** : Optimisation SEO (Balises meta, perfs < 3s, URL propres, sitemap.xml, robots.txt).
 - [ ] **STx 13** : Routage d'URL côté Backend (URLs lisibles et hiérarchisées).
 - [ ] **STx 14** : Tests unitaires (PHPUnit sur au moins un contrôleur).
-<<<<<<< HEAD
-=======
-   
->>>>>>> claude/gifted-swanson
