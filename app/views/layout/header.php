@@ -22,7 +22,7 @@
         <nav class="nav-links">
             <ul>
                 <li><a href="/">Accueil</a></li>
-                <li><a href="/offres">Offres</a></li>
+                <li><a href="/offres/index.php">Offres</a></li>
                 <li><a href="/entreprises">Entreprises</a></li>
                 <li><a href="/statistiques">Statistiques</a></li>
                 <li><a href="/contact">Contact</a></li>
