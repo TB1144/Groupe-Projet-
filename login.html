@@ -3,14 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Connectez-vous à Web4All pour accéder à votre espace étudiant, pilote ou administrateur.">
-    <meta name="keywords" content="connexion, login, Web4All, CESI, espace étudiant">
-    <title>Connexion — Web4All</title>
-<<<<<<< HEAD
-    <link rel="stylesheet" href="/css/style.css">
-=======
+    <title>Maquette - Web4All</title>
+    
     <link rel="stylesheet" href="style.css">
->>>>>>> claude/gifted-swanson
 </head>
 <body>
 
@@ -18,14 +13,12 @@
         <div class="logo">
             <h2>Web4<span class="highlight">All</span>.</h2>
         </div>
-
+        
         <nav class="nav-links">
             <ul>
                 <li><a href="index.html">Accueil</a></li>
                 <li><a href="offres.html">Offres</a></li>
                 <li><a href="entreprises.html">Entreprises</a></li>
-                <li><a href="statistiques.html">Statistiques</a></li>
-                <li><a href="contacter.html">Contact</a></li>
             </ul>
         </nav>
 
@@ -45,13 +38,13 @@
             <div class="login-box">
                 <h2>Bon retour parmi nous.</h2>
                 <p>Connectez-vous pour accéder à vos offres de stage.</p>
-
+                
                 <form action="#" method="POST">
                     <div class="input-group">
                         <label for="email">Adresse E-mail</label>
                         <input type="email" id="email" placeholder="prenom.nom@viacesi.fr" required>
                     </div>
-
+                    
                     <div class="input-group">
                         <label for="password">Mot de passe</label>
                         <input type="password" id="password" placeholder="••••••••" required>
@@ -59,7 +52,7 @@
 
                     <button type="submit" class="btn-submit">Se connecter</button>
                 </form>
-
+                
                 <div class="login-links">
                     <a href="#">Mot de passe oublié ?</a>
                 </div>
@@ -69,20 +62,25 @@
 
     <footer class="main-footer">
         <div class="footer-content">
-            <p>&copy; 2026 Web4All — Tous droits réservés.</p>
+            <p>&copy; 2026 Web4All - Tous droits réservés.</p>
             <div class="footer-links">
-                <a href="mentions-legales.html">Mentions légales</a>
-                <a href="contacter.html">Contact</a>
+                <a href="#">Mentions légales</a>
+                <a href="#">Contact</a>
             </div>
         </div>
     </footer>
 
-    <script>
+<script>
+        // On récupère le bouton burger et le menu dans le code HTML
         const burgerMenu = document.getElementById('burger-menu');
         const navLinks = document.querySelector('.nav-links');
+
+        // On écoute le "clic" sur le bouton burger
         burgerMenu.addEventListener('click', () => {
+            // "toggle" ajoute la classe 'active' si elle n'y est pas, ou l'enlève si elle y est
             navLinks.classList.toggle('active');
         });
     </script>
+</html>
 </body>
 </html>

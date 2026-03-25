@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/tarek/OneDrive/Bureau/Projet Dev/app/**)",
+      "Read(//c/Users/tarek/OneDrive/Bureau/Projet Dev/config/**)",
+      "Bash(wsl --list --verbose)",
+      "Bash(wsl -d Ubuntu -- bash -c \"apache2 --version 2>/dev/null && mysql --version 2>/dev/null && php --version 2>/dev/null || echo ''LAMP not installed''\")"
+    ]
+  }
+}

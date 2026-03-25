@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Frontend statique",
+      "runtimeExecutable": "C:/xampp/php/php.exe",
+      "runtimeArgs": ["-S", "localhost:3000", "-t", "."],
+      "port": 3000
+    },
+    {
+      "name": "Backend PHP",
+      "runtimeExecutable": "C:/xampp/php/php.exe",
+      "runtimeArgs": ["-S", "localhost:8000", "public/index.php"],
+      "port": 8000
+    }
+  ]
+}
