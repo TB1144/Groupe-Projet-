@@ -77,7 +77,13 @@ class Offre
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $offres = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($offres as &$offre) {
+            $offre['competences'] = $this->getCompetences($offre['id']);
+        }
+
+        return $offres;
     }
 
     /**

@@ -22,15 +22,15 @@
         <nav class="nav-links">
             <ul>
                 <li><a href="/">Accueil</a></li>
-                <li><a href="/offres/index.php">Offres</a></li>
+                <li><a href="/offres">Offres</a></li>
                 <li><a href="/entreprises">Entreprises</a></li>
                 <li><a href="/statistiques">Statistiques</a></li>
                 <li><a href="/contact">Contact</a></li>
             </ul>
         </nav>
         <div class="nav-actions">
-            <?php if (isset($_SESSION['user'])): ?>
-                <?php if ($_SESSION['user']['role'] === 'etudiant'): ?>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <?php if (($_SESSION['role'] ?? '') === 'etudiant'): ?>
                     <a href="/wishlist" style="margin-right:10px;font-weight:800;">❤️ Wishlist</a>
                     <a href="/candidatures" style="margin-right:10px;font-weight:800;">Mes candidatures</a>
                 <?php endif; ?>
@@ -45,4 +45,3 @@
             <span class="line"></span>
         </div>
     </header>
-    <main>

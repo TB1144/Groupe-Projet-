@@ -1,4 +1,3 @@
-</main>
     <footer class="main-footer">
         <div class="footer-content">
             <p>&copy; 2026 Web4All — Tous droits réservés.</p>

@@ -1,15 +1,27 @@
 <?php
-class Entreprise {
-    private $db;
 
-    public function __construct() {
-        // Utilisation db
-        $this->db = Database::getInstance();
+require_once __DIR__ . '/../../config/database.php';
+
+class Entreprise
+{
+    private PDO $db;
+
+    public function __construct()
+    {
+        $this->db = Database::getInstance()->getConnection();
     }
 
-    public function getAll() {
-        $stmt = $this->db->query("SELECT * FROM entreprises");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function findAll(): array
+    {
+        return $this->db->query('SELECT * FROM entreprises ORDER BY nom')
+                        ->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function findById(int $id): ?array
+    {
+        $stmt = $this->db->prepare('SELECT * FROM entreprises WHERE id = :id LIMIT 1');
+        $stmt->execute([':id' => $id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ?: null;
     }
 }
-?>

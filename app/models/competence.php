@@ -1,29 +1,30 @@
 <?php
 
-class Competence {
+require_once __DIR__ . '/../../config/database.php';
 
-    public function findAll(PDO $pdo): array {
+class Competence
+{
+    private PDO $db;
 
-        $stmt = $pdo->query(
-            "SELECT * FROM competences"
-        );
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-    // jai pas compris ca
-    public function findByOffer(PDO $pdo, int $offreId): array {
-
-        $stmt = $pdo->prepare(
-            "SELECT c.*
-             FROM competences c
-             JOIN offre_competence oc
-             ON c.id = oc.competence_id
-             WHERE oc.offre_id = ?"
-        );
-
-        $stmt->execute([$offreId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function __construct()
+    {
+        $this->db = Database::getInstance()->getConnection();
     }
 
+    public function findAll(): array
+    {
+        return $this->db->query('SELECT * FROM competences ORDER BY nom')
+                        ->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function findByOffre(int $idOffre): array
+    {
+        $stmt = $this->db->prepare(
+            'SELECT c.* FROM competences c
+             JOIN offre_competences oc ON c.id = oc.id_competence
+             WHERE oc.id_offre = :id'
+        );
+        $stmt->execute([':id' => $idOffre]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
-?>

@@ -1,11 +1,10 @@
 <?php
 session_start();
 
-// inclure classes
 spl_autoload_register(function ($class) {
-    $paths = ['app/Controllers/', 'app/Models/', 'config/'];
+    $paths = ['app/controllers/', 'app/models/', 'config/'];
     foreach ($paths as $path) {
-        $file = __DIR__ . '/../' . $path . $class . '.php';
+        $file = __DIR__ . '/../' . $path . strtolower($class) . '.php';
         if (file_exists($file)) {
             require_once $file;
             return;
@@ -13,19 +12,21 @@ spl_autoload_register(function ($class) {
     }
 });
 
-require_once __DIR__ . '/../app/Router.php';
+require_once __DIR__ . '/../router.php';
 
-// instancier routeur
 $router = new Router();
-
-// inclusion des routes
-//idéalement, on devrait inclure un fichier de routes séparé, mais pour la simplicité, on les met ici
 
 $router->get('/', 'HomeController@index');
 $router->get('/offres', 'OffreController@index');
+$router->get('/offres/creer', 'OffreController@create');
+$router->post('/offres/creer', 'OffreController@create');
 $router->get('/offres/{id}', 'OffreController@show');
+$router->get('/offres/{id}/modifier', 'OffreController@edit');
+$router->post('/offres/{id}/modifier', 'OffreController@edit');
+$router->post('/offres/{id}/supprimer', 'OffreController@delete');
+$router->post('/wishlist/toggle', 'WishlistController@toggle');
+$router->get('/login', 'AuthController@loginForm');
 $router->post('/login', 'AuthController@login');
+$router->get('/logout', 'AuthController@logout');
 
-// ON LANCE LE ROUTEUR
 $router->run();
-?>
