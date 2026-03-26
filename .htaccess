@@ -1,10 +1,9 @@
 RewriteEngine On
+RewriteBase /
 
-# 1. If the request is for the root, show index.html from views
-DirectoryIndex app/views/index.html
-
-# 2. If the user asks for a file (like offres.html) and it doesn't exist in root
-# check if it exists in the app/views folder and serve it from there
+# if the file or folder exists, serve it
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{DOCUMENT_ROOT}/app/views/%{REQUEST_URI} -f
-RewriteRule ^(.*)$ app/views/$1 [L]
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# otherwise, send everything to index.php (your router)
+RewriteRule ^ index.php [QSA,L]
