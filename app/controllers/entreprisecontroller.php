@@ -3,25 +3,29 @@ class EntrepriseController {
 
     public function index(): void {
         $model = new Entreprise();
-        $entreprises = $model->findAll($pdo);
-        require 'app/views/entreprises/index.php';
+        $entreprises = $model->findAll();
+        require __DIR__ . '/../views/entreprises/index.php';
     }
 
     public function show(int $id): void {
         $model = new Entreprise();
         $entreprise = $model->find($id);
-        require 'app/views/entreprises/show.php';
+        require __DIR__ . '/../views/entreprises/show.php';
     }
 
-    public function create(array $data): void {
-        $model = new Entreprise();
-        $model->insert($data);
+    public function create(): void {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $model = new Entreprise();
+            $model->insert($_POST);
+        }
         header('Location: /entreprises');
     }
 
-    public function edit(int $id, array $data): void {
-        $model = new Entreprise();
-        $model->update($id, $data);
+    public function edit(int $id): void {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $model = new Entreprise();
+            $model->update($id, $_POST);
+        }
         header('Location: /entreprises');
     }
 
@@ -30,16 +34,4 @@ class EntrepriseController {
         $model->delete($id);
         header('Location: /entreprises');
     }
-
-    public function evaluer(int $idEntreprise, int $idEtudiant, int $note, string $commentaire): void {
-        $model = new Evaluation();
-        $model->insert([
-            'entreprise_id' => $idEntreprise,
-            'etudiant_id' => $idEtudiant,
-            'note' => $note,
-            'commentaire' => $commentaire
-        ]);
-        header('Location: /entreprises/'.$idEntreprise);
-    }
 }
-?>
