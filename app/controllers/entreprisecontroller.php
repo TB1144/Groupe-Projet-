@@ -9,10 +9,10 @@ class EntrepriseController {
 
     public function show(int $id): void {
         $model = new Entreprise();
-        $entreprise = $model->find($id);
+        $entreprise = $model->findById($id); // find() → findById()
         require __DIR__ . '/../views/entreprises/show.php';
     }
-
+    
     public function create(): void {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $model = new Entreprise();

@@ -78,33 +78,3 @@ CREATE TABLE IF NOT EXISTS evaluations (
     FOREIGN KEY (id_etudiant) REFERENCES users(id) ON DELETE CASCADE,
     UNIQUE KEY unique_eval (id_entreprise, id_etudiant)
 );
-
--- ─────────────────────────────────────────
--- DONNÉES DE TEST
--- ─────────────────────────────────────────
-
--- Entreprises
-INSERT INTO entreprises (nom, ville, description, email, telephone) VALUES
-('Google', 'Paris', 'Moteur de recherche et services cloud mondiaux.', 'contact@google.fr', '0102030405'),
-('Microsoft', 'Lyon', 'Éditeur de logiciels et services cloud Azure.', 'contact@microsoft.fr', '0102030406'),
-('Orange', 'Bordeaux', 'Opérateur télécom et services numériques.', 'contact@orange.fr', '0102030407'),
-('Capgemini', 'Lille', 'Conseil et services en transformation numérique.', 'contact@capgemini.fr', '0102030408'),
-('Thales', 'Toulouse', 'Systèmes d\'information et cybersécurité.', 'contact@thales.fr', '0102030409');
-
--- Offres
-INSERT INTO offres (titre, description, remuneration, duree, date_offre, id_entreprise) VALUES
-('Développeur PHP', 'Stage PHP orienté backend, développement d\'API REST.', 1200.00, 6, '2026-03-01', 1),
-('Développeur JavaScript', 'Stage frontend React/Vue.js, interfaces modernes.', 1500.00, 3, '2026-03-05', 2),
-('Technicien Réseau', 'Stage en administration réseau et infrastructure.', 1000.00, 4, '2026-03-10', 3),
-('Consultant IT Junior', 'Stage en conseil et accompagnement client.', 1300.00, 6, '2026-03-15', 4),
-('Ingénieur Cybersécurité', 'Stage en analyse de vulnérabilités et tests d\'intrusion.', 1600.00, 6, '2026-03-20', 5);
-
--- Utilisateurs (mot de passe : "password123")
-INSERT INTO users (nom, prenom, email, password, role) VALUES
-('Admin', 'Web4All', 'admin@web4all.fr', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin'),
-('Dupont', 'Marie', 'marie.dupont@viacesi.fr', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'etudiant'),
-('Martin', 'Pierre', 'pierre.martin@viacesi.fr', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'pilote');
-
--- Compétences
-INSERT INTO competences (nom) VALUES
-('PHP'), ('JavaScript'), ('Python'), ('React'), ('SQL'), ('Java'), ('Cybersécurité'), ('Réseau');

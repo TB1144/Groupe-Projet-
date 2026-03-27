@@ -48,4 +48,7 @@ $router->get('/statistiques', 'StatistiquesController@index');
 $router->get('/contact', 'ContactController@index');
 $router->post('/contact', 'ContactController@index');
 
+// Mentions légales
+$router->get('/mentions-legales', 'MentionsController@index');
+
 $router->run();

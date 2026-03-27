@@ -1,5 +1,18 @@
 USE projet_web;
 
+-- alors ca c'est juste pour vider les tables avant de les remplir à nouveau, ça évite les doublons
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE evaluations;
+TRUNCATE TABLE candidatures;
+TRUNCATE TABLE wishlists;
+TRUNCATE TABLE offre_competences;
+TRUNCATE TABLE offres;
+TRUNCATE TABLE competences;
+TRUNCATE TABLE users;
+TRUNCATE TABLE entreprises;
+SET FOREIGN_KEY_CHECKS = 1;
+-- voila voila :3
+
 -- ─────────────────────────────────────────
 -- ENTREPRISES (déjà ok mais safe re-run)
 -- ─────────────────────────────────────────
@@ -25,7 +38,7 @@ INSERT INTO users (id, nom, prenom, email, password, role) VALUES
 -- OFFRES
 -- ─────────────────────────────────────────
 INSERT INTO offres (id, titre, description, remuneration, duree, date_offre, id_entreprise) VALUES
-(1, 'Développeur PHP', 'Stage backend PHP, API REST.', 1200.00, 6, '2026-03-01', 1),
+(1, 'ministre des economies et des finances', 'Stage backend PHP, API REST.', 1200.00, 6, '2026-03-01', 1),
 (2, 'Développeur JavaScript', 'Frontend React/Vue.js.', 1500.00, 3, '2026-03-05', 2),
 (3, 'Technicien Réseau', 'Administration réseau.', 1000.00, 4, '2026-03-10', 3),
 (4, 'Consultant IT Junior', 'Conseil client.', 1300.00, 6, '2026-03-15', 4),
@@ -77,4 +90,4 @@ INSERT INTO candidatures (id_etudiant, id_offre, cv, lettre_motivation, date_can
 INSERT INTO evaluations (id_entreprise, id_etudiant, note, commentaire, date_evaluation) VALUES
 (1, 2, 5, 'Excellent candidat', '2026-03-10'),
 (2, 4, 4, 'Bon travail', '2026-03-12'),
-(5, 5, 5, 'Très bon profil', '2026-03-25');
+(5, 5, 5, 'Horrible et nul', '2026-03-25');

@@ -178,6 +178,7 @@
 <?php require __DIR__ . '/../layout/footer.php'; ?>
 
 <script>
+        // NOTE: EN FAIT C4EST JUSTE UN FRONTEND ET JSP POURQUOI CA MARCHE PAS
         const burgerMenu = document.getElementById('burger-menu');
         const navLinks = document.querySelector('.nav-links');
         burgerMenu.addEventListener('click', () => navLinks.classList.toggle('active'));
@@ -204,4 +205,3 @@
         setInterval(() => goTo((current + 1) % cards.length), 5000);
 </script>
 
-// NOTE: EN FAIT C4EST JUSTE UN FRONTEND ET JSP POURQUOI CA MARCHE PAS
