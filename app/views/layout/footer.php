@@ -3,7 +3,6 @@
             <p>&copy; 2026 Web4All — Tous droits réservés.</p>
             <div class="footer-links">
                 <a href="/mentions-legales">Mentions légales</a>
-                <a href="/contact">Contact</a>
             </div>
         </div>
     </footer>

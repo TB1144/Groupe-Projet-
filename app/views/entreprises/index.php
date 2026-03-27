@@ -1,20 +1,25 @@
 <?php require __DIR__ . '/../layout/header.php'; ?>
 
-<main class="offres-page">
+<main class="page-container">
     <section class="offres-header">
-        <h1>Entreprises partenaires</h1>
+        <div class="header-top">
+            <h1>Entreprises partenaires</h1>
+            <a href="/entreprises/creer" class="btn-primary">+ Créer une entreprise</a>
+        </div>
 
-        <form method="GET" action="/entreprises" class="offres-filters">
+        <form method="GET" action="/entreprises" class="search-filters">
             <input
                 type="text"
                 name="nom"
                 placeholder="Nom de l'entreprise..."
+                class="filter-input" 
                 value="<?= htmlspecialchars($nom ?? '', ENT_QUOTES, 'UTF-8') ?>"
             >
             <input
                 type="text"
                 name="ville"
                 placeholder="Ville ou région"
+                class="filter-input"
                 value="<?= htmlspecialchars($ville ?? '', ENT_QUOTES, 'UTF-8') ?>"
             >
             <button type="submit" class="btn-primary">Filtrer</button>
