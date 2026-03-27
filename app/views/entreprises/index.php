@@ -4,6 +4,8 @@
     <section class="offres-header">
         <h1>Entreprises partenaires</h1>
 
+    <a href="/entreprises/creer" class="btn-primary" style="margin-left: 500px;">+ Créer une entreprise</a>
+
         <form method="GET" action="/entreprises" class="offres-filters">
             <input
                 type="text"
