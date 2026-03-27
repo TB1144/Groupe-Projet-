@@ -21,7 +21,9 @@ INSERT INTO entreprises (id, nom, ville, description, email, telephone) VALUES
 (2, 'Microsoft', 'Lyon', 'Éditeur de logiciels et services cloud Azure.', 'contact@microsoft.fr', '0102030406'),
 (3, 'Orange', 'Bordeaux', 'Opérateur télécom et services numériques.', 'contact@orange.fr', '0102030407'),
 (4, 'Capgemini', 'Lille', 'Conseil et services en transformation numérique.', 'contact@capgemini.fr', '0102030408'),
-(5, 'Thales', 'Toulouse', 'Cybersécurité.', 'contact@thales.fr', '0102030409');
+(5, 'Thales', 'Toulouse', 'Cybersécurité.', 'contact@thales.fr', '0102030409'),
+(6, 'Sopra Steria', 'Nantes', 'Services de conseil et de transformation numérique.', 'contact@sopra-steria.fr', '0102030410'),
+(7, 'Atos', 'Strasbourg', 'Services de transformation digitale et cloud.', 'contact@atos.fr', '0102030411');
 
 -- ─────────────────────────────────────────
 -- USERS
@@ -42,7 +44,12 @@ INSERT INTO offres (id, titre, description, remuneration, duree, date_offre, id_
 (2, 'Développeur JavaScript', 'Frontend React/Vue.js.', 1500.00, 3, '2026-03-05', 2),
 (3, 'Technicien Réseau', 'Administration réseau.', 1000.00, 4, '2026-03-10', 3),
 (4, 'Consultant IT Junior', 'Conseil client.', 1300.00, 6, '2026-03-15', 4),
-(5, 'Ingénieur Cybersécurité', 'Pentest et sécurité.', 1600.00, 6, '2026-03-20', 5);
+(5, 'Ingénieur Cybersécurité', 'Pentest et sécurité.', 1600.00, 6, '2026-03-20', 5),
+(6, 'Stage en développement mobile', 'Développement d\'applications mobiles.', 1400.00, 6, '2026-03-25', 1),
+(7, 'Stage en data science', 'Analyse de données et machine learning.', 1500.00, 6, '2026-03-30', 2),
+(8, 'Stage en administration système', 'Gestion des serveurs et infrastructure.', 1200.00, 6, '2026-04-05', 3),
+(9, 'Stage en gestion de projet IT', 'Coordination de projets informatiques.', 1300.00, 6, '2026-04-10', 4),
+(10, 'Stage en développement web', 'Création de sites web et applications.', 1400.00, 6, '2026-04-15', 5);
 
 -- ─────────────────────────────────────────
 -- COMPETENCES
