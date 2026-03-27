@@ -10,31 +10,7 @@
 </head>
 <body>
 
-    <header class="navbar">
-        <div class="logo">
-            <h2>Web4<span class="highlight">All</span>.</h2>
-        </div>
-
-        <nav class="nav-links">
-            <ul>
-                <li><a href="/">Accueil</a></li>
-                <li><a href="/offres">Offres</a></li>
-                <li><a href="/entreprises">Entreprises</a></li>
-                <li><a href="/statistiques">Statistiques</a></li>
-                <li><a href="/contacter">Contact</a></li>
-            </ul>
-        </nav>
-
-        <div class="nav-actions">
-            <a href="/login" class="btn-primary">Connexion</a>
-        </div>
-
-        <div class="burger-menu" id="burger-menu">
-            <span class="line"></span>
-            <span class="line"></span>
-            <span class="line"></span>
-        </div>
-    </header>
+    <?php include __DIR__ . '/layout/header.php'; ?>
 
     <main class="mentions-page">
 
@@ -181,15 +157,7 @@
 
     </main>
 
-    <footer class="main-footer">
-        <div class="footer-content">
-            <p>&copy; 2026 Web4All — Tous droits réservés.</p>
-            <div class="footer-links">
-                <a href="mentions-legales.html">Mentions légales</a>
-                <a href="contacter.html">Contact</a>
-            </div>
-        </div>
-    </footer>
+    <?php include __DIR__ . '/layout/footer.php'; ?>
 
     <script>
         const burgerMenu = document.getElementById('burger-menu');
