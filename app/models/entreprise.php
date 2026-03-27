@@ -24,4 +24,63 @@ class Entreprise
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result ?: null;
     }
+
+    public function search(
+        string $nom   = '',
+        string $ville = '',
+        int    $limit  = 10,
+        int    $offset = 0
+    ): array {
+        $conditions = ['1=1'];
+        $params     = [];
+
+        if ($nom !== '') {
+            $conditions[] = 'nom LIKE :nom';
+            $params[':nom'] = '%' . $nom . '%';
+        }
+
+        if ($ville !== '') {
+            $conditions[] = 'ville LIKE :ville';
+            $params[':ville'] = '%' . $ville . '%';
+        }
+
+        $where = implode(' AND ', $conditions);
+
+        $stmt = $this->db->prepare(
+            "SELECT * FROM entreprises
+             WHERE $where
+             ORDER BY nom ASC
+             LIMIT :limit OFFSET :offset"
+        );
+
+        foreach ($params as $key => $value) {
+            $stmt->bindValue($key, $value, PDO::PARAM_STR);
+        }
+        $stmt->bindValue(':limit',  $limit,  PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function count(string $nom = '', string $ville = ''): int
+    {
+        $conditions = ['1=1'];
+        $params     = [];
+
+        if ($nom !== '') {
+            $conditions[] = 'nom LIKE :nom';
+            $params[':nom'] = '%' . $nom . '%';
+        }
+
+        if ($ville !== '') {
+            $conditions[] = 'ville LIKE :ville';
+            $params[':ville'] = '%' . $ville . '%';
+        }
+
+        $where = implode(' AND ', $conditions);
+        $stmt  = $this->db->prepare("SELECT COUNT(*) FROM entreprises WHERE $where");
+        $stmt->execute($params);
+        return (int) $stmt->fetchColumn();
+    }
 }
