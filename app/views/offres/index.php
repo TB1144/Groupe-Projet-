@@ -30,11 +30,6 @@ require __DIR__ . '/../layout/header.php';
     <section class="page-header">
         <h1>Trouvez votre stage</h1>
 
-        <!--
-            Filtrage côté serveur : le formulaire envoie une requête GET
-            qui recharge la page avec les bons paramètres.
-            Fini le JS qui masque des cartes HTML en dur.
-        -->
         <form method="GET" action="/offres" class="search-filters" role="search">
             <input
                 type="text"
@@ -143,17 +138,26 @@ require __DIR__ . '/../layout/header.php';
                         <?php endif; ?>
 
                         <?php if (in_array($_SESSION['role'] ?? '', ['admin', 'pilote'])): ?>
-                            <a href="/offres/<?= (int)$offre['id'] ?>/modifier" class="btn-secondary btn-sm">
+                            <a href="/offres/<?= (int)$offre['id'] ?>/modifier" class="btn-secondary">
                                 Modifier
                             </a>
                         <?php endif; ?>
+
                         <?php if (($_SESSION['role'] ?? '') === 'admin'): ?>
-                            <form method="POST" action="/offres/<?= (int)$offre['id'] ?>/supprimer"
-                                  style="display:inline"
-                                  onsubmit="return confirm('Supprimer cette offre ?')">
+                            <form method="POST"
+                                action="/offres/<?= (int)$offre['id'] ?>/supprimer"
+                                style="display:inline;"
+                                class="delete-form">
+
                                 <input type="hidden" name="csrf_token"
                                     value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
-                                <button type="submit" class="btn-danger btn-sm">Supprimer</button>
+
+                                <a href="/offres"
+                                    class="btn-secondary btn-danger"
+                                    onclick="if(confirm('Supprimer cette offre ?')) this.closest('form').submit(); return false;">
+                                    Supprimer
+                                </a>
+
                             </form>
                         <?php endif; ?>
                     </div>
@@ -166,7 +170,6 @@ require __DIR__ . '/../layout/header.php';
     <?php if ($totalPages > 1): ?>
         <nav class="pagination" aria-label="Pagination des offres">
             <?php
-            // Construire la query string en conservant les filtres actifs
             $queryParams = array_filter([
                 'titre' => $titre,
                 'ville' => $ville,
