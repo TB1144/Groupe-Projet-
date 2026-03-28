@@ -21,16 +21,11 @@ class Entreprise
     {
         $stmt = $this->db->prepare('SELECT * FROM entreprises WHERE id = :id LIMIT 1');
         $stmt->execute([':id' => $id]);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result ?: null;
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
-    public function search(
-        string $nom   = '',
-        string $ville = '',
-        int    $limit  = 10,
-        int    $offset = 0
-    ): array {
+    public function search(string $nom = '', string $ville = '', int $limit = 10, int $offset = 0): array
+    {
         $conditions = ['1=1'];
         $params     = [];
 
@@ -38,28 +33,21 @@ class Entreprise
             $conditions[] = 'nom LIKE :nom';
             $params[':nom'] = '%' . $nom . '%';
         }
-
         if ($ville !== '') {
             $conditions[] = 'ville LIKE :ville';
             $params[':ville'] = '%' . $ville . '%';
         }
 
         $where = implode(' AND ', $conditions);
-
-        $stmt = $this->db->prepare(
-            "SELECT * FROM entreprises
-             WHERE $where
-             ORDER BY nom ASC
-             LIMIT :limit OFFSET :offset"
+        $stmt  = $this->db->prepare(
+            "SELECT * FROM entreprises WHERE $where ORDER BY nom ASC LIMIT :limit OFFSET :offset"
         );
-
         foreach ($params as $key => $value) {
             $stmt->bindValue($key, $value, PDO::PARAM_STR);
         }
         $stmt->bindValue(':limit',  $limit,  PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
-
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -72,7 +60,6 @@ class Entreprise
             $conditions[] = 'nom LIKE :nom';
             $params[':nom'] = '%' . $nom . '%';
         }
-
         if ($ville !== '') {
             $conditions[] = 'ville LIKE :ville';
             $params[':ville'] = '%' . $ville . '%';
@@ -81,6 +68,46 @@ class Entreprise
         $where = implode(' AND ', $conditions);
         $stmt  = $this->db->prepare("SELECT COUNT(*) FROM entreprises WHERE $where");
         $stmt->execute($params);
-        return (int) $stmt->fetchColumn();
+        return (int)$stmt->fetchColumn();
+    }
+
+    public function create(array $data): int
+    {
+        $stmt = $this->db->prepare(
+            'INSERT INTO entreprises (nom, description, ville, email, telephone)
+             VALUES (:nom, :description, :ville, :email, :telephone)'
+        );
+        $stmt->execute([
+            ':nom'         => $data['nom'],
+            ':description' => $data['description'],
+            ':ville'       => $data['ville'],
+            ':email'       => $data['email'],
+            ':telephone'   => $data['telephone'],
+        ]);
+        return (int)$this->db->lastInsertId();
+    }
+
+    public function update(int $id, array $data): void
+    {
+        $stmt = $this->db->prepare(
+            'UPDATE entreprises
+             SET nom = :nom, description = :description, ville = :ville,
+                 email = :email, telephone = :telephone
+             WHERE id = :id'
+        );
+        $stmt->execute([
+            ':nom'         => $data['nom'],
+            ':description' => $data['description'],
+            ':ville'       => $data['ville'],
+            ':email'       => $data['email'],
+            ':telephone'   => $data['telephone'],
+            ':id'          => $id,
+        ]);
+    }
+
+    public function delete(int $id): void
+    {
+        $stmt = $this->db->prepare('DELETE FROM entreprises WHERE id = :id');
+        $stmt->execute([':id' => $id]);
     }
 }

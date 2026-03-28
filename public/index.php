@@ -1,6 +1,7 @@
 <?php
-// session_start();si j'ai bien compris auth_middleware.php gère ça et doit être inclus dans chaque route protégée
-// pas besoin de le faire ici globalement
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL); // pour debug
 
 spl_autoload_register(function ($class) {
     $paths = ['app/controllers/', 'app/models/', 'config/'];
@@ -31,7 +32,12 @@ $router->post('/offres/{id}/supprimer', 'OffreController@delete');
 
 // Entreprises
 $router->get('/entreprises', 'EntrepriseController@index');
+$router->get('/entreprises/creer', 'EntrepriseController@create');   // ← avant {id}
+$router->post('/entreprises/creer', 'EntrepriseController@create');  // ← avant {id}
 $router->get('/entreprises/{id}', 'EntrepriseController@show');
+$router->get('/entreprises/{id}/modifier', 'EntrepriseController@edit');
+$router->post('/entreprises/{id}/modifier', 'EntrepriseController@edit');
+$router->post('/entreprises/{id}/supprimer', 'EntrepriseController@delete');
 
 // Candidatures
 $router->get('/candidatures', 'CandidatureController@index');

@@ -89,11 +89,8 @@ class Offre
     /**
      * Compte le total de résultats (pour calculer le nombre de pages).
      */
-    public function count(
-        string $titre = '',
-        string $ville = '',
-        int    $duree = 0
-    ): int {
+    public function count(string $titre = '', string $ville = '', int $duree = 0): int
+    {
         $conditions = ['1=1'];
         $params     = [];
 
@@ -118,8 +115,8 @@ class Offre
         $where = implode(' AND ', $conditions);
         $stmt  = $this->db->prepare(
             "SELECT COUNT(*) FROM offres o
-             JOIN entreprises e ON o.id_entreprise = e.id
-             WHERE $where"
+            JOIN entreprises e ON o.id_entreprise = e.id
+            WHERE $where"
         );
         foreach ($params as $key => $value) {
             $stmt->bindValue($key, $value, PDO::PARAM_STR);

@@ -28,7 +28,12 @@ require __DIR__ . '/../layout/header.php';
 
     <!-- ── En-tête + filtres ─────────────────────────────────────────── -->
     <section class="page-header">
-        <h1>Trouvez votre stage</h1>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+            <h1>Trouvez votre stage</h1>
+            <?php if (in_array($_SESSION['role'] ?? '', ['admin', 'pilote'])): ?>
+                <a href="/offres/creer" class="btn-primary">+ Créer une offre</a>
+            <?php endif; ?>
+        </div>
 
         <form method="GET" action="/offres" class="search-filters" role="search">
             <input
@@ -49,7 +54,7 @@ require __DIR__ . '/../layout/header.php';
             >
             <select name="duree" id="search-duree" aria-label="Filtrer par durée">
                 <option value="0">Toutes durées</option>
-                <?php foreach ([1, 2, 3, 4, 6] as $d): ?>
+                <?php foreach ([1, 2, 3, 4, 5, 6] as $d): ?>
                     <option value="<?= $d ?>" <?= $duree === $d ? 'selected' : '' ?>>
                         <?= $d ?> mois
                     </option>
@@ -119,40 +124,41 @@ require __DIR__ . '/../layout/header.php';
                     </div>
 
                     <div class="card-footer">
-                        <a href="/offres/<?= (int)$offre['id'] ?>" class="btn-secondary">
-                            Voir l'offre
-                        </a>
-
-                        <?php if (($_SESSION['role'] ?? '') === 'etudiant'): ?>
-                            <!-- SFx 24 – Ajouter à la wishlist via POST (pas de JS requis) -->
-                            <form method="POST" action="/wishlist/toggle" style="display:inline">
-                                <input type="hidden" name="csrf_token"
-                                    value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
-                                <input type="hidden" name="id_offre" value="<?= (int)$offre['id'] ?>">
-                                <input type="hidden" name="retour"   value="/offres">
-                                <button type="submit" class="btn-wishlist" title="Ajouter à ma wishlist"
-                                    aria-label="Ajouter <?= htmlspecialchars($offre['titre'], ENT_QUOTES, 'UTF-8') ?> à ma wishlist">
-                                    🤍
-                                </button>
-                            </form>
-                        <?php endif; ?>
-
-                        <?php if (in_array($_SESSION['role'] ?? '', ['admin', 'pilote'])): ?>
-                            <a href="/offres/<?= (int)$offre['id'] ?>/modifier" class="btn-secondary">
-                                Modifier
+                        <!-- Groupe gauche : Voir + Modifier -->
+                        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                            <a href="/offres/<?= (int)$offre['id'] ?>" class="btn-secondary">
+                                Détails
                             </a>
-                        <?php endif; ?>
 
-                        <?php if (($_SESSION['role'] ?? '') === 'admin'): ?>
-                            <form method="POST" action="/offres/<?= (int)$offre['id'] ?>/supprimer"
-                                style="display:inline"
-                                onsubmit="return confirm('Supprimer cette offre ?')">
-                                <input type="hidden" name="csrf_token"
-                                    value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
-                                <button type="submit" class="btn-secondary btn-danger">Supprimer</button>
-                            </form>
-                        <?php endif; ?>
+                            <?php if (($_SESSION['role'] ?? '') === 'etudiant'): ?>
+                                <form method="POST" action="/wishlist/toggle" style="display:inline">
+                                    <input type="hidden" name="csrf_token"
+                                        value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
+                                    <input type="hidden" name="id_offre" value="<?= (int)$offre['id'] ?>">
+                                    <input type="hidden" name="retour" value="/offres">
+                                    <button type="submit" class="btn-wishlist" title="Ajouter à ma wishlist">🤍</button>
+                                </form>
+                            <?php endif; ?>
+
+                            <?php if (in_array($_SESSION['role'] ?? '', ['admin', 'pilote'])): ?>
+                                <a href="/offres/<?= (int)$offre['id'] ?>/modifier" class="btn-secondary">
+                                    Modifier
+                                </a>
+                            <?php endif; ?>
+
+                            <?php if (($_SESSION['role'] ?? '') === 'admin'): ?>
+                                <form method="POST" action="/offres/<?= (int)$offre['id'] ?>/supprimer"
+                                    style="display:inline"
+                                    onsubmit="return confirm('Supprimer cette offre ?')">
+                                    <input type="hidden" name="csrf_token"
+                                        value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
+                                    <button type="submit" class="btn-secondary btn-danger">Supprimer</button>
+                                </form>
+                            <?php endif; ?>
+
+                        </div>
                     </div>
+
                 </article>
             <?php endforeach; ?>
         </section>

@@ -47,17 +47,17 @@ L'application permet d'informatiser l'aide à la recherche de stages. Elle regro
 ### Spécifications Fonctionnelles (SFx)
 - [ ] **SFx 1** : Authentification et gestion des accès (Login/Logout, permissions par rôle).
 - [ ] **SFx 2** : Rechercher et afficher une entreprise (critères multiples, offres liées, évaluations).
-- [ ] **SFx 3** : Créer une entreprise.
-- [ ] **SFx 4** : Modifier une entreprise.
+- [x] **SFx 3** : Créer une entreprise.
+- [x] **SFx 4** : Modifier une entreprise.
 - [ ] **SFx 5** : Évaluer une entreprise (pour les utilisateurs autorisés).
-- [ ] **SFx 6** : Supprimer une entreprise.
+- [x] **SFx 6** : Supprimer une entreprise.
 - [x] **SFx 7** : Rechercher et afficher une offre de stage.
-- [ ] **SFx 8** : Créer une offre de stage.
+- [x] **SFx 8** : Créer une offre de stage.
 - [x] **SFx 9** : Modifier une offre de stage.
 - [x] **SFx 10** : Supprimer une offre de stage.
 - [ ] **SFx 11** : Consulter les statistiques des offres (Carrousel d'indicateurs clés).
 - [x] **SFx 12** : Rechercher et afficher un compte Pilote.
-- [ ] **SFx 13** : Créer un compte Pilote.
+- [x] **SFx 13** : Créer un compte Pilote.
 - [x] **SFx 14** : Modifier un compte Pilote.
 - [x] **SFx 15** : Supprimer un compte Pilote.
 - [x] **SFx 16** : Rechercher et afficher un compte Étudiant.
