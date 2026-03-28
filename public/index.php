@@ -1,5 +1,6 @@
 <?php
-session_start();
+// session_start();si j'ai bien compris auth_middleware.php gère ça et doit être inclus dans chaque route protégée
+// pas besoin de le faire ici globalement
 
 spl_autoload_register(function ($class) {
     $paths = ['app/controllers/', 'app/models/', 'config/'];
@@ -13,6 +14,7 @@ spl_autoload_register(function ($class) {
 });
 
 require_once __DIR__ . '/../router.php';
+require_once __DIR__ . '/../app/models/auth_middleware.php'; // gère session_start() et vérifie si l'utilisateur est connecté
 
 $router = new Router();
 
@@ -42,6 +44,10 @@ $router->post('/wishlist/toggle', 'WishlistController@toggle');
 $router->get('/login', 'AuthController@loginForm');
 $router->post('/login', 'AuthController@login');
 $router->get('/logout', 'AuthController@logout');
+
+// Inscription
+$router->get('/register', 'RegisterController@registerForm');
+$router->post('/register', 'RegisterController@register');
 
 // Statistiques & Contact
 $router->get('/statistiques', 'StatistiquesController@index');

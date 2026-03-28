@@ -34,6 +34,9 @@
                     <a href="/wishlist" style="margin-right:10px;font-weight:800;">❤️ Wishlist</a>
                     <a href="/candidatures" style="margin-right:10px;font-weight:800;">Mes candidatures</a>
                 <?php endif; ?>
+                <span style="margin-right:12px;font-weight:600;">
+                    <?= htmlspecialchars($_SESSION['prenom'] . ' ' . $_SESSION['nom']) ?>
+                </span>
                 <a href="/logout" class="btn-primary">Déconnexion</a>
             <?php else: ?>
                 <a href="/login" class="btn-primary">Connexion</a>

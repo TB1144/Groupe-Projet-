@@ -30,11 +30,12 @@ INSERT INTO entreprises (id, nom, ville, description, email, telephone) VALUES
 -- password = password123
 -- ─────────────────────────────────────────
 INSERT INTO users (id, nom, prenom, email, password, role) VALUES
-(1, 'Admin', 'Web4All', 'admin@web4all.fr', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin'),
-(2, 'Brahim', 'Adem', 'adem.brahim@web4all.fr', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'etudiant'),
-(3, 'Butaud', 'Gabriel', 'gabriel.butaud@web4all.fr', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'pilote'),
-(4, 'Boughzala', 'Tarek', 'tarek.boughzala@web4all.fr', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'etudiant'),
-(5, 'Dopre', 'Misha', 'misha.dopre@web4all.fr', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'etudiant');
+(1, 'Admin', 'Web4All', 'admin@web4all.fr', '$2y$10$0SlhHrfspBIBOnXybe.lxe635BSDLVr.foCM9PSH/KNoUtCXipBk2', 'admin'),
+(2, 'Brahim', 'Adem', 'adem.brahim@web4all.fr', '$2y$10$0SlhHrfspBIBOnXybe.lxe635BSDLVr.foCM9PSH/KNoUtCXipBk2', 'etudiant'),
+(3, 'Butaud', 'Gabriel', 'gabriel.butaud@web4all.fr', '$2y$10$0SlhHrfspBIBOnXybe.lxe635BSDLVr.foCM9PSH/KNoUtCXipBk2', 'pilote'),
+(4, 'Boughzala', 'Tarek', 'tarek.boughzala@web4all.fr', '$2y$10$0SlhHrfspBIBOnXybe.lxe635BSDLVr.foCM9PSH/KNoUtCXipBk2', 'etudiant'),
+(5, 'Dopre', 'Misha', 'misha.dopre@web4all.fr', '$2y$10$0SlhHrfspBIBOnXybe.lxe635BSDLVr.foCM9PSH/KNoUtCXipBk2', 'etudiant'),
+(6, 'Forato', 'Hugo', 'hugo.forato@web4all.fr', '$2y$10$0SlhHrfspBIBOnXybe.lxe635BSDLVr.foCM9PSH/KNoUtCXipBk2', 'pilote');
 
 -- ─────────────────────────────────────────
 -- OFFRES

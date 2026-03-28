@@ -17,6 +17,7 @@ class AuthController {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['role']    = $user['role'];
             $_SESSION['nom']     = $user['nom'];
+            $_SESSION['prenom']  = $user['prenom']; // rajout de prenom pour affichage dans le header
             header('Location: /offres');
             exit;
         }
