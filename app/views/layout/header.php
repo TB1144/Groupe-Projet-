@@ -35,16 +35,19 @@
             <!-- Actions dans le menu mobile (dupliquées pour mobile) -->
             <div class="nav-actions-mobile">
                 <?php if (isset($_SESSION['user_id'])): ?>
+                    <?php if (($_SESSION['role'] ?? '') === 'etudiant'): ?>
+                        <a href="/wishlist" class="mobile-nav-link">Wishlist</a>
+                        <a href="/candidatures" class="mobile-nav-link">Mes candidatures</a>
+                    <?php endif; ?>
+
                     <span class="mobile-username">
                         <?= htmlspecialchars($_SESSION['prenom'] . ' ' . $_SESSION['nom']) ?>
                     </span>
-                    <?php if (($_SESSION['role'] ?? '') === 'etudiant'): ?>
-                        <a href="/wishlist" class="mobile-nav-link">❤️ Wishlist</a>
-                        <a href="/candidatures" class="mobile-nav-link">📄 Mes candidatures</a>
-                    <?php endif; ?>
+
                     <?php if (($_SESSION['role'] ?? '') === 'admin'): ?>
-                        <a href="/utilisateurs" class="mobile-nav-link">👥 Utilisateurs</a>
+                        <a href="/utilisateurs" class="mobile-nav-link">Utilisateurs</a>
                     <?php endif; ?>
+
                     <a href="/logout" class="btn-primary mobile-btn">Déconnexion</a>
                 <?php else: ?>
                     <a href="/register" class="btn-orange mobile-btn">S'inscrire</a>
@@ -57,7 +60,7 @@
         <div class="nav-actions">
             <?php if (isset($_SESSION['user_id'])): ?>
                 <?php if (($_SESSION['role'] ?? '') === 'etudiant'): ?>
-                    <a href="/wishlist" class="nav-action-link">❤️ Wishlist</a>
+                    <a href="/wishlist" class="nav-action-link">Wishlist</a>
                     <a href="/candidatures" class="nav-action-link">Mes candidatures</a>
                 <?php endif; ?>
                 

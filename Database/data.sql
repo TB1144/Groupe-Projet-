@@ -23,7 +23,8 @@ INSERT INTO entreprises (id, nom, ville, description, email, telephone) VALUES
 (4, 'Capgemini', 'Lille', 'Conseil et services en transformation numérique.', 'contact@capgemini.fr', '0102030408'),
 (5, 'Thales', 'Toulouse', 'Cybersécurité.', 'contact@thales.fr', '0102030409'),
 (6, 'Sopra Steria', 'Nantes', 'Services de conseil et de transformation numérique.', 'contact@sopra-steria.fr', '0102030410'),
-(7, 'Atos', 'Strasbourg', 'Services de transformation digitale et cloud.', 'contact@atos.fr', '0102030411');
+(7, 'Atos', 'Strasbourg', 'Services de transformation digitale et cloud.', 'contact@atos.fr', '0102030411'),
+(8, 'Scuderia Ferrari', 'Maranello', 'Analyse de données et machine learning.', 'contact@ferrari.fr', '0102030412');
 
 -- ─────────────────────────────────────────
 -- USERS

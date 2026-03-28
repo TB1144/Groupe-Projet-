@@ -5,7 +5,7 @@ class RegisterController
         public function registerForm(): void
     {
         if (isset($_SESSION['user_id'])) {
-            header('Location: /offres');
+            header('Location: /');
             exit;
         }
         $pageTitle       = 'Créer un compte — Web4All';
@@ -59,7 +59,7 @@ class RegisterController
 
         // ── Sécurité : on ne doit pas pouvoir s'inscrire si déjà connecté ─────
         if (isset($_SESSION['user_id'])) {
-            header('Location: /offres');
+            header('Location: /');
             exit;
         }
 
@@ -80,7 +80,7 @@ class RegisterController
         $_SESSION['nom']     = $user['nom'];
         $_SESSION['prenom']  = $user['prenom'];
 
-        header('Location: /offres');
+        header('Location: /');
         exit;
     }
 }
