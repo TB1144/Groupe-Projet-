@@ -84,7 +84,7 @@
         <!-- Burger -->
         <button class="burger-menu" id="burger-menu" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-links">
             <span class="line"></span>
-            <span class="line"></span>
+            <span class="line"></span>  
             <span class="line"></span>
         </button>
 
