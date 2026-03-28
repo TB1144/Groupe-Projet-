@@ -1,0 +1,74 @@
+<?php
+$pageTitle = 'Modifier un utilisateur — Web4All';
+require __DIR__ . '/../layout/header.php';
+?>
+
+<main class="page-container">
+    <div class="create-form-wrapper">
+
+        <a href="/utilisateurs" class="btn-secondary" style="display:inline-block; margin-bottom:30px;">← Retour</a>
+
+        <div class="detail-section">
+            <h1 style="margin-bottom:8px;">Modifier l'utilisateur</h1>
+            <p class="td-muted" style="margin-bottom:30px;">
+                <?= htmlspecialchars($user['prenom'] . ' ' . $user['nom'], ENT_QUOTES, 'UTF-8') ?>
+            </p>
+
+            <?php if (!empty($errors)): ?>
+                <div class="alert alert-error" style="margin-bottom:20px;">
+                    <?php foreach ($errors as $e): ?>
+                        <p><?= htmlspecialchars($e, ENT_QUOTES, 'UTF-8') ?></p>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+
+            <form method="POST" action="/utilisateurs/<?= (int)$user['id'] ?>/modifier">
+                <input type="hidden" name="csrf_token"
+                       value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
+
+                <div class="input-group">
+                    <label for="prenom">Prénom</label>
+                    <input type="text" id="prenom" name="prenom" required
+                           value="<?= htmlspecialchars($user['prenom'], ENT_QUOTES, 'UTF-8') ?>">
+                </div>
+
+                <div class="input-group">
+                    <label for="nom">Nom</label>
+                    <input type="text" id="nom" name="nom" required
+                           value="<?= htmlspecialchars($user['nom'], ENT_QUOTES, 'UTF-8') ?>">
+                </div>
+
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required
+                           value="<?= htmlspecialchars($user['email'], ENT_QUOTES, 'UTF-8') ?>">
+                </div>
+
+                <div class="input-group">
+                    <label for="role">Rôle</label>
+                    <select id="role" name="role" class="input-select">
+                        <option value="etudiant" <?= $user['role'] === 'etudiant' ? 'selected' : '' ?>>Étudiant</option>
+                        <option value="pilote"   <?= $user['role'] === 'pilote'   ? 'selected' : '' ?>>Pilote</option>
+                        <option value="admin"    <?= $user['role'] === 'admin'    ? 'selected' : '' ?>>Admin</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">
+                        Nouveau mot de passe
+                        <span class="label-hint">(laisser vide pour ne pas changer)</span>
+                    </label>
+                    <input type="password" id="password" name="password"
+                           placeholder="••••••••" minlength="8">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">Enregistrer</button>
+                    <a href="/utilisateurs" class="btn-secondary">Annuler</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<?php require __DIR__ . '/../layout/footer.php'; ?>

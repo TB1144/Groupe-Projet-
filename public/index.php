@@ -57,4 +57,12 @@ $router->post('/contact', 'ContactController@index');
 // Mentions légales
 $router->get('/mentions-legales', 'MentionsController@index');
 
+// Liste des utilisateurs
+// Utilisateurs
+$router->get('/utilisateurs', 'UserController@index');
+$router->get('/utilisateurs/{id}', 'UserController@show');
+$router->get('/utilisateurs/{id}/modifier', 'UserController@edit');
+$router->post('/utilisateurs/{id}/modifier', 'UserController@edit');
+$router->post('/utilisateurs/{id}/supprimer', 'UserController@delete');
+
 $router->run();

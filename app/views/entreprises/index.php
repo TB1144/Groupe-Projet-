@@ -4,7 +4,9 @@
     <section class="offres-header">
         <div class="header-top">
             <h1>Entreprises partenaires</h1>
-            <a href="/entreprises/creer" class="btn-primary">+ Créer une entreprise</a>
+            <?php if (in_array($_SESSION['role'] ?? '', ['admin', 'pilote'])): ?>
+                <a href="/entreprises/creer" class="btn-primary">+ Créer une entreprise</a>
+            <?php endif; ?>
         </div>
 
         <form method="GET" action="/entreprises" class="search-filters">

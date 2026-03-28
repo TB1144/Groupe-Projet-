@@ -35,13 +35,22 @@ INSERT INTO users (id, nom, prenom, email, password, role) VALUES
 (3, 'Butaud', 'Gabriel', 'gabriel.butaud@web4all.fr', '$2y$10$0SlhHrfspBIBOnXybe.lxe635BSDLVr.foCM9PSH/KNoUtCXipBk2', 'pilote'),
 (4, 'Boughzala', 'Tarek', 'tarek.boughzala@web4all.fr', '$2y$10$0SlhHrfspBIBOnXybe.lxe635BSDLVr.foCM9PSH/KNoUtCXipBk2', 'etudiant'),
 (5, 'Dopre', 'Misha', 'misha.dopre@web4all.fr', '$2y$10$0SlhHrfspBIBOnXybe.lxe635BSDLVr.foCM9PSH/KNoUtCXipBk2', 'etudiant'),
-(6, 'Forato', 'Hugo', 'hugo.forato@web4all.fr', '$2y$10$0SlhHrfspBIBOnXybe.lxe635BSDLVr.foCM9PSH/KNoUtCXipBk2', 'pilote');
+(6, 'Forato', 'Hugo', 'hugo.forato@web4all.fr', '$2y$10$0SlhHrfspBIBOnXybe.lxe635BSDLVr.foCM9PSH/KNoUtCXipBk2', 'pilote'),
+(7, 'Leclerc', 'Charles', 'charles.leclerc@web4all.fr', '$2y$10$0SlhHrfspBIBOnXybe.lxe635BSDLVr.foCM9PSH/KNoUtCXipBk2', 'etudiant'),
+(8, 'Hamilton', 'Lewis', 'lewis.hamilton@web4all.fr', '$2y$10$0SlhHrfspBIBOnXybe.lxe635BSDLVr.foCM9PSH/KNoUtCXipBk2', 'etudiant'),
+(9, 'Verstappen', 'Max', 'max.verstappen@web4all.fr', '$2y$10$0SlhHrfspBIBOnXybe.lxe635BSDLVr.foCM9PSH/KNoUtCXipBk2', 'etudiant'),
+(10, 'Sainz', 'Carlos', 'carlos.sainz@web4all.fr', '$2y$10$0SlhHrfspBIBOnXybe.lxe635BSDLVr.foCM9PSH/KNoUtCXipBk2', 'etudiant'),
+(11, 'Alonso', 'Fernando', 'fernando.alonso@web4all.fr', '$2y$10$0SlhHrfspBIBOnXybe.lxe635BSDLVr.foCM9PSH/KNoUtCXipBk2', 'etudiant'),
+(12, 'Norris', 'Lando', 'lando.norris@web4all.fr', '$2y$10$0SlhHrfspBIBOnXybe.lxe635BSDLVr.foCM9PSH/KNoUtCXipBk2', 'etudiant'),
+(13, 'Ricciardo', 'Daniel', 'daniel.ricciardo@web4all.fr', '$2y$10$0SlhHrfspBIBOnXybe.lxe635BSDLVr.foCM9PSH/KNoUtCXipBk2', 'etudiant'),
+(14, 'Vettel', 'Sebastian', 'sebastian.vettel@web4all.fr', '$2y$10$0SlhHrfspBIBOnXybe.lxe635BSDLVr.foCM9PSH/KNoUtCXipBk2', 'etudiant'),
+(15, 'Schumacher', 'Michael', 'michael.schumacher@web4all.fr', '$2y$10$0SlhHrfspBIBOnXybe.lxe635BSDLVr.foCM9PSH/KNoUtCXipBk2', 'pilote');
 
 -- ─────────────────────────────────────────
 -- OFFRES
 -- ─────────────────────────────────────────
 INSERT INTO offres (id, titre, description, remuneration, duree, date_offre, id_entreprise) VALUES
-(1, 'ministre des economies et des finances', 'Stage backend PHP, API REST.', 1200.00, 6, '2026-03-01', 1),
+(1, 'Stage backend PHP', 'Stage backend PHP, API REST.', 1200.00, 6, '2026-03-01', 1),
 (2, 'Développeur JavaScript', 'Frontend React/Vue.js.', 1500.00, 3, '2026-03-05', 2),
 (3, 'Technicien Réseau', 'Administration réseau.', 1000.00, 4, '2026-03-10', 3),
 (4, 'Consultant IT Junior', 'Conseil client.', 1300.00, 6, '2026-03-15', 4),
@@ -63,7 +72,12 @@ INSERT INTO competences (id, nom) VALUES
 (5, 'SQL'),
 (6, 'Java'),
 (7, 'Cybersécurité'),
-(8, 'Réseau');
+(8, 'Réseau'),
+(9, 'Data Science'),
+(10, 'Administration Système'),
+(11, 'Gestion de Projet'),
+(12, 'Développement Mobile'),
+(13, 'Vue.js');
 
 -- ─────────────────────────────────────────
 -- LIENS OFFRE ↔ COMPETENCES

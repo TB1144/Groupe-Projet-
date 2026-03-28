@@ -5,7 +5,6 @@ class User
 {
     private PDO $db;
 
-    // Colonnes à sélectionner — jamais le password sauf pour checkCredentials
     private const SAFE_COLUMNS = 'id, nom, prenom, email, role';
 
     public function __construct()
@@ -27,7 +26,7 @@ class User
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && password_verify($password, $user['password'])) {
-            unset($user['password']); // ne jamais laisser le hash en mémoire/session
+            unset($user['password']);
             return $user;
         }
 
@@ -72,6 +71,72 @@ class User
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Recherche avec filtre nom/prénom/email + rôle + pagination.
+     */
+    public function searchAll(string $search, string $role, int $limit, int $offset): array
+    {
+        $conditions = ['1=1'];
+        $params     = [];
+
+        if ($search !== '') {
+            $conditions[] = '(nom LIKE :search OR prenom LIKE :search2 OR email LIKE :search3)';
+            $params[':search']  = '%' . $search . '%';
+            $params[':search2'] = '%' . $search . '%';
+            $params[':search3'] = '%' . $search . '%';
+        }
+
+        if (in_array($role, ['admin', 'pilote', 'etudiant'], true)) {
+            $conditions[] = 'role = :role';
+            $params[':role'] = $role;
+        }
+
+        $where = implode(' AND ', $conditions);
+        $stmt  = $this->db->prepare(
+            "SELECT " . self::SAFE_COLUMNS . "
+             FROM users
+             WHERE $where
+             ORDER BY nom, prenom
+             LIMIT :limit OFFSET :offset"
+        );
+        foreach ($params as $key => $value) {
+            $stmt->bindValue($key, $value, PDO::PARAM_STR);
+        }
+        $stmt->bindValue(':limit',  $limit,  PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Compte le total pour la pagination.
+     */
+    public function countAll(string $search, string $role): int
+    {
+        $conditions = ['1=1'];
+        $params     = [];
+
+        if ($search !== '') {
+            $conditions[] = '(nom LIKE :search OR prenom LIKE :search2 OR email LIKE :search3)';
+            $params[':search']  = '%' . $search . '%';
+            $params[':search2'] = '%' . $search . '%';
+            $params[':search3'] = '%' . $search . '%';
+        }
+
+        if (in_array($role, ['admin', 'pilote', 'etudiant'], true)) {
+            $conditions[] = 'role = :role';
+            $params[':role'] = $role;
+        }
+
+        $where = implode(' AND ', $conditions);
+        $stmt  = $this->db->prepare("SELECT COUNT(*) FROM users WHERE $where");
+        foreach ($params as $key => $value) {
+            $stmt->bindValue($key, $value, PDO::PARAM_STR);
+        }
+        $stmt->execute();
+        return (int)$stmt->fetchColumn();
+    }
+
     // ─────────────────────────────────────────
     // ÉCRITURE
     // ─────────────────────────────────────────
@@ -93,7 +158,6 @@ class User
 
     public function update(int $id, array $data): bool
     {
-        // Le mot de passe est optionnel : on ne le change que s'il est fourni
         if (!empty($data['password'])) {
             $stmt = $this->db->prepare(
                 "UPDATE users SET nom = :nom, prenom = :prenom, email = :email,
