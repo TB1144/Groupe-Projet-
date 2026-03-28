@@ -39,6 +39,7 @@
                 </span>
                 <a href="/logout" class="btn-primary">Déconnexion</a>
             <?php else: ?>
+                <a href="/register" class="btn-secondary" style="margin-right:10px;">S'inscrire</a>
                 <a href="/login" class="btn-primary">Connexion</a>
             <?php endif; ?>
         </div>

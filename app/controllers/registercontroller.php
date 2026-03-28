@@ -2,8 +2,12 @@
 
 class RegisterController
 {
-    public function registerForm(): void
+        public function registerForm(): void
     {
+        if (isset($_SESSION['user_id'])) {
+            header('Location: /offres');
+            exit;
+        }
         $pageTitle       = 'Créer un compte — Web4All';
         $metaDescription = 'Créez votre compte étudiant Web4All pour accéder aux offres de stage CESI.';
         require __DIR__ . '/../views/auth/register.php';
@@ -51,6 +55,12 @@ class RegisterController
             $pageTitle = 'Créer un compte — Web4All';
             require __DIR__ . '/../views/auth/register.php';
             return;
+        }
+
+        // ── Sécurité : on ne doit pas pouvoir s'inscrire si déjà connecté ─────
+        if (isset($_SESSION['user_id'])) {
+            header('Location: /offres');
+            exit;
         }
 
         // ── Création du compte ───────────────────────────────────────────

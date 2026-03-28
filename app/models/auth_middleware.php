@@ -15,7 +15,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_set_cookie_params([
         'lifetime' => 0,
         'path'     => '/',
-        'secure'   => true,          // HTTPS uniquement en prod
+        'secure'   => isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on', // cookie envoyé uniquement en HTTPS
         'httponly' => true,          // inaccessible en JS
         'samesite' => 'Strict',
     ]);

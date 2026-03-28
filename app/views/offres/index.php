@@ -144,20 +144,12 @@ require __DIR__ . '/../layout/header.php';
                         <?php endif; ?>
 
                         <?php if (($_SESSION['role'] ?? '') === 'admin'): ?>
-                            <form method="POST"
-                                action="/offres/<?= (int)$offre['id'] ?>/supprimer"
-                                style="display:inline;"
-                                class="delete-form">
-
+                            <form method="POST" action="/offres/<?= (int)$offre['id'] ?>/supprimer"
+                                style="display:inline"
+                                onsubmit="return confirm('Supprimer cette offre ?')">
                                 <input type="hidden" name="csrf_token"
                                     value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
-
-                                <a href="/offres"
-                                    class="btn-secondary btn-danger"
-                                    onclick="if(confirm('Supprimer cette offre ?')) this.closest('form').submit(); return false;">
-                                    Supprimer
-                                </a>
-
+                                <button type="submit" class="btn-secondary btn-danger">Supprimer</button>
                             </form>
                         <?php endif; ?>
                     </div>

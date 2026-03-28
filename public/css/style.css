@@ -433,11 +433,31 @@ h1, h2, h3 {
     border: 2px solid var(--texte-noir);
     padding: 8px 15px;
     transition: background-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-family: inherit;
+    line-height: normal;
+    cursor: pointer;
+    box-sizing: border-box;
 }
 
 .btn-secondary:hover {
     background-color: var(--accent-jaune);
 }
+
+/*pour le bouton supprimer*/
+.btn-danger {
+    border-color: #E53E3E;
+    color: #E53E3E;
+}
+
+.btn-danger:hover {
+    background-color: #E53E3E;
+    color: var(--bg-blanc);
+}
+
 
 .btn-wishlist {
     background: none;
