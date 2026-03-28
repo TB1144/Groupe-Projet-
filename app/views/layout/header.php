@@ -50,8 +50,7 @@
 
                     <a href="/logout" class="btn-primary mobile-btn">Déconnexion</a>
                 <?php else: ?>
-                    <a href="/register" class="btn-orange mobile-btn">S'inscrire</a>
-                    <a href="/login" class="btn-primary mobile-btn">Connexion</a>
+                    
                 <?php endif; ?>
             </div>
         </nav>
@@ -82,7 +81,7 @@
         <!-- Burger -->
         <button class="burger-menu" id="burger-menu" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-links">
             <span class="line"></span>
-            <span class="line"></span>
+            <span class="line"></span>  
             <span class="line"></span>
         </button>
 
