@@ -45,7 +45,7 @@ L'application permet d'informatiser l'aide à la recherche de stages. Elle regro
 ## Cahier des Charges - Suivi d'avancement
 
 ### Spécifications Fonctionnelles (SFx)
-- [ ] **SFx 1** : Authentification et gestion des accès (Login/Logout, permissions par rôle).
+- [x] **SFx 1** : Authentification et gestion des accès (Login/Logout, permissions par rôle).
 - [ ] **SFx 2** : Rechercher et afficher une entreprise (critères multiples, offres liées, évaluations).
 - [x] **SFx 3** : Créer une entreprise.
 - [x] **SFx 4** : Modifier une entreprise.
