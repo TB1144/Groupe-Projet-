@@ -102,6 +102,7 @@ $router->get('/candidatures',                'CandidatureController@index');
 $router->post('/candidatures/{id}/supprimer', 'CandidatureController@supprimer');
 
 // Wishlist
+$router->get('/wishlist',                    'WishlistController@index');
 $router->post('/wishlist/toggle',            'WishlistController@toggle');
 
 // Auth

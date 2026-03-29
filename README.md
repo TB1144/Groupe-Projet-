@@ -67,10 +67,10 @@ L'application permet d'informatiser l'aide à la recherche de stages. Elle regro
 - [x] **SFx 20** : Postuler à une offre (Upload CV et Lettre de Motivation).
 - [x] **SFx 21** : Étudiant : Afficher la liste de ses candidatures (avec CV/LM).
 - [x] **SFx 22** : Pilote : Afficher la liste des candidatures de ses élèves.
-- [ ] **SFx 23** : Afficher les offres ajoutées à la wish-list.
-- [ ] **SFx 24** : Ajouter une offre à la wish-list.
-- [ ] **SFx 25** : Retirer une offre de la wish-list.
-- [x] **SFx 27** : Pagination sur les affichages de listes (utilisateurs, entreprises, offres).
+- [x] **SFx 23** : Afficher les offres ajoutées à la wish-list.
+- [x] **SFx 24** : Ajouter une offre à la wish-list.
+- [x] **SFx 25** : Retirer une offre de la wish-list.
+- [x] **SFx 27** : Pagination sur les affichages de listes (utilisateurs, entreprises, offres). NOTE: à faire 
 - [x] **SFx 28** : Mentions légales (conformité RGPD).
 - [x] **Bonus** : Accès mobile PWA (Progressive Web App).
 

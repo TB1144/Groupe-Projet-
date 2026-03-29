@@ -39,6 +39,14 @@ class OffreController
         $total      = $this->offreModel->count($titre, $ville, $duree);
         $totalPages = (int)ceil($total / $limit);
 
+        // Récupère les IDs en wishlist pour l'étudiant connecté
+        $wishlistIds = [];
+        if (($_SESSION['role'] ?? '') === 'etudiant') {
+            $wishlistModel = new Wishlist();
+            $wishlistItems = $wishlistModel->findByEtudiant($_SESSION['user_id']);
+            $wishlistIds   = array_column($wishlistItems, 'id_offre');
+        }
+
         // Variables disponibles dans la vue :
         // $offres, $total, $page, $totalPages, $titre, $ville, $duree
         require __DIR__ . '/../views/offres/index.php';
