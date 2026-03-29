@@ -1,207 +1,179 @@
-<?php require __DIR__ . '/../layout/header.php'; ?>
+<?php
+$pageTitle       = 'Statistiques — Web4All';
+$metaDescription = 'Statistiques des offres et candidatures sur Web4All.';
+require __DIR__ . '/../layout/header.php';
+?>
 
 <main class="stats-page">
 
-        <div class="stats-hero">
-            <span class="label">Tableau de bord</span>
-            <h1>Statistiques<br>des offres</h1>
-            <p class="stats-subtitle">Indicateurs clés mis à jour en temps réel.</p>
+    <div class="stats-hero">
+        <span class="label">Tableau de bord</span>
+        <h1>Statistiques<br>des offres</h1>
+        <p class="stats-subtitle">Indicateurs clés mis à jour en temps réel.</p>
+    </div>
+
+    <!-- ── KPI ──────────────────────────────────────────────────────── -->
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-number"><?= $totalOffres ?></div>
+            <div class="kpi-label">Offres disponibles</div>
+        </div>
+        <div class="kpi-card kpi-yellow">
+            <div class="kpi-number"><?= number_format($moyenneCand, 1) ?></div>
+            <div class="kpi-label">Candidatures / offre en moyenne</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-number"><?= $totalEntreprises ?></div>
+            <div class="kpi-label">Entreprises partenaires</div>
+        </div>
+        <div class="kpi-card kpi-yellow">
+            <div class="kpi-number"><?= $pourcentageDureeMax ?>%</div>
+            <div class="kpi-label">Offres de <?= $maxDuree ?> mois (durée dominante)</div>
+        </div>
+    </div>
+
+    <!-- ── Carrousel ─────────────────────────────────────────────────── -->
+    <div class="carousel-section">
+        <div class="carousel-header">
+            <h2>Indicateurs détaillés</h2>
+            <div class="carousel-controls">
+                <button class="carousel-btn" id="prev-btn">&#8592;</button>
+                <span id="carousel-indicator">1 / 4</span>
+                <button class="carousel-btn" id="next-btn">&#8594;</button>
+            </div>
         </div>
 
-        <!-- KPI rapides -->
-        <div class="kpi-grid">
-            <div class="kpi-card">
-                <div class="kpi-number">247</div>
-                <div class="kpi-label">Offres disponibles</div>
-            </div>
-            <div class="kpi-card kpi-yellow">
-                <div class="kpi-number">4,2</div>
-                <div class="kpi-label">Candidatures / offre en moyenne</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-number">38</div>
-                <div class="kpi-label">Entreprises partenaires</div>
-            </div>
-            <div class="kpi-card kpi-yellow">
-                <div class="kpi-number">63%</div>
-                <div class="kpi-label">Offres de 6 mois</div>
-            </div>
-        </div>
+        <div class="carousel-track-wrapper">
+            <div class="carousel-track" id="carousel-track">
 
-        <!-- Carrousel stats -->
-        <div class="carousel-section">
-            <div class="carousel-header">
-                <h2>Indicateurs détaillés</h2>
-                <div class="carousel-controls">
-                    <button class="carousel-btn" id="prev-btn">&#8592;</button>
-                    <span id="carousel-indicator">1 / 4</span>
-                    <button class="carousel-btn" id="next-btn">&#8594;</button>
-                </div>
-            </div>
-
-            <div class="carousel-track-wrapper">
-                <div class="carousel-track" id="carousel-track">
-
-                    <!-- Carte 1 : Répartition par durée -->
-                    <div class="carousel-card">
-                        <h3>Répartition par durée de stage</h3>
-                        <div class="bar-chart">
+                <!-- Carte 1 : Répartition par durée -->
+                <div class="carousel-card">
+                    <h3>Répartition par durée de stage</h3>
+                    <div class="bar-chart">
+                        <?php foreach ($repartitionDuree as $row):
+                            $pct = $totalOffres > 0 ? round(($row['nb'] / $totalOffres) * 100) : 0;
+                            $isMax = $row['duree'] === $maxDuree;
+                        ?>
                             <div class="bar-row">
-                                <span class="bar-label">1 mois</span>
-                                <div class="bar-bg"><div class="bar-fill" style="width:5%">5%</div></div>
+                                <span class="bar-label"><?= (int)$row['duree'] ?> mois</span>
+                                <div class="bar-bg">
+                                    <div class="bar-fill <?= $isMax ? 'bar-fill-accent' : '' ?>"
+                                         style="width:<?= max($pct, 3) ?>%">
+                                        <?= $pct ?>%
+                                    </div>
+                                </div>
                             </div>
-                            <div class="bar-row">
-                                <span class="bar-label">2 mois</span>
-                                <div class="bar-bg"><div class="bar-fill" style="width:8%">8%</div></div>
-                            </div>
-                            <div class="bar-row">
-                                <span class="bar-label">3 mois</span>
-                                <div class="bar-bg"><div class="bar-fill" style="width:14%">14%</div></div>
-                            </div>
-                            <div class="bar-row">
-                                <span class="bar-label">4 mois</span>
-                                <div class="bar-bg"><div class="bar-fill" style="width:10%">10%</div></div>
-                            </div>
-                            <div class="bar-row">
-                                <span class="bar-label">6 mois</span>
-                                <div class="bar-bg"><div class="bar-fill bar-fill-accent" style="width:63%">63%</div></div>
-                            </div>
-                        </div>
+                        <?php endforeach; ?>
                     </div>
+                </div>
 
-                    <!-- Carte 2 : Top wishlist -->
-                    <div class="carousel-card">
-                        <h3>Top 5 — Offres les plus wishlistées</h3>
+                <!-- Carte 2 : Top wishlist -->
+                <div class="carousel-card">
+                    <h3>Top 5 — Offres les plus wishlistées</h3>
+                    <?php if (empty($topWishlist)): ?>
+                        <p style="color:#555;">Aucune offre en wishlist pour le moment.</p>
+                    <?php else: ?>
                         <ol class="top-list">
-                            <li>
-                                <span class="top-rank">1</span>
-                                <div class="top-info">
-                                    <strong>Data Analyst Junior</strong>
-                                    <span>DataMetrics — 42 ajouts</span>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="top-rank">2</span>
-                                <div class="top-info">
-                                    <strong>Développeur Web Fullstack</strong>
-                                    <span>TechCorp SAS — 38 ajouts</span>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="top-rank">3</span>
-                                <div class="top-info">
-                                    <strong>Développeur Mobile React Native</strong>
-                                    <span>AppFactory — 31 ajouts</span>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="top-rank">4</span>
-                                <div class="top-info">
-                                    <strong>Technicien Cybersécurité</strong>
-                                    <span>SecureNet — 24 ajouts</span>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="top-rank">5</span>
-                                <div class="top-info">
-                                    <strong>Assistant Chef de Projet IT</strong>
-                                    <span>Web4All Agency — 19 ajouts</span>
-                                </div>
-                            </li>
+                            <?php foreach ($topWishlist as $i => $item): ?>
+                                <li>
+                                    <span class="top-rank"><?= $i + 1 ?></span>
+                                    <div class="top-info">
+                                        <strong><?= htmlspecialchars($item['titre'], ENT_QUOTES, 'UTF-8') ?></strong>
+                                        <span><?= htmlspecialchars($item['entreprise_nom'], ENT_QUOTES, 'UTF-8') ?> — <?= (int)$item['nb_ajouts'] ?> ajout<?= $item['nb_ajouts'] > 1 ? 's' : '' ?></span>
+                                    </div>
+                                </li>
+                            <?php endforeach; ?>
                         </ol>
-                    </div>
-
-                    <!-- Carte 3 : Répartition secteurs -->
-                    <div class="carousel-card">
-                        <h3>Offres par secteur</h3>
-                        <div class="bar-chart">
-                            <div class="bar-row">
-                                <span class="bar-label">Développement</span>
-                                <div class="bar-bg"><div class="bar-fill bar-fill-accent" style="width:45%">45%</div></div>
-                            </div>
-                            <div class="bar-row">
-                                <span class="bar-label">Data / IA</span>
-                                <div class="bar-bg"><div class="bar-fill" style="width:22%">22%</div></div>
-                            </div>
-                            <div class="bar-row">
-                                <span class="bar-label">Cybersécurité</span>
-                                <div class="bar-bg"><div class="bar-fill" style="width:18%">18%</div></div>
-                            </div>
-                            <div class="bar-row">
-                                <span class="bar-label">Gestion de projet</span>
-                                <div class="bar-bg"><div class="bar-fill" style="width:10%">10%</div></div>
-                            </div>
-                            <div class="bar-row">
-                                <span class="bar-label">Autre</span>
-                                <div class="bar-bg"><div class="bar-fill" style="width:5%">5%</div></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Carte 4 : Candidatures -->
-                    <div class="carousel-card">
-                        <h3>Activité des candidatures</h3>
-                        <div class="stat-detail-grid">
-                            <div class="stat-detail">
-                                <div class="stat-big">1 042</div>
-                                <div class="stat-desc">Candidatures totales déposées</div>
-                            </div>
-                            <div class="stat-detail">
-                                <div class="stat-big">4,2</div>
-                                <div class="stat-desc">Moyenne de candidatures par offre</div>
-                            </div>
-                            <div class="stat-detail">
-                                <div class="stat-big">78%</div>
-                                <div class="stat-desc">Des étudiants ont au moins 1 candidature</div>
-                            </div>
-                            <div class="stat-detail">
-                                <div class="stat-big">12</div>
-                                <div class="stat-desc">Max de candidatures sur une seule offre</div>
-                            </div>
-                        </div>
-                    </div>
-
+                    <?php endif; ?>
                 </div>
-            </div>
 
-            <!-- Dots navigation -->
-            <div class="carousel-dots" id="carousel-dots">
-                <span class="dot active" data-index="0"></span>
-                <span class="dot" data-index="1"></span>
-                <span class="dot" data-index="2"></span>
-                <span class="dot" data-index="3"></span>
+                <!-- Carte 3 : Répartition par compétence -->
+                <div class="carousel-card">
+                    <h3>Top compétences demandées</h3>
+                    <div class="bar-chart">
+                        <?php
+                        // Requête inline pour les top compétences
+                        $db = Database::getInstance()->getConnection();
+                        $topComps = $db->query(
+                            "SELECT c.nom, COUNT(oc.id_offre) AS nb
+                             FROM competences c
+                             JOIN offre_competences oc ON c.id = oc.id_competence
+                             GROUP BY c.id
+                             ORDER BY nb DESC
+                             LIMIT 5"
+                        )->fetchAll(PDO::FETCH_ASSOC);
+                        $maxComp = !empty($topComps) ? $topComps[0]['nb'] : 1;
+                        foreach ($topComps as $i => $comp):
+                            $pct = round(($comp['nb'] / $maxComp) * 100);
+                        ?>
+                            <div class="bar-row">
+                                <span class="bar-label"><?= htmlspecialchars($comp['nom'], ENT_QUOTES, 'UTF-8') ?></span>
+                                <div class="bar-bg">
+                                    <div class="bar-fill <?= $i === 0 ? 'bar-fill-accent' : '' ?>"
+                                         style="width:<?= max($pct, 3) ?>%">
+                                        <?= (int)$comp['nb'] ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+
+                <!-- Carte 4 : Candidatures -->
+                <div class="carousel-card">
+                    <h3>Activité des candidatures</h3>
+                    <div class="stat-detail-grid">
+                        <div class="stat-detail">
+                            <div class="stat-big"><?= $totalCandidatures ?></div>
+                            <div class="stat-desc">Candidatures totales déposées</div>
+                        </div>
+                        <div class="stat-detail">
+                            <div class="stat-big"><?= number_format($moyenneCand, 1) ?></div>
+                            <div class="stat-desc">Moyenne de candidatures par offre</div>
+                        </div>
+                        <div class="stat-detail">
+                            <div class="stat-big"><?= $pourcentageEtudiantsActifs ?>%</div>
+                            <div class="stat-desc">Des étudiants ont au moins 1 candidature</div>
+                        </div>
+                        <div class="stat-detail">
+                            <div class="stat-big"><?= $maxCandidatures ?></div>
+                            <div class="stat-desc">Max de candidatures sur une seule offre</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
+
+        <div class="carousel-dots" id="carousel-dots">
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+            <span class="dot" data-index="2"></span>
+            <span class="dot" data-index="3"></span>
+        </div>
+    </div>
 
 </main>
 
 <?php require __DIR__ . '/../layout/footer.php'; ?>
 
 <script>
-        // NOTE: EN FAIT C4EST JUSTE UN FRONTEND ET JSP POURQUOI CA MARCHE PAS
-        const burgerMenu = document.getElementById('burger-menu');
-        const navLinks = document.querySelector('.nav-links');
-        burgerMenu.addEventListener('click', () => navLinks.classList.toggle('active'));
+    const track     = document.getElementById('carousel-track');
+    const dots      = document.querySelectorAll('.dot');
+    const indicator = document.getElementById('carousel-indicator');
+    const total     = track.querySelectorAll('.carousel-card').length;
+    let current     = 0;
 
-        // Carrousel
-        const track = document.getElementById('carousel-track');
-        const cards = track.querySelectorAll('.carousel-card');
-        const dots = document.querySelectorAll('.dot');
-        const indicator = document.getElementById('carousel-indicator');
-        let current = 0;
+    function goTo(index) {
+        current = (index + total) % total;
+        track.style.transform = `translateX(-${current * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        indicator.textContent = `${current + 1} / ${total}`;
+    }
 
-        function goTo(index) {
-            current = Math.max(0, Math.min(index, cards.length - 1));
-            track.style.transform = `translateX(-${current * 100}%)`;
-            dots.forEach((d, i) => d.classList.toggle('active', i === current));
-            indicator.textContent = `${current + 1} / ${cards.length}`;
-        }
+    document.getElementById('prev-btn').addEventListener('click', () => goTo(current - 1));
+    document.getElementById('next-btn').addEventListener('click', () => goTo(current + 1));
+    dots.forEach(dot => dot.addEventListener('click', () => goTo(+dot.dataset.index)));
 
-        document.getElementById('prev-btn').addEventListener('click', () => goTo(current - 1));
-        document.getElementById('next-btn').addEventListener('click', () => goTo(current + 1));
-        dots.forEach(dot => dot.addEventListener('click', () => goTo(+dot.dataset.index)));
-
-        // Auto-défilement
-        setInterval(() => goTo((current + 1) % cards.length), 5000);
+    // setInterval(() => goTo(current + 1), 5000); on peut remettre pour auto-rotation mais ça peut être dérangeant pour l'utilisateur
 </script>
-

@@ -351,7 +351,7 @@ h1, h2, h3 { font-weight: 800; letter-spacing: -1px; }
 
 .bar-chart { display: flex; flex-direction: column; gap: 14px; }
 .bar-row { display: flex; align-items: center; gap: 14px; }
-.bar-label { font-size: 14px; font-weight: 700; min-width: 130px; text-align: right; }
+.bar-label { font-size: 14px; font-weight: 700; width: 160px; min-width: 160px; text-align: right; flex-shrink: 0;}
 .bar-bg { flex: 1; background-color: var(--gris-tres-clair); border: 2px solid var(--texte-noir); height: 32px; }
 .bar-fill { background-color: var(--texte-noir); color: var(--bg-blanc); height: 100%; display: flex; align-items: center; padding-left: 8px; font-size: 12px; font-weight: 800; min-width: 30px; transition: width 0.8s ease; }
 .bar-fill-accent { background-color: var(--accent-jaune); color: var(--texte-noir); }

@@ -192,7 +192,20 @@ INSERT INTO candidatures (id_etudiant, id_offre, cv, lettre_motivation, date_can
 (2, 1, 'cv_marie.pdf', 'Motivé pour le poste PHP.', '2026-03-02'),
 (4, 2, 'cv_lucas.pdf', 'Passionné de frontend.', '2026-03-06'),
 (5, 5, 'cv_emma.pdf', 'Très intéressée par la cybersécurité.', '2026-03-21'),
-(7, 13, 'cv_charles.pdf', 'Marre de vroum vroum', '2026-03-31');
+(7, 13, 'cv_charles.pdf', 'Marre de vroum vroum', '2026-03-31'),
+(8, 13, 'cv_lewis.pdf', 'Expérience en gestion de projet.', '2026-04-06'),
+(9, 14, 'cv_max.pdf', 'Compétences fullstack solides.', '2026-04-11'),
+(10, 16, 'cv_carlos.pdf', 'Développement mobile passionnant.', '2026-04-16'),
+(11, 17, 'cv_fernando.pdf', 'Intéressé par la data science.', '2026-04-21'),
+(12, 18, 'cv_lando.pdf', 'Expérience en sécurité réseau.', '2026-04-26'),
+(13, 19, 'cv_daniel.pdf', 'Compétences en gestion de projet.', '2026-05-01'),
+(14, 20, 'cv_sebastian.pdf', 'Passionné par le frontend.', '2026-05-06'),
+(15, 21, 'cv_michael.pdf', 'Expérience en développement mobile.', '2026-05-11'),
+(16, 22, 'cv_ayrton.pdf', 'Intéressé par la data science et le NLP.', '2026-05-16'),
+(17, 23, 'cv_alain.pdf', 'Compétences en DevOps.', '2026-05-21'),
+(18, 24, 'cv_damon.pdf', 'Expérience en gestion de projet agile.', '2026-05-26'),
+(19, 25, 'cv_nigel.pdf', 'Compétences en Go et Python.', '2026-05-31'),
+(20, 26, 'cv_nelson.pdf', 'Passionné par le développement mobile.', '2026-06-05');
 
 -- ─────────────────────────────────────────
 -- MISE À JOUR nb_candidatures
