@@ -189,10 +189,17 @@ INSERT INTO wishlists (id_etudiant, id_offre) VALUES
 -- CANDIDATURES
 -- ─────────────────────────────────────────
 INSERT INTO candidatures (id_etudiant, id_offre, cv, lettre_motivation, date_candidature) VALUES
-(2, 1, 'cv_marie.pdf', 'Motivée pour le poste PHP.', '2026-03-02'),
+(2, 1, 'cv_marie.pdf', 'Motivé pour le poste PHP.', '2026-03-02'),
 (4, 2, 'cv_lucas.pdf', 'Passionné de frontend.', '2026-03-06'),
 (5, 5, 'cv_emma.pdf', 'Très intéressée par la cybersécurité.', '2026-03-21'),
 (7, 13, 'cv_charles.pdf', 'Marre de vroum vroum', '2026-03-31');
+
+-- ─────────────────────────────────────────
+-- MISE À JOUR nb_candidatures
+-- ─────────────────────────────────────────
+UPDATE offres SET nb_candidatures = (
+    SELECT COUNT(*) FROM candidatures WHERE candidatures.id_offre = offres.id
+);
 
 -- ─────────────────────────────────────────
 -- EVALUATIONS
