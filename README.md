@@ -55,7 +55,7 @@ L'application permet d'informatiser l'aide à la recherche de stages. Elle regro
 - [x] **SFx 8** : Créer une offre de stage.
 - [x] **SFx 9** : Modifier une offre de stage.
 - [x] **SFx 10** : Supprimer une offre de stage.
-- [ ] **SFx 11** : Consulter les statistiques des offres (Carrousel d'indicateurs clés).
+- [x] **SFx 11** : Consulter les statistiques des offres (Carrousel d'indicateurs clés).
 - [x] **SFx 12** : Rechercher et afficher un compte Pilote.
 - [x] **SFx 13** : Créer un compte Pilote.
 - [x] **SFx 14** : Modifier un compte Pilote.
