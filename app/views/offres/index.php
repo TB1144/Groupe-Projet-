@@ -129,6 +129,13 @@ require __DIR__ . '/../layout/header.php';
                             <a href="/offres/<?= (int)$offre['id'] ?>" class="btn-secondary">
                                 Détails
                             </a>
+                            
+                            <?php if (($_SESSION['role'] ?? '') === 'etudiant'): ?>
+                                <a href="/offres/<?= (int)$offre['id'] ?>/postuler" class="btn-secondary">
+                                    Postuler
+                                </a>
+                            <?php endif; ?>
+
 
                             <?php if (($_SESSION['role'] ?? '') === 'etudiant'): ?>
                                 <form method="POST" action="/wishlist/toggle" style="display:inline">

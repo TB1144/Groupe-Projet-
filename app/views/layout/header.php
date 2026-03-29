@@ -42,6 +42,11 @@
 
                     <?php if (($_SESSION['role'] ?? '') === 'admin'): ?>
                         <a href="/utilisateurs" class="mobile-nav-link">Utilisateurs</a>
+                        <a href="/candidatures" class="mobile-nav-link">Candidatures</a>
+                    <?php endif; ?>
+
+                    <?php if (($_SESSION['role'] ?? '') === 'pilote'): ?>
+                        <a href="/candidatures" class="mobile-nav-link">Candidatures</a>
                     <?php endif; ?>
 
                     <?php if (($_SESSION['role'] ?? '') === 'etudiant'): ?>
@@ -67,6 +72,11 @@
 
                 <?php if (($_SESSION['role'] ?? '') === 'admin'): ?>
                     <a href="/utilisateurs" class="btn-orange">Utilisateurs</a>
+                    <a href="/candidatures" class="btn-orange">Candidatures</a>
+                <?php endif; ?>
+
+                <?php if (($_SESSION['role'] ?? '') === 'pilote'): ?>
+                    <a href="/candidatures" class="btn-orange">Candidatures</a>
                 <?php endif; ?>
 
                 <?php if (($_SESSION['role'] ?? '') === 'etudiant'): ?>

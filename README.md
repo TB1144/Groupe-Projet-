@@ -64,9 +64,9 @@ L'application permet d'informatiser l'aide à la recherche de stages. Elle regro
 - [x] **SFx 17** : Créer un compte Étudiant.
 - [x] **SFx 18** : Modifier un compte Étudiant.
 - [x] **SFx 19** : Supprimer un compte Étudiant.
-- [ ] **SFx 20** : Postuler à une offre (Upload CV et Lettre de Motivation).
-- [ ] **SFx 21** : Étudiant : Afficher la liste de ses candidatures (avec CV/LM).
-- [ ] **SFx 22** : Pilote : Afficher la liste des candidatures de ses élèves.
+- [x] **SFx 20** : Postuler à une offre (Upload CV et Lettre de Motivation).
+- [x] **SFx 21** : Étudiant : Afficher la liste de ses candidatures (avec CV/LM).
+- [x] **SFx 22** : Pilote : Afficher la liste des candidatures de ses élèves.
 - [ ] **SFx 23** : Afficher les offres ajoutées à la wish-list.
 - [ ] **SFx 24** : Ajouter une offre à la wish-list.
 - [ ] **SFx 25** : Retirer une offre de la wish-list.

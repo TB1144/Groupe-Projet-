@@ -191,12 +191,16 @@ INSERT INTO wishlists (id_etudiant, id_offre) VALUES
 INSERT INTO candidatures (id_etudiant, id_offre, cv, lettre_motivation, date_candidature) VALUES
 (2, 1, 'cv_marie.pdf', 'Motivée pour le poste PHP.', '2026-03-02'),
 (4, 2, 'cv_lucas.pdf', 'Passionné de frontend.', '2026-03-06'),
-(5, 5, 'cv_emma.pdf', 'Très intéressée par la cybersécurité.', '2026-03-21');
+(5, 5, 'cv_emma.pdf', 'Très intéressée par la cybersécurité.', '2026-03-21'),
+(7, 13, 'cv_charles.pdf', 'Marre de vroum vroum', '2026-03-31');
 
 -- ─────────────────────────────────────────
 -- EVALUATIONS
 -- ─────────────────────────────────────────
 INSERT INTO evaluations (id_entreprise, id_etudiant, note, commentaire, date_evaluation) VALUES
-(1, 2, 5, 'Excellent candidat', '2026-03-10'),
-(2, 4, 4, 'Bon travail', '2026-03-12'),
-(5, 5, 5, 'Horrible et nul', '2026-03-25');
+(1, 2, 5, 'Excellente entreprise', '2026-03-10'),
+(2, 4, 4, 'Bon environnement', '2026-03-12'),
+(5, 5, 5, 'Horrible et nul', '2026-03-25'),
+(14, 16, 4, 'Très bonne expérience de stage', '2026-04-01'),
+(14, 2, 5, 'Stage très enrichissant chez SAP', '2026-04-15'),
+(14, 7, 4, 'Bonne expérience globale avec SAP', '2026-04-20');
