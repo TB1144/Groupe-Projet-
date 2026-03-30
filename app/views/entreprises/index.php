@@ -54,6 +54,27 @@
                     </div>
                     <div class="card-body">
                         <p><?= htmlspecialchars(mb_substr($entreprise['description'] ?? '', 0, 120), ENT_QUOTES, 'UTF-8') ?></p>
+                        <?php if (!empty($entreprise['moyenne'])): ?>
+                            <div class="stars">
+                                <?php
+                                $moyenne = $entreprise['moyenne'] ?? 0;
+                                for ($i = 1; $i <= 5; $i++):
+                                ?>
+                                    <?php if ($i <= floor($moyenne)): ?>
+                                        <span>★</span>
+                                    <?php else: ?>
+                                        <span>☆</span>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
+                                <span style="margin-left:5px;">
+                                    <?= $moyenne ? number_format($moyenne, 1) : 'N/A' ?>
+                                </span>
+                            </div>
+                        <?php else: ?>
+                            <div class="stars">
+                                <span>Pas encore évaluée</span>
+                            </div>
+                        <?php endif; ?>
                     </div>
                     <div class="card-footer">
                         <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">

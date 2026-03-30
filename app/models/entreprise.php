@@ -41,7 +41,13 @@ class Entreprise
 
         $where = implode(' AND ', $conditions);
         $stmt  = $this->db->prepare(
-            "SELECT * FROM entreprises WHERE $where ORDER BY nom ASC LIMIT :limit OFFSET :offset"
+            "SELECT e.*, AVG(ev.note) AS moyenne
+            FROM entreprises e
+            LEFT JOIN evaluations ev ON ev.id_entreprise = e.id
+            WHERE $where
+            GROUP BY e.id
+            ORDER BY e.nom ASC
+            LIMIT :limit OFFSET :offset"
         );
         foreach ($params as $key => $value) {
             $stmt->bindValue($key, $value, PDO::PARAM_STR);

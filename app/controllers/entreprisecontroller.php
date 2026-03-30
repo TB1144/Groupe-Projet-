@@ -21,7 +21,7 @@ class EntrepriseController
         $nom    = trim($_GET['nom']   ?? '');
         $ville  = trim($_GET['ville'] ?? '');
         $page   = max(1, (int)($_GET['page'] ?? 1));
-        $limit  = 10;
+        $limit  = 9;
         $offset = ($page - 1) * $limit;
 
         $entreprises = $this->model->search($nom, $ville, $limit, $offset);
