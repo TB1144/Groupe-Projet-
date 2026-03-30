@@ -8,7 +8,7 @@ require __DIR__ . '/../layout/header.php';
 
 <main class="page-container">
     <section class="login-container">
-        <div class="login-box">
+        <div class="login-box" style="max-width: 1000px;>
             <h1>Modifier l'offre</h1>
 
             <?php if (!empty($errors)): ?>
