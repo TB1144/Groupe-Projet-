@@ -61,11 +61,9 @@ class EntrepriseController
         // ---------------------------------------------------------------------
         // Titre de page
         // ---------------------------------------------------------------------
-
         $pageTitle = htmlspecialchars($entreprise['nom'], ENT_QUOTES, 'UTF-8') . ' — Web4All';
         require __DIR__ . '/../views/entreprises/show.php';
     }
-
 
     // -------------------------------------------------------------------------
     // GET  /entreprises/creer
@@ -168,7 +166,7 @@ class EntrepriseController
     public function evaluer(int $id): void
     {
         // 1. Auth en premier
-        if (empty($_SESSION['user_id'])) {  // ← ici
+        if (empty($_SESSION['user_id'])) {
             header('Location: /login');
             exit;
         }
@@ -182,7 +180,7 @@ class EntrepriseController
         $evaluationModel = new Evaluation();
 
         // 3. Vérifier si l'utilisateur a déjà évalué
-        $existing = $evaluationModel->findByEtudiantAndEntreprise($_SESSION['user_id'], $id);  // ← ici
+        $existing = $evaluationModel->findByEtudiantAndEntreprise($_SESSION['user_id'], $id);
         if ($existing) {
             $_SESSION['flash'] = [
                 'type'    => 'error',
@@ -207,7 +205,7 @@ class EntrepriseController
         $commentaire = trim($_POST['commentaire'] ?? '');
         $evaluationModel->create([
             'id_entreprise' => $id,
-            'id_etudiant'   => $_SESSION['user_id'],  // ← ici
+            'id_etudiant'   => $_SESSION['user_id'],
             'note'          => $note,
             'commentaire'   => $commentaire
         ]);
@@ -217,6 +215,24 @@ class EntrepriseController
             'message' => 'Merci de nous avoir soumis cette évaluation !'
         ];
         header("Location: /entreprises/$id");
+        exit;
+    }
+
+    // ── NOUVEAU : autocomplete JSON ──────────────────────────────────────────
+    // GET /api/entreprises/autocomplete?q=...
+    // -------------------------------------------------------------------------
+    public function autocomplete(): void
+    {
+        header('Content-Type: application/json');
+        $q = trim($_GET['q'] ?? '');
+
+        if (strlen($q) < 1) {
+            echo json_encode([]);
+            exit;
+        }
+
+        $results = $this->model->autocomplete($q);
+        echo json_encode($results);
         exit;
     }
 
@@ -258,6 +274,4 @@ class EntrepriseController
             die('Token CSRF invalide.');
         }
     }
-
-    
 }

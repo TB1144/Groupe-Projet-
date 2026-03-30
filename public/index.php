@@ -58,7 +58,7 @@ class Router
 
             if (preg_match($regex, $path, $matches)) {
                 array_shift($matches);
-                $matches = array_map(fn($m) => is_numeric($m) ? (int)$m : $m, $matches); // ← ajouter
+                $matches = array_map(fn($m) => is_numeric($m) ? (int)$m : $m, $matches);
                 [$controllerName, $methodName] = explode('@', $callback);
                 $controller = new $controllerName();
                 call_user_func_array([$controller, $methodName], $matches);
@@ -90,6 +90,7 @@ $router->get('/offres/{id}/postuler',        'CandidatureController@form');
 $router->post('/offres/{id}/postuler',       'CandidatureController@postuler');
 
 // Entreprises
+$router->get('/api/entreprises/autocomplete',  'EntrepriseController@autocomplete'); // ← NOUVEAU
 $router->get('/entreprises',                 'EntrepriseController@index');
 $router->get('/entreprises/creer',           'EntrepriseController@create');
 $router->post('/entreprises/creer',          'EntrepriseController@create');

@@ -78,6 +78,21 @@ class Entreprise
         return (int)$stmt->fetchColumn();
     }
 
+    // ── NOUVEAU : autocomplete par préfixe ───────────────────────────────────
+    public function autocomplete(string $query, int $limit = 8): array
+    {
+        $stmt = $this->db->prepare(
+            "SELECT id, nom, ville FROM entreprises
+             WHERE nom LIKE :prefix
+             ORDER BY nom ASC
+             LIMIT :limit"
+        );
+        $stmt->bindValue(':prefix', $query . '%', PDO::PARAM_STR);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function create(array $data): int
     {
         $stmt = $this->db->prepare(
