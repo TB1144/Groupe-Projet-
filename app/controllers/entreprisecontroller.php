@@ -44,10 +44,28 @@ class EntrepriseController
             require __DIR__ . '/../views/errors/404.php';
             return;
         }
+        // ---------------------------------------------------------------------
+        // Évaluations
+        // ---------------------------------------------------------------------
+        require_once __DIR__ . '/../../app/models/evaluation.php';
+        $evaluationModel = new Evaluation();
+        $evaluations     = $evaluationModel->findByEntreprise($id);
+        $moyenne         = $evaluationModel->moyenneByEntreprise($id);
+
+        // ---------------------------------------------------------------------
+        // Vérification du rôle pour ajouter une évaluation
+        // ---------------------------------------------------------------------
+        $role = $_SESSION['role'] ?? '';
+        $peutEvaluer = in_array($role, ['admin', 'pilote']);
+
+        // ---------------------------------------------------------------------
+        // Titre de page
+        // ---------------------------------------------------------------------
 
         $pageTitle = htmlspecialchars($entreprise['nom'], ENT_QUOTES, 'UTF-8') . ' — Web4All';
         require __DIR__ . '/../views/entreprises/show.php';
     }
+
 
     // -------------------------------------------------------------------------
     // GET  /entreprises/creer
@@ -147,6 +165,61 @@ class EntrepriseController
         exit;
     }
 
+    public function evaluer(int $id): void
+    {
+        // 1. Auth en premier
+        if (empty($_SESSION['user_id'])) {  // ← ici
+            header('Location: /login');
+            exit;
+        }
+
+        if (!in_array($_SESSION['role'] ?? '', ['admin', 'pilote'])) {
+            http_response_code(403);
+            require __DIR__ . '/../views/errors/403.php';
+            return;
+        }
+
+        $evaluationModel = new Evaluation();
+
+        // 3. Vérifier si l'utilisateur a déjà évalué
+        $existing = $evaluationModel->findByEtudiantAndEntreprise($_SESSION['user_id'], $id);  // ← ici
+        if ($existing) {
+            $_SESSION['flash'] = [
+                'type'    => 'error',
+                'message' => 'Vous avez déjà évalué cette entreprise.'
+            ];
+            header("Location: /entreprises/$id");
+            exit;
+        }
+
+        // 4. Valider la note
+        $note = (int)($_POST['note'] ?? 0);
+        if ($note < 1 || $note > 5) {
+            $_SESSION['flash'] = [
+                'type'    => 'error',
+                'message' => 'La note doit être comprise entre 1 et 5.'
+            ];
+            header("Location: /entreprises/$id");
+            exit;
+        }
+
+        // 5. Enregistrer
+        $commentaire = trim($_POST['commentaire'] ?? '');
+        $evaluationModel->create([
+            'id_entreprise' => $id,
+            'id_etudiant'   => $_SESSION['user_id'],  // ← ici
+            'note'          => $note,
+            'commentaire'   => $commentaire
+        ]);
+
+        $_SESSION['flash'] = [
+            'type'    => 'success',
+            'message' => 'Merci de nous avoir soumis cette évaluation !'
+        ];
+        header("Location: /entreprises/$id");
+        exit;
+    }
+
     // =========================================================================
     // Helpers privés
     // =========================================================================
@@ -185,4 +258,6 @@ class EntrepriseController
             die('Token CSRF invalide.');
         }
     }
+
+    
 }

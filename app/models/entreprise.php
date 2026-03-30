@@ -19,10 +19,11 @@ class Entreprise
 
     public function findById(int $id): ?array
     {
-        $stmt = $this->db->prepare('SELECT * FROM entreprises WHERE id = :id LIMIT 1');
+        $stmt = $this->db->prepare('SELECT id, nom, ville, description, email, telephone FROM entreprises WHERE id = :id');
         $stmt->execute([':id' => $id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
-    }
+        $entreprise = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $entreprise ?: null;
+    }   
 
     public function search(string $nom = '', string $ville = '', int $limit = 10, int $offset = 0): array
     {

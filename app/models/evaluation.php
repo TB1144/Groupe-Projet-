@@ -33,7 +33,7 @@ class Evaluation
         $stmt = $this->db->prepare(
             'SELECT e.*, u.nom, u.prenom
              FROM evaluations e
-             JOIN etudiants u ON e.id_etudiant = u.id
+             JOIN users u ON e.id_etudiant = u.id
              WHERE e.id_entreprise = :id
              ORDER BY e.date_evaluation DESC'
         );
