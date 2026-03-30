@@ -147,6 +147,11 @@ h1, h2, h3 { font-weight: 800; letter-spacing: -1px; }
 .btn-page { padding: 10px 15px; border: 3px solid var(--texte-noir); background-color: var(--bg-blanc); font-weight: bold; cursor: pointer; text-decoration: none; color: var(--texte-noir); }
 .btn-page:hover, .btn-page.active { background-color: var(--texte-noir); color: var(--bg-blanc); }
 
+button.btn-primary {
+    cursor: pointer;
+    display: inline-block;
+}
+
 /* =========================================
    5. FORMULAIRES
    ========================================= */
@@ -316,9 +321,30 @@ h1, h2, h3 { font-weight: 800; letter-spacing: -1px; }
 .contact-detail-item { display: flex; flex-direction: column; margin-bottom: 12px; font-size: 14px; }
 .contact-detail-item strong { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
 
-.star-picker { display: flex; gap: 6px; font-size: 28px; cursor: pointer; margin-bottom: 12px; color: var(--texte-noir); }
-.star-pick { transition: transform 0.1s; }
-.star-pick:hover { transform: scale(1.2); }
+.star-picker { display: flex; gap: 6px; font-size: 32px; cursor: pointer; margin-bottom: 12px; }
+.star-pick { 
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 32px;
+    color: #ccc;
+    transition: color 0.15s, transform 0.15s;
+    padding: 0;
+    line-height: 1;
+    font-family: serif;
+}
+.star-pick:hover,
+.star-pick.selected {
+    color: var(--accent-jaune) !important;
+    -webkit-text-fill-color: var(--accent-jaune) !important;
+}
+
+.star-pick.hovered {
+    color: var(--accent-jaune) !important;
+    -webkit-text-fill-color: var(--accent-jaune) !important;
+    transform: scale(1.1);
+}
+
 .eval-input { width: 100%; padding: 10px 12px; font-family: inherit; font-size: 14px; border: 3px solid var(--texte-noir); background-color: var(--bg-blanc); resize: vertical; min-height: 80px; outline: none; box-sizing: border-box; }
 .create-form-wrapper { max-width: 700px; }
 
