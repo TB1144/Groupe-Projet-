@@ -262,7 +262,7 @@ h1, h2, h3 { font-weight: 800; letter-spacing: -1px; }
    11. PAGE CONNEXION / INSCRIPTION
    ========================================= */
 .login-page { display: flex; justify-content: center; align-items: center; min-height: 80vh; background-color: var(--bg-blanc); padding: 40px 20px; }
-.login-box { background-color: var(--bg-blanc); width: 100%; max-width: 450px; padding: 40px; border: 3px solid var(--texte-noir); border-radius: 8px; box-shadow: 8px 8px 0px var(--accent-jaune); }
+.login-box { background-color: var(--bg-blanc); width: 100%; max-width: 650px; padding: 40px; border: 3px solid var(--texte-noir); border-radius: 8px; box-shadow: 8px 8px 0px var(--accent-jaune); }
 .login-box h2 { font-size: 32px; margin-bottom: 10px; }
 .login-box p  { color: #555; margin-bottom: 30px; }
 .login-links { margin-top: 20px; text-align: center; }
