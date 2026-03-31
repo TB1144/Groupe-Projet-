@@ -2,14 +2,15 @@
 $pageTitle = 'Utilisateurs — Web4All';
 require __DIR__ . '/../layout/header.php';
 
-$roleLabels = ['admin' => 'Admin', 'pilote' => 'Pilote', 'etudiant' => 'Étudiant'];
+$currentRole    = $_SESSION['role'];
+$roleLabels     = ['admin' => 'Admin', 'pilote' => 'Pilote', 'etudiant' => 'Étudiant'];
 $roleBadgeClass = ['admin' => 'badge-admin', 'pilote' => 'badge-pilote', 'etudiant' => 'badge-etudiant'];
 ?>
 
 <main class="page-container">
 
     <section class="page-header">
-        <h1>Utilisateurs</h1>
+        <h1><?= $currentRole === 'pilote' ? 'Mes étudiants' : 'Utilisateurs' ?></h1>
         <form method="GET" action="/utilisateurs" class="search-filters">
             <input
                 type="text"
@@ -17,12 +18,14 @@ $roleBadgeClass = ['admin' => 'badge-admin', 'pilote' => 'badge-pilote', 'etudia
                 placeholder="Nom, prénom ou email..."
                 value="<?= htmlspecialchars($search, ENT_QUOTES, 'UTF-8') ?>"
             >
-            <select name="role">
-                <option value="">Tous les rôles</option>
-                <option value="admin"    <?= $role === 'admin'    ? 'selected' : '' ?>>Admin</option>
-                <option value="pilote"   <?= $role === 'pilote'   ? 'selected' : '' ?>>Pilote</option>
-                <option value="etudiant" <?= $role === 'etudiant' ? 'selected' : '' ?>>Étudiant</option>
-            </select>
+            <?php if ($currentRole === 'admin'): ?>
+                <select name="role">
+                    <option value="">Tous les rôles</option>
+                    <option value="admin"    <?= $role === 'admin'    ? 'selected' : '' ?>>Admin</option>
+                    <option value="pilote"   <?= $role === 'pilote'   ? 'selected' : '' ?>>Pilote</option>
+                    <option value="etudiant" <?= $role === 'etudiant' ? 'selected' : '' ?>>Étudiant</option>
+                </select>
+            <?php endif; ?>
             <button type="submit" class="btn-primary">Filtrer</button>
         </form>
     </section>
@@ -49,8 +52,10 @@ $roleBadgeClass = ['admin' => 'badge-admin', 'pilote' => 'badge-pilote', 'etudia
                         <th>Nom</th>
                         <th>Prénom</th>
                         <th>Email</th>
-                        <th>Rôle</th>
-                        <th>Pilote</th>
+                        <?php if ($currentRole === 'admin'): ?>
+                            <th>Rôle</th>
+                            <th>Pilote</th>
+                        <?php endif; ?>
                         <th class="col-actions">Actions</th>
                     </tr>
                 </thead>
@@ -59,25 +64,27 @@ $roleBadgeClass = ['admin' => 'badge-admin', 'pilote' => 'badge-pilote', 'etudia
                         <tr>
                             <td class="td-bold"><?= htmlspecialchars($u['nom'],    ENT_QUOTES, 'UTF-8') ?></td>
                             <td><?= htmlspecialchars($u['prenom'], ENT_QUOTES, 'UTF-8') ?></td>
-                            <td class="td-muted"><?= htmlspecialchars($u['email'],  ENT_QUOTES, 'UTF-8') ?></td>
-                            <td>
-                                <span class="role-badge <?= $roleBadgeClass[$u['role']] ?? '' ?>">
-                                    <?= $roleLabels[$u['role']] ?? $u['role'] ?>
-                                </span>
-                            </td>
+                            <td class="td-muted"><?= htmlspecialchars($u['email'], ENT_QUOTES, 'UTF-8') ?></td>
 
-                            <td>
-                                <?php if ($u['role'] === 'etudiant' && !empty($u['pilote_nom'])): ?>
-                                    <span class="pilote-name">
-                                        <?= htmlspecialchars($u['pilote_prenom'] . ' ' . $u['pilote_nom'], ENT_QUOTES, 'UTF-8') ?>
+                            <?php if ($currentRole === 'admin'): ?>
+                                <td>
+                                    <span class="role-badge <?= $roleBadgeClass[$u['role']] ?? '' ?>">
+                                        <?= $roleLabels[$u['role']] ?? $u['role'] ?>
                                     </span>
-                                <?php elseif ($u['role'] === 'etudiant'): ?>
-                                    <span class="td-muted">Aucun pilote</span>
-                                <?php else: ?>
-                                    <span class="td-muted">—</span>
-                                <?php endif; ?>
-                            </td>
-                            
+                                </td>
+                                <td>
+                                    <?php if ($u['role'] === 'etudiant' && !empty($u['pilote_nom'])): ?>
+                                        <span class="pilote-name">
+                                            <?= htmlspecialchars($u['pilote_prenom'] . ' ' . $u['pilote_nom'], ENT_QUOTES, 'UTF-8') ?>
+                                        </span>
+                                    <?php elseif ($u['role'] === 'etudiant'): ?>
+                                        <span class="td-muted">Aucun pilote</span>
+                                    <?php else: ?>
+                                        <span class="td-muted">—</span>
+                                    <?php endif; ?>
+                                </td>
+                            <?php endif; ?>
+
                             <td class="td-actions">
                                 <a href="/utilisateurs/<?= (int)$u['id'] ?>/modifier" class="btn-secondary">Modifier</a>
                                 <?php if ((int)$u['id'] !== (int)$_SESSION['user_id']): ?>

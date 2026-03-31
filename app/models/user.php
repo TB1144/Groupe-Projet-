@@ -137,6 +137,43 @@ class User
         return (int)$stmt->fetchColumn();
     }
 
+    // Étudiants rattachés à un pilote, avec recherche
+    public function searchByPilote(int $piloteId, string $search, int $limit, int $offset): array
+    {
+        $like = "%$search%";
+        $sql  = "SELECT u.*, NULL AS pilote_nom, NULL AS pilote_prenom
+                FROM users u
+                WHERE u.role = 'etudiant'
+                AND u.id_pilote = :pilote_id
+                AND (u.nom LIKE :s OR u.prenom LIKE :s OR u.email LIKE :s)
+                LIMIT :limit OFFSET :offset";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':pilote_id', $piloteId, PDO::PARAM_INT);
+        $stmt->bindValue(':s',         $like,      PDO::PARAM_STR);
+        $stmt->bindValue(':limit',     $limit,     PDO::PARAM_INT);
+        $stmt->bindValue(':offset',    $offset,    PDO::PARAM_INT);
+        
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); // This ensures an array is returned
+    }
+
+    public function countByPilote(int $piloteId, string $search): int
+    {
+        $like = "%$search%";
+        $sql  = "SELECT COUNT(*) FROM users u
+                WHERE u.role = 'etudiant'
+                AND u.id_pilote = :pilote_id
+                AND (u.nom LIKE :s OR u.prenom LIKE :s OR u.email LIKE :s)";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':pilote_id', $piloteId, PDO::PARAM_INT);
+        $stmt->bindValue(':s',         $like,      PDO::PARAM_STR);
+        
+        $stmt->execute();
+        return (int)$stmt->fetchColumn();
+    }
+
     // ─────────────────────────────────────────
     // ÉCRITURE
     // ─────────────────────────────────────────

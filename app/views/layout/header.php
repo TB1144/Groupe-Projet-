@@ -45,6 +45,7 @@
                     <?php endif; ?>
 
                     <?php if (($_SESSION['role'] ?? '') === 'pilote'): ?>
+                        <a href="/utilisateurs" class="btn-orange">Utilisateurs</a>
                         <a href="/candidatures" class="mobile-nav-link">Candidatures</a>
                     <?php endif; ?>
 
@@ -74,6 +75,7 @@
                 <?php endif; ?>
 
                 <?php if (($_SESSION['role'] ?? '') === 'pilote'): ?>
+                    <a href="/utilisateurs" class="btn-orange">Utilisateurs</a>
                     <a href="/candidatures" class="btn-orange">Candidatures</a>
                 <?php endif; ?>
 

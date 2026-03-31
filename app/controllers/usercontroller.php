@@ -11,25 +11,36 @@ class UserController
 
     // -------------------------------------------------------------------------
     // GET /utilisateurs
-    // Liste tous les utilisateurs avec filtre par rôle + pagination
-    // Accès : Admin uniquement
+    // Admin : tous les utilisateurs
+    // Pilote : uniquement ses étudiants
     // -------------------------------------------------------------------------
     public function index(): void
     {
-        $this->requireRole(['admin']);
+        $this->requireRole(['admin', 'pilote']);
 
         if (empty($_SESSION['csrf_token'])) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         }
 
+        $currentRole = $_SESSION['role'];
+        $currentId   = (int)$_SESSION['user_id'];
+
         $search = trim($_GET['search'] ?? '');
-        $role   = $_GET['role'] ?? '';
+        $role   = $_GET['role']   ?? '';
         $page   = max(1, (int)($_GET['page'] ?? 1));
         $limit  = 10;
         $offset = ($page - 1) * $limit;
 
-        $users      = $this->userModel->searchAll($search, $role, $limit, $offset);
-        $total      = $this->userModel->countAll($search, $role);
+        if ($currentRole === 'pilote') {
+            // Force : seuls les étudiants rattachés à ce pilote
+            $role       = 'etudiant';
+            $users      = $this->userModel->searchByPilote($currentId, $search, $limit, $offset);
+            $total      = $this->userModel->countByPilote($currentId, $search);
+        } else {
+            $users      = $this->userModel->searchAll($search, $role, $limit, $offset);
+            $total      = $this->userModel->countAll($search, $role);
+        }
+
         $totalPages = (int)ceil($total / $limit);
 
         $pageTitle = 'Utilisateurs — Web4All';
@@ -37,18 +48,32 @@ class UserController
     }
 
     // -------------------------------------------------------------------------
-    // GET /utilisateurs/{id}/modifier
+    // GET  /utilisateurs/{id}/modifier
     // POST /utilisateurs/{id}/modifier
-    // Accès : Admin uniquement
+    // Admin : tous les utilisateurs
+    // Pilote : uniquement ses étudiants
     // -------------------------------------------------------------------------
-    public function edit(int $id): void {
-        $this->requireRole(['admin']);
+    public function edit(int $id): void
+    {
+        $this->requireRole(['admin', 'pilote']);
+
+        $currentRole = $_SESSION['role'];
+        $currentId   = (int)$_SESSION['user_id'];
 
         $user = $this->userModel->findById($id);
         if (!$user) {
             http_response_code(404);
             require __DIR__ . '/../views/errors/404.php';
             return;
+        }
+
+        // Un pilote ne peut modifier que ses propres étudiants
+        if ($currentRole === 'pilote') {
+            if ($user['role'] !== 'etudiant' || (int)$user['id_pilote'] !== $currentId) {
+                http_response_code(403);
+                require __DIR__ . '/../views/errors/403.php';
+                return;
+            }
         }
 
         $pilotes = $this->userModel->findByRole('pilote');
@@ -60,21 +85,25 @@ class UserController
             $nom    = trim($_POST['nom']    ?? '');
             $prenom = trim($_POST['prenom'] ?? '');
             $email  = trim($_POST['email']  ?? '');
-            $role   = $_POST['role'] ?? '';
+            // Un pilote ne peut pas changer le rôle de son étudiant
+            $role   = $currentRole === 'pilote' ? 'etudiant' : ($_POST['role'] ?? '');
 
-            // Validations
             if ($nom === '')    $errors[] = 'Le nom est obligatoire.';
             if ($prenom === '') $errors[] = 'Le prénom est obligatoire.';
             if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $errors[] = 'L\'adresse email est invalide.';
             }
-            if (!in_array($role, ['admin', 'pilote', 'etudiant'], true)) {
+            if ($currentRole === 'admin' && !in_array($role, ['admin', 'pilote', 'etudiant'], true)) {
                 $errors[] = 'Rôle invalide.';
             }
 
-            $id_pilote = ($role === 'etudiant' && !empty($_POST['id_pilote']))
-                ? (int)$_POST['id_pilote']
-                : null;
+            // Un pilote ne peut pas réassigner le pilote référent
+            $id_pilote = null;
+            if ($role === 'etudiant') {
+                $id_pilote = $currentRole === 'pilote'
+                    ? $currentId
+                    : (!empty($_POST['id_pilote']) ? (int)$_POST['id_pilote'] : null);
+            }
 
             if (empty($errors)) {
                 $data = [
@@ -85,7 +114,6 @@ class UserController
                     'id_pilote' => $id_pilote,
                 ];
 
-                // Only rehash if a new password was provided
                 $password = $_POST['password'] ?? '';
                 if ($password !== '') {
                     if (strlen($password) < 8) {
@@ -103,7 +131,6 @@ class UserController
                 }
             }
 
-            // Repopulate $user with submitted values so the form reflects them on error
             $user = array_merge($user, [
                 'nom'       => $nom,
                 'prenom'    => $prenom,
@@ -118,15 +145,18 @@ class UserController
 
     // -------------------------------------------------------------------------
     // POST /utilisateurs/{id}/supprimer
-    // Accès : Admin uniquement
+    // Admin : tous les utilisateurs
+    // Pilote : uniquement ses étudiants
     // -------------------------------------------------------------------------
     public function delete(int $id): void
     {
-        $this->requireRole(['admin']);
+        $this->requireRole(['admin', 'pilote']);
         $this->verifyCsrf();
 
-        // Empêche l'admin de se supprimer lui-même
-        if ($id === (int)$_SESSION['user_id']) {
+        $currentRole = $_SESSION['role'];
+        $currentId   = (int)$_SESSION['user_id'];
+
+        if ($id === $currentId) {
             $_SESSION['flash'] = ['type' => 'error', 'message' => 'Vous ne pouvez pas supprimer votre propre compte.'];
             header('Location: /utilisateurs');
             exit;
@@ -137,6 +167,15 @@ class UserController
             http_response_code(404);
             require __DIR__ . '/../views/errors/404.php';
             return;
+        }
+
+        // Un pilote ne peut supprimer que ses propres étudiants
+        if ($currentRole === 'pilote') {
+            if ($user['role'] !== 'etudiant' || (int)$user['id_pilote'] !== $currentId) {
+                http_response_code(403);
+                require __DIR__ . '/../views/errors/403.php';
+                return;
+            }
         }
 
         $this->userModel->delete($id);

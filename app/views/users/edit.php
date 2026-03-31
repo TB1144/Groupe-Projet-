@@ -1,6 +1,8 @@
 <?php
 $pageTitle = 'Modifier un utilisateur — Web4All';
 require __DIR__ . '/../layout/header.php';
+
+$currentRole = $_SESSION['role'];
 ?>
 
 <main class="page-container">
@@ -44,30 +46,37 @@ require __DIR__ . '/../layout/header.php';
                            value="<?= htmlspecialchars($user['email'], ENT_QUOTES, 'UTF-8') ?>">
                 </div>
 
-                <div class="input-group">
-                    <label for="role">Rôle</label>
-                    <select id="role" name="role" class="input-select" onchange="togglePilote(this.value)">
-                        <option value="etudiant" <?= $user['role'] === 'etudiant' ? 'selected' : '' ?>>Étudiant</option>
-                        <option value="pilote"   <?= $user['role'] === 'pilote'   ? 'selected' : '' ?>>Pilote</option>
-                        <option value="admin"    <?= $user['role'] === 'admin'    ? 'selected' : '' ?>>Admin</option>
-                    </select>
-                </div>
+                <?php if ($currentRole === 'admin'): ?>
+                    <div class="input-group">
+                        <label for="role">Rôle</label>
+                        <select id="role" name="role" class="input-select" onchange="togglePilote(this.value)">
+                            <option value="etudiant" <?= $user['role'] === 'etudiant' ? 'selected' : '' ?>>Étudiant</option>
+                            <option value="pilote"   <?= $user['role'] === 'pilote'   ? 'selected' : '' ?>>Pilote</option>
+                            <option value="admin"    <?= $user['role'] === 'admin'    ? 'selected' : '' ?>>Admin</option>
+                        </select>
+                    </div>
 
-                <!-- Shown only when role = etudiant -->
-                <div class="input-group" id="pilote-group"
-                     style="<?= $user['role'] !== 'etudiant' ? 'display:none;' : '' ?>">
-                    <label for="id_pilote">Pilote référent</label>
-                    <select id="id_pilote" name="id_pilote" class="input-select">
-                        <option value="">— Aucun pilote —</option>
-                        <?php foreach ($pilotes as $p): ?>
-                            <?php if ((int)$p['id'] === (int)$user['id']) continue; ?>
-                            <option value="<?= (int)$p['id'] ?>"
-                                <?= (int)($user['id_pilote'] ?? 0) === (int)$p['id'] ? 'selected' : '' ?>>
-                                <?= htmlspecialchars($p['prenom'] . ' ' . $p['nom'], ENT_QUOTES, 'UTF-8') ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
+                    <!-- Shown only when role = etudiant -->
+                    <div class="input-group" id="pilote-group"
+                         style="<?= $user['role'] !== 'etudiant' ? 'display:none;' : '' ?>">
+                        <label for="id_pilote">Pilote référent</label>
+                        <select id="id_pilote" name="id_pilote" class="input-select">
+                            <option value="">— Aucun pilote —</option>
+                            <?php foreach ($pilotes as $p): ?>
+                                <?php if ((int)$p['id'] === (int)$user['id']) continue; ?>
+                                <option value="<?= (int)$p['id'] ?>"
+                                    <?= (int)($user['id_pilote'] ?? 0) === (int)$p['id'] ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($p['prenom'] . ' ' . $p['nom'], ENT_QUOTES, 'UTF-8') ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                <?php else: ?>
+                    {{-- Pilote : rôle et pilote référent verrouillés, pas affichés --}}
+                    <p class="td-muted" style="margin-bottom:16px;">
+                        Rôle : <strong>Étudiant</strong> — Pilote référent : <strong>vous</strong>
+                    </p>
+                <?php endif; ?>
 
                 <div class="input-group">
                     <label for="password">
