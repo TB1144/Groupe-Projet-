@@ -127,7 +127,7 @@ class CandidatureController
     // -------------------------------------------------------------------------
     public function index(): void
     {
-        $this->requireRole(['etudiant', 'pilote', 'admin']);
+        $this->requireRole(['etudiant', 'pilote']);
 
         $page             = max(1, (int)($_GET['page'] ?? 1));
         $limit            = 10;
@@ -138,9 +138,9 @@ class CandidatureController
         if ($_SESSION['role'] === 'etudiant') {
             $total        = $this->candidatureModel->countByEtudiant($_SESSION['user_id'], $searchEntreprise);
             $candidatures = $this->candidatureModel->findByEtudiant($_SESSION['user_id'], $limit, $offset, $searchEntreprise);
-        } else {
-            $total        = $this->candidatureModel->countAll($searchEtudiant, $searchEntreprise);
-            $candidatures = $this->candidatureModel->findAll($limit, $offset, $searchEtudiant, $searchEntreprise);
+        } elseif ($_SESSION['role'] === 'pilote') {
+            $total        = $this->candidatureModel->countByPilote($_SESSION['user_id'], $searchEtudiant, $searchEntreprise);
+            $candidatures = $this->candidatureModel->findByPilote($_SESSION['user_id'], $limit, $offset, $searchEtudiant, $searchEntreprise);
         }
 
         $totalPages = (int)ceil($total / $limit);

@@ -22,7 +22,7 @@ $queryString = !empty($queryParams) ? '&' . http_build_query($queryParams) : '';
     <div class="candidatures-hero">
         <span class="label">Espace étudiant</span>
         <h1>
-            <?= ($_SESSION['role'] === 'etudiant') ? 'Mes candidatures' : 'Toutes les candidatures' ?>
+            <?= ($_SESSION['role'] === 'etudiant') ? 'Mes candidatures' : 'Candidatures de mes étudiants' ?>
         </h1>
         <p class="candidatures-subtitle">
             <?= $total ?> candidature<?= $total > 1 ? 's' : '' ?>

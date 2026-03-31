@@ -187,5 +187,65 @@ class Candidature
                 }
             }
         }
-}
+    }
+
+    // -------------------------------------------------------------------------
+    public function findByPilote(int $idPilote, int $limit = 10, int $offset = 0, string $searchEtudiant = '', string $searchEntreprise = ''): array
+    {
+        $sql = "SELECT c.*, o.titre AS offre_titre, e.nom AS entreprise_nom,
+                    u.nom AS etudiant_nom, u.prenom AS etudiant_prenom
+                FROM candidatures c
+                JOIN offres o ON c.id_offre = o.id
+                JOIN entreprises e ON o.id_entreprise = e.id
+                JOIN users u ON c.id_etudiant = u.id
+                WHERE u.id_pilote = :id_pilote";
+        $params = [':id_pilote' => $idPilote];
+
+        if ($searchEtudiant !== '') {
+            $sql .= " AND (u.nom LIKE :search_etudiant OR u.prenom LIKE :search_etudiant2)";
+            $params[':search_etudiant']  = '%' . $searchEtudiant . '%';
+            $params[':search_etudiant2'] = '%' . $searchEtudiant . '%';
+        }
+
+        if ($searchEntreprise !== '') {
+            $sql .= " AND e.nom LIKE :search_entreprise";
+            $params[':search_entreprise'] = '%' . $searchEntreprise . '%';
+        }
+
+        $sql .= " ORDER BY c.date_candidature DESC LIMIT :limit OFFSET :offset";
+
+        $stmt = $this->db->prepare($sql);
+        foreach ($params as $key => $value) {
+            $stmt->bindValue($key, $value);
+        }
+        $stmt->bindValue(':limit',  $limit,  PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function countByPilote(int $idPilote, string $searchEtudiant = '', string $searchEntreprise = ''): int
+    {
+        $sql = "SELECT COUNT(*) FROM candidatures c
+                JOIN offres o ON c.id_offre = o.id
+                JOIN entreprises e ON o.id_entreprise = e.id
+                JOIN users u ON c.id_etudiant = u.id
+                WHERE u.id_pilote = :id_pilote";
+        $params = [':id_pilote' => $idPilote];
+
+        if ($searchEtudiant !== '') {
+            $sql .= " AND (u.nom LIKE :search_etudiant OR u.prenom LIKE :search_etudiant2)";
+            $params[':search_etudiant']  = '%' . $searchEtudiant . '%';
+            $params[':search_etudiant2'] = '%' . $searchEtudiant . '%';
+        }
+
+        if ($searchEntreprise !== '') {
+            $sql .= " AND e.nom LIKE :search_entreprise";
+            $params[':search_entreprise'] = '%' . $searchEntreprise . '%';
+        }
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute($params);
+        return (int)$stmt->fetchColumn();
+    }
 }
