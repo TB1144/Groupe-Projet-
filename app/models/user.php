@@ -223,7 +223,29 @@ class User
 
     public function delete(int $id): bool
     {
-        $stmt = $this->db->prepare("DELETE FROM users WHERE id = :id");
-        return $stmt->execute([':id' => $id]);
+        try {
+            // Début de la transaction pour garantir l'intégrité des données
+            $this->db->beginTransaction();
+
+            // 1. On "détache" les étudiants liés à ce pilote
+            // Si le user supprimé est un pilote, on met à null le champ id_pilote 
+            // des étudiants qui lui étaient rattachés.
+            $stmtDetach = $this->db->prepare("UPDATE users SET id_pilote = NULL WHERE id_pilote = :id");
+            $stmtDetach->execute([':id' => $id]);
+
+            // 2. Suppression de l'utilisateur
+            $stmtDelete = $this->db->prepare("DELETE FROM users WHERE id = :id");
+            $result = $stmtDelete->execute([':id' => $id]);
+
+            // Validation des deux opérations
+            $this->db->commit();
+
+            return $result;
+        } catch (PDOException $e) {
+            // En cas d'erreur SQL, on annule tout pour éviter des données incohérentes
+            $this->db->rollBack();
+            // erruer log
+            throw $e;
+        }
     }
 }
