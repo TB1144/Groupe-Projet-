@@ -118,7 +118,7 @@ require __DIR__ . '/../layout/header.php';
                                 <a href="/offres/<?= (int)$offre['id'] ?>/modifier" class="btn-secondary">Modifier</a>
                             <?php endif; ?>
 
-                            <?php if (($_SESSION['role'] ?? '') === 'admin'): ?>
+                            <?php if (in_array($_SESSION['role'] ?? '', ['admin', 'pilote'])): ?>
                                 <form method="POST" action="/offres/<?= (int)$offre['id'] ?>/supprimer"
                                       style="display:inline"
                                       onsubmit="return confirm('Supprimer cette offre ?')">
