@@ -79,6 +79,8 @@ $router = new Router();
 $router->get('/', 'HomeController@index');
 
 // Offres
+$router->get('/api/offres/autocomplete-titre', 'OffreController@autocompleteTitre');
+$router->get('/api/offres/autocomplete-ville', 'OffreController@autocompleteVille');
 $router->get('/offres',                      'OffreController@index');
 $router->get('/offres/creer',                'OffreController@create');
 $router->post('/offres/creer',               'OffreController@create');

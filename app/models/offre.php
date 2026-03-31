@@ -125,6 +125,37 @@ class Offre
         return (int)$stmt->fetchColumn();
     }
 
+
+    // tout ca c'est pour la recherche avancée, mais on a aussi besoin d'autocomplete pour les champs de recherche (titre et ville) :
+    public function autocompleteTitre(string $query, int $limit = 8): array
+    {
+        $stmt = $this->db->prepare(
+            "SELECT DISTINCT titre FROM offres
+            WHERE titre LIKE :q
+            ORDER BY titre ASC
+            LIMIT :limit"
+        );
+        $stmt->bindValue(':q',     '%' . $query . '%', PDO::PARAM_STR);
+        $stmt->bindValue(':limit', $limit,              PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function autocompleteVille(string $query, int $limit = 8): array
+    {
+        $stmt = $this->db->prepare(
+            "SELECT DISTINCT e.ville FROM offres o
+            JOIN entreprises e ON o.id_entreprise = e.id
+            WHERE e.ville LIKE :q
+            ORDER BY e.ville ASC
+            LIMIT :limit"
+        );
+        $stmt->bindValue(':q',     '%' . $query . '%', PDO::PARAM_STR);
+        $stmt->bindValue(':limit', $limit,              PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     /**
      * Trouve une offre par son ID avec ses compétences.
      */

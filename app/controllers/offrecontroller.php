@@ -31,7 +31,7 @@ class OffreController
         $duree  = (int)($_GET['duree'] ?? 0);
         $page   = max(1, (int)($_GET['page'] ?? 1));
 
-        $limit  = 10;
+        $limit  = 9;
         $offset = ($page - 1) * $limit;
 
         // Requêtes SQL via le modèle
@@ -50,6 +50,24 @@ class OffreController
         // Variables disponibles dans la vue :
         // $offres, $total, $page, $totalPages, $titre, $ville, $duree
         require __DIR__ . '/../views/offres/index.php';
+    }
+
+    public function autocompleteTitre(): void
+    {
+        header('Content-Type: application/json');
+        $q = trim($_GET['q'] ?? '');
+        if (strlen($q) < 1) { echo json_encode([]); exit; }
+        echo json_encode($this->offreModel->autocompleteTitre($q));
+        exit;
+    }
+
+    public function autocompleteVille(): void
+    {
+        header('Content-Type: application/json');
+        $q = trim($_GET['q'] ?? '');
+        if (strlen($q) < 1) { echo json_encode([]); exit; }
+        echo json_encode($this->offreModel->autocompleteVille($q));
+        exit;
     }
 
     // -------------------------------------------------------------------------
