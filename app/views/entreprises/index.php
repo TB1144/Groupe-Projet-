@@ -98,7 +98,7 @@
                             <?php if (in_array($_SESSION['role'] ?? '', ['admin', 'pilote'])): ?>
                                 <a href="/entreprises/<?= (int)$entreprise['id'] ?>/modifier" class="btn-secondary">Modifier</a>
                             <?php endif; ?>
-                            <?php if (($_SESSION['role'] ?? '') === 'admin'): ?>
+                            <?php if (in_array($_SESSION['role'] ?? '', ['admin', 'pilote'])): ?>
                                 <form method="POST" action="/entreprises/<?= (int)$entreprise['id'] ?>/supprimer"
                                       style="display:inline"
                                       onsubmit="return confirm('Supprimer cette entreprise ?')">

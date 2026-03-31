@@ -144,11 +144,11 @@ class EntrepriseController
 
     // -------------------------------------------------------------------------
     // POST /entreprises/{id}/supprimer
-    // Accès : Admin
+    // Accès : Admin, Pilote SFx6
     // -------------------------------------------------------------------------
     public function delete(int $id): void
     {
-        $this->requireRole(['admin']);
+        $this->requireRole(['admin','pilote']); // On autorise aussi les pilotes à supprimer, vu que c'est eux qui créent les entreprises
         $this->verifyCsrf();
 
         $entreprise = $this->model->findById($id);
