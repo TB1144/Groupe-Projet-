@@ -90,7 +90,8 @@ $router->get('/offres/{id}/postuler',        'CandidatureController@form');
 $router->post('/offres/{id}/postuler',       'CandidatureController@postuler');
 
 // Entreprises
-$router->get('/api/entreprises/autocomplete',  'EntrepriseController@autocomplete'); // ← NOUVEAU
+$router->get('/api/entreprises/autocomplete',  'EntrepriseController@autocomplete');
+$router->get('/api/entreprises/autocomplete-ville', 'EntrepriseController@autocompleteVille');
 $router->get('/entreprises',                 'EntrepriseController@index');
 $router->get('/entreprises/creer',           'EntrepriseController@create');
 $router->post('/entreprises/creer',          'EntrepriseController@create');

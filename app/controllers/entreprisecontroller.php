@@ -17,17 +17,18 @@ class EntrepriseController
         if (empty($_SESSION['csrf_token'])) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         }
-
-        $nom    = trim($_GET['nom']   ?? '');
-        $ville  = trim($_GET['ville'] ?? '');
-        $page   = max(1, (int)($_GET['page'] ?? 1));
-        $limit  = 9;
-        $offset = ($page - 1) * $limit;
-
-        $entreprises = $this->model->search($nom, $ville, $limit, $offset);
-        $total       = $this->model->count($nom, $ville);
+    
+        $nom     = trim($_GET['nom']   ?? '');
+        $ville   = trim($_GET['ville'] ?? '');
+        $noteMin = (float)($_GET['note_min'] ?? 0);
+        $page    = max(1, (int)($_GET['page'] ?? 1));
+        $limit   = 9;
+        $offset  = ($page - 1) * $limit;
+    
+        $entreprises = $this->model->search($nom, $ville, $noteMin, $limit, $offset);
+        $total       = $this->model->count($nom, $ville, $noteMin);
         $totalPages  = (int)ceil($total / $limit);
-
+    
         $pageTitle = 'Entreprises — Web4All';
         require __DIR__ . '/../views/entreprises/index.php';
     }
@@ -233,6 +234,15 @@ class EntrepriseController
 
         $results = $this->model->autocomplete($q);
         echo json_encode($results);
+        exit;
+    }
+
+        public function autocompleteVille(): void
+    {
+        header('Content-Type: application/json');
+        $q = trim($_GET['q'] ?? '');
+        if (strlen($q) < 1) { echo json_encode([]); exit; }
+        echo json_encode($this->model->autocompleteVille($q));
         exit;
     }
 
