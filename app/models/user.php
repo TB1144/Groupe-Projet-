@@ -5,7 +5,7 @@ class User
 {
     private PDO $db;
 
-    private const SAFE_COLUMNS = 'id, nom, prenom, email, role';
+    private const SAFE_COLUMNS = 'u.id, u.nom, u.prenom, u.email, u.role, u.id_pilote';
 
     public function __construct()
     {
@@ -37,10 +37,9 @@ class User
     // LECTURE
     // ─────────────────────────────────────────
 
-    public function findById(int $id): ?array
-    {
+    public function findById(int $id): ?array {
         $stmt = $this->db->prepare(
-            "SELECT " . self::SAFE_COLUMNS . " FROM users WHERE id = :id LIMIT 1"
+            "SELECT " . self::SAFE_COLUMNS . " FROM users u WHERE u.id = :id LIMIT 1"
         );
         $stmt->execute([':id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
@@ -49,7 +48,7 @@ class User
     public function findByEmail(string $email): ?array
     {
         $stmt = $this->db->prepare(
-            "SELECT " . self::SAFE_COLUMNS . " FROM users WHERE email = :email LIMIT 1"
+            "SELECT " . self::SAFE_COLUMNS . " FROM users u WHERE u.email = :email LIMIT 1"
         );
         $stmt->execute([':email' => $email]);
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
@@ -65,7 +64,7 @@ class User
     public function findByRole(string $role): array
     {
         $stmt = $this->db->prepare(
-            "SELECT " . self::SAFE_COLUMNS . " FROM users WHERE role = :role ORDER BY nom, prenom"
+            "SELECT " . self::SAFE_COLUMNS . " FROM users u WHERE u.role = :role ORDER BY u.nom, u.prenom"
         );
         $stmt->execute([':role' => $role]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -74,31 +73,32 @@ class User
     /**
      * Recherche avec filtre nom/prénom/email + rôle + pagination.
      */
-    public function searchAll(string $search, string $role, int $limit, int $offset): array
-    {
+    public function searchAll(string $search, string $role, int $limit, int $offset): array {
         $conditions = ['1=1'];
-        $params     = [];
+        $params = [];
 
         if ($search !== '') {
-            $conditions[] = '(nom LIKE :search OR prenom LIKE :search2 OR email LIKE :search3)';
+            $conditions[] = '(u.nom LIKE :search OR u.prenom LIKE :search2 OR u.email LIKE :search3)';
             $params[':search']  = '%' . $search . '%';
             $params[':search2'] = '%' . $search . '%';
             $params[':search3'] = '%' . $search . '%';
         }
 
         if (in_array($role, ['admin', 'pilote', 'etudiant'], true)) {
-            $conditions[] = 'role = :role';
+            $conditions[] = 'u.role = :role';
             $params[':role'] = $role;
         }
 
         $where = implode(' AND ', $conditions);
-        $stmt  = $this->db->prepare(
-            "SELECT " . self::SAFE_COLUMNS . "
-             FROM users
-             WHERE $where
-             ORDER BY nom, prenom
-             LIMIT :limit OFFSET :offset"
+        $stmt = $this->db->prepare(
+            "SELECT " . self::SAFE_COLUMNS . ", p.nom AS pilote_nom, p.prenom AS pilote_prenom
+            FROM users u
+            LEFT JOIN users p ON u.id_pilote = p.id
+            WHERE $where
+            ORDER BY u.nom, u.prenom
+            LIMIT :limit OFFSET :offset"
         );
+
         foreach ($params as $key => $value) {
             $stmt->bindValue($key, $value, PDO::PARAM_STR);
         }
@@ -117,19 +117,19 @@ class User
         $params     = [];
 
         if ($search !== '') {
-            $conditions[] = '(nom LIKE :search OR prenom LIKE :search2 OR email LIKE :search3)';
+            $conditions[] = '(u.nom LIKE :search OR u.prenom LIKE :search2 OR u.email LIKE :search3)';
             $params[':search']  = '%' . $search . '%';
             $params[':search2'] = '%' . $search . '%';
             $params[':search3'] = '%' . $search . '%';
         }
 
         if (in_array($role, ['admin', 'pilote', 'etudiant'], true)) {
-            $conditions[] = 'role = :role';
+            $conditions[] = 'u.role = :role';
             $params[':role'] = $role;
         }
 
         $where = implode(' AND ', $conditions);
-        $stmt  = $this->db->prepare("SELECT COUNT(*) FROM users WHERE $where");
+        $stmt  = $this->db->prepare("SELECT COUNT(*) FROM users u WHERE $where");
         foreach ($params as $key => $value) {
             $stmt->bindValue($key, $value, PDO::PARAM_STR);
         }
@@ -156,34 +156,32 @@ class User
         ]);
     }
 
-    public function update(int $id, array $data): bool
-    {
-        if (!empty($data['password'])) {
+    public function update(int $id, array $data): bool {
+        // Si ce user devient étudiant, il ne peut plus être pilote référent d'autres étudiants
+        if ($data['role'] === 'etudiant' || $data['role'] === 'admin') {
             $stmt = $this->db->prepare(
-                "UPDATE users SET nom = :nom, prenom = :prenom, email = :email,
-                 password = :password, role = :role WHERE id = :id"
+                "UPDATE users SET id_pilote = NULL WHERE id_pilote = :id"
             );
-            return $stmt->execute([
-                ':nom'      => $data['nom'],
-                ':prenom'   => $data['prenom'],
-                ':email'    => $data['email'],
-                ':password' => password_hash($data['password'], PASSWORD_DEFAULT),
-                ':role'     => $data['role'],
-                ':id'       => $id,
-            ]);
+            $stmt->execute([':id' => $id]);
         }
 
-        $stmt = $this->db->prepare(
-            "UPDATE users SET nom = :nom, prenom = :prenom, email = :email,
-             role = :role WHERE id = :id"
-        );
-        return $stmt->execute([
-            ':nom'    => $data['nom'],
-            ':prenom' => $data['prenom'],
-            ':email'  => $data['email'],
-            ':role'   => $data['role'],
-            ':id'     => $id,
-        ]);
+        $sql = "UPDATE users SET nom = :nom, prenom = :prenom, email = :email, role = :role, id_pilote = :id_pilote";
+        $params = [
+            ':nom'       => $data['nom'],
+            ':prenom'    => $data['prenom'],
+            ':email'     => $data['email'],
+            ':role'      => $data['role'],
+            ':id_pilote' => $data['id_pilote'],
+            ':id'        => $id,
+        ];
+
+        if (!empty($data['password'])) {
+            $sql .= ", password = :password";
+            $params[':password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        }
+
+        $sql .= " WHERE id = :id";
+        return $this->db->prepare($sql)->execute($params);
     }
 
     public function delete(int $id): bool

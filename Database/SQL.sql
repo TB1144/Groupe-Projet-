@@ -5,13 +5,16 @@ USE projet_web;
 -- STRUCTURE
 -- ─────────────────────────────────────────
 
-CREATE TABLE IF NOT EXISTS users (
+DROP TABLE IF EXISTS users;
+CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(100),
     prenom VARCHAR(100),
     email VARCHAR(255) UNIQUE,
     password VARCHAR(255),
-    role ENUM('admin','pilote','etudiant')
+    role ENUM('admin','pilote','etudiant'),
+    id_pilote INT NULL,
+    FOREIGN KEY (id_pilote) REFERENCES users(id)
 );
 
 CREATE TABLE IF NOT EXISTS entreprises (

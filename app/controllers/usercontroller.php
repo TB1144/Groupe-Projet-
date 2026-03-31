@@ -41,8 +41,7 @@ class UserController
     // POST /utilisateurs/{id}/modifier
     // Accès : Admin uniquement
     // -------------------------------------------------------------------------
-    public function edit(int $id): void
-    {
+    public function edit(int $id): void {
         $this->requireRole(['admin']);
 
         $user = $this->userModel->findById($id);
@@ -52,7 +51,8 @@ class UserController
             return;
         }
 
-        $errors = [];
+        $pilotes = $this->userModel->findByRole('pilote');
+        $errors  = [];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->verifyCsrf();
@@ -60,31 +60,59 @@ class UserController
             $nom    = trim($_POST['nom']    ?? '');
             $prenom = trim($_POST['prenom'] ?? '');
             $email  = trim($_POST['email']  ?? '');
-            $role   = $_POST['role']        ?? '';
+            $role   = $_POST['role'] ?? '';
 
-            if (empty($nom))    $errors[] = 'Le nom est obligatoire.';
-            if (empty($prenom)) $errors[] = 'Le prénom est obligatoire.';
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = 'Email invalide.';
-            if (!in_array($role, ['admin', 'pilote', 'etudiant'])) $errors[] = 'Rôle invalide.';
-
-            // Unicité email seulement si changé
-            if ($email !== $user['email'] && $this->userModel->findByEmail($email)) {
-                $errors[] = 'Cette adresse e-mail est déjà utilisée.';
+            // Validations
+            if ($nom === '')    $errors[] = 'Le nom est obligatoire.';
+            if ($prenom === '') $errors[] = 'Le prénom est obligatoire.';
+            if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $errors[] = 'L\'adresse email est invalide.';
             }
+            if (!in_array($role, ['admin', 'pilote', 'etudiant'], true)) {
+                $errors[] = 'Rôle invalide.';
+            }
+
+            $id_pilote = ($role === 'etudiant' && !empty($_POST['id_pilote']))
+                ? (int)$_POST['id_pilote']
+                : null;
 
             if (empty($errors)) {
-                $data = ['nom' => $nom, 'prenom' => $prenom, 'email' => $email, 'role' => $role];
-                if (!empty($_POST['password'])) {
-                    $data['password'] = $_POST['password'];
+                $data = [
+                    'nom'       => $nom,
+                    'prenom'    => $prenom,
+                    'email'     => $email,
+                    'role'      => $role,
+                    'id_pilote' => $id_pilote,
+                ];
+
+                // Only rehash if a new password was provided
+                $password = $_POST['password'] ?? '';
+                if ($password !== '') {
+                    if (strlen($password) < 8) {
+                        $errors[] = 'Le mot de passe doit contenir au moins 8 caractères.';
+                    } else {
+                        $data['password'] = $password;
+                    }
                 }
-                $this->userModel->update($id, $data);
-                $_SESSION['flash'] = ['type' => 'success', 'message' => 'Utilisateur mis à jour.'];
-                header('Location: /utilisateurs');
-                exit;
+
+                if (empty($errors)) {
+                    $this->userModel->update($id, $data);
+                    $_SESSION['flash'] = ['type' => 'success', 'message' => 'Utilisateur mis à jour.'];
+                    header('Location: /utilisateurs');
+                    exit;
+                }
             }
+
+            // Repopulate $user with submitted values so the form reflects them on error
+            $user = array_merge($user, [
+                'nom'       => $nom,
+                'prenom'    => $prenom,
+                'email'     => $email,
+                'role'      => $role,
+                'id_pilote' => $id_pilote,
+            ]);
         }
 
-        $pageTitle = 'Modifier un utilisateur — Web4All';
         require __DIR__ . '/../views/users/edit.php';
     }
 

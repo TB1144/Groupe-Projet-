@@ -50,6 +50,7 @@ $roleBadgeClass = ['admin' => 'badge-admin', 'pilote' => 'badge-pilote', 'etudia
                         <th>Prénom</th>
                         <th>Email</th>
                         <th>Rôle</th>
+                        <th>Pilote</th>
                         <th class="col-actions">Actions</th>
                     </tr>
                 </thead>
@@ -64,6 +65,19 @@ $roleBadgeClass = ['admin' => 'badge-admin', 'pilote' => 'badge-pilote', 'etudia
                                     <?= $roleLabels[$u['role']] ?? $u['role'] ?>
                                 </span>
                             </td>
+
+                            <td>
+                                <?php if ($u['role'] === 'etudiant' && !empty($u['pilote_nom'])): ?>
+                                    <span class="pilote-name">
+                                        <?= htmlspecialchars($u['pilote_prenom'] . ' ' . $u['pilote_nom'], ENT_QUOTES, 'UTF-8') ?>
+                                    </span>
+                                <?php elseif ($u['role'] === 'etudiant'): ?>
+                                    <span class="td-muted">Aucun pilote</span>
+                                <?php else: ?>
+                                    <span class="td-muted">—</span>
+                                <?php endif; ?>
+                            </td>
+                            
                             <td class="td-actions">
                                 <a href="/utilisateurs/<?= (int)$u['id'] ?>/modifier" class="btn-secondary">Modifier</a>
                                 <?php if ((int)$u['id'] !== (int)$_SESSION['user_id']): ?>

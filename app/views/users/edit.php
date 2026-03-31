@@ -46,10 +46,26 @@ require __DIR__ . '/../layout/header.php';
 
                 <div class="input-group">
                     <label for="role">Rôle</label>
-                    <select id="role" name="role" class="input-select">
+                    <select id="role" name="role" class="input-select" onchange="togglePilote(this.value)">
                         <option value="etudiant" <?= $user['role'] === 'etudiant' ? 'selected' : '' ?>>Étudiant</option>
                         <option value="pilote"   <?= $user['role'] === 'pilote'   ? 'selected' : '' ?>>Pilote</option>
                         <option value="admin"    <?= $user['role'] === 'admin'    ? 'selected' : '' ?>>Admin</option>
+                    </select>
+                </div>
+
+                <!-- Shown only when role = etudiant -->
+                <div class="input-group" id="pilote-group"
+                     style="<?= $user['role'] !== 'etudiant' ? 'display:none;' : '' ?>">
+                    <label for="id_pilote">Pilote référent</label>
+                    <select id="id_pilote" name="id_pilote" class="input-select">
+                        <option value="">— Aucun pilote —</option>
+                        <?php foreach ($pilotes as $p): ?>
+                            <?php if ((int)$p['id'] === (int)$user['id']) continue; ?>
+                            <option value="<?= (int)$p['id'] ?>"
+                                <?= (int)($user['id_pilote'] ?? 0) === (int)$p['id'] ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($p['prenom'] . ' ' . $p['nom'], ENT_QUOTES, 'UTF-8') ?>
+                            </option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
 
@@ -70,5 +86,12 @@ require __DIR__ . '/../layout/header.php';
         </div>
     </div>
 </main>
+
+<script>
+function togglePilote(role) {
+    document.getElementById('pilote-group').style.display =
+        role === 'etudiant' ? '' : 'none';
+}
+</script>
 
 <?php require __DIR__ . '/../layout/footer.php'; ?>
