@@ -26,6 +26,7 @@ $roleBadgeClass = ['admin' => 'badge-admin', 'pilote' => 'badge-pilote', 'etudia
                     <option value="etudiant" <?= $role === 'etudiant' ? 'selected' : '' ?>>Étudiant</option>
                 </select>
             <?php endif; ?>
+            <a href="/utilisateurs/creer" class="btn-primary">Créer un utilisateur</a>
             <button type="submit" class="btn-primary">Filtrer</button>
         </form>
     </section>

@@ -181,15 +181,16 @@ class User
     public function create(array $data): bool
     {
         $stmt = $this->db->prepare(
-            "INSERT INTO users (nom, prenom, email, password, role)
-             VALUES (:nom, :prenom, :email, :password, :role)"
+            "INSERT INTO users (nom, prenom, email, password, role, id_pilote)
+            VALUES (:nom, :prenom, :email, :password, :role, :id_pilote)"
         );
         return $stmt->execute([
-            ':nom'      => $data['nom'],
-            ':prenom'   => $data['prenom'],
-            ':email'    => $data['email'],
-            ':password' => password_hash($data['password'], PASSWORD_DEFAULT),
-            ':role'     => $data['role'],
+            ':nom'       => $data['nom'],
+            ':prenom'    => $data['prenom'],
+            ':email'     => $data['email'],
+            ':password'  => password_hash($data['password'], PASSWORD_DEFAULT),
+            ':role'      => $data['role'],
+            ':id_pilote' => $data['id_pilote'] ?? null,
         ]);
     }
 

@@ -56,7 +56,6 @@
 
                         <a href="/logout" class="btn-primary mobile-btn">Déconnexion</a>
                     <?php else: ?>
-                        <a href="/register" class="btn-orange mobile-btn">S'inscrire</a>
                         <a href="/login" class="btn-primary mobile-btn">Connexion</a>
                 <?php endif; ?>
             </div>
@@ -86,7 +85,6 @@
 
                     <a href="/logout" class="btn-primary">Déconnexion</a>
                 <?php else: ?>
-                    <a href="/register" class="btn-orange">S'inscrire</a>
                     <a href="/login" class="btn-primary">Connexion</a>
             <?php endif; ?>
         </div>

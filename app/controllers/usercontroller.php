@@ -26,13 +26,12 @@ class UserController
         $currentId   = (int)$_SESSION['user_id'];
 
         $search = trim($_GET['search'] ?? '');
-        $role   = $_GET['role']   ?? '';
+        $role   = $_GET['role'] ?? '';
         $page   = max(1, (int)($_GET['page'] ?? 1));
         $limit  = 10;
         $offset = ($page - 1) * $limit;
 
         if ($currentRole === 'pilote') {
-            // Force : seuls les étudiants rattachés à ce pilote
             $role       = 'etudiant';
             $users      = $this->userModel->searchByPilote($currentId, $search, $limit, $offset);
             $total      = $this->userModel->countByPilote($currentId, $search);
@@ -45,6 +44,83 @@ class UserController
 
         $pageTitle = 'Utilisateurs — Web4All';
         require __DIR__ . '/../views/users/index.php';
+    }
+
+    // -------------------------------------------------------------------------
+    // GET  /utilisateurs/creer
+    // POST /utilisateurs/creer
+    // Admin : peut créer étudiant ou pilote
+    // Pilote : peut créer étudiant uniquement (rattaché à lui-même)
+    // -------------------------------------------------------------------------
+    public function create(): void
+    {
+        $this->requireRole(['admin', 'pilote']);
+
+        if (empty($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+
+        $currentRole = $_SESSION['role'];
+        $currentId   = (int)$_SESSION['user_id'];
+
+        $pilotes = $currentRole === 'admin' ? $this->userModel->findByRole('pilote') : [];
+        $errors  = [];
+        $user    = ['nom' => '', 'prenom' => '', 'email' => '', 'role' => 'etudiant', 'id_pilote' => null];
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->verifyCsrf();
+
+            $nom    = trim($_POST['nom']    ?? '');
+            $prenom = trim($_POST['prenom'] ?? '');
+            $email  = trim($_POST['email']  ?? '');
+            // Pilote ne peut créer que des étudiants
+            $role   = $currentRole === 'pilote' ? 'etudiant' : ($_POST['role'] ?? '');
+            $password = $_POST['password'] ?? '';
+
+            if ($nom === '')    $errors[] = 'Le nom est obligatoire.';
+            if ($prenom === '') $errors[] = 'Le prénom est obligatoire.';
+            if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $errors[] = 'L\'adresse email est invalide.';
+            }
+            // Admin peut créer étudiant ou pilote, pas admin
+            if (!in_array($role, ['pilote', 'etudiant'], true)) {
+                $errors[] = 'Rôle invalide.';
+            }
+            if (strlen($password) < 8) {
+                $errors[] = 'Le mot de passe doit contenir au moins 8 caractères.';
+            }
+            if ($this->userModel->findByEmail($email)) {
+                $errors[] = 'Cette adresse email est déjà utilisée.';
+            }
+
+            $id_pilote = null;
+            if ($role === 'etudiant') {
+                $id_pilote = $currentRole === 'pilote'
+                    ? $currentId
+                    : (!empty($_POST['id_pilote']) ? (int)$_POST['id_pilote'] : null);
+            }
+
+            if (empty($errors)) {
+                $this->userModel->create([
+                    'nom'       => $nom,
+                    'prenom'    => $prenom,
+                    'email'     => $email,
+                    'password'  => $password,
+                    'role'      => $role,
+                    'id_pilote' => $id_pilote,
+                ]);
+
+                $_SESSION['flash'] = ['type' => 'success', 'message' => 'Utilisateur créé avec succès.'];
+                header('Location: /utilisateurs');
+                exit;
+            }
+
+            // Repopulate pour réaffichage en cas d'erreur
+            $user = compact('nom', 'prenom', 'email', 'role', 'id_pilote');
+        }
+
+        $pageTitle = 'Créer un utilisateur — Web4All';
+        require __DIR__ . '/../views/users/create.php';
     }
 
     // -------------------------------------------------------------------------
@@ -67,7 +143,6 @@ class UserController
             return;
         }
 
-        // Un pilote ne peut modifier que ses propres étudiants
         if ($currentRole === 'pilote') {
             if ($user['role'] !== 'etudiant' || (int)$user['id_pilote'] !== $currentId) {
                 http_response_code(403);
@@ -85,19 +160,22 @@ class UserController
             $nom    = trim($_POST['nom']    ?? '');
             $prenom = trim($_POST['prenom'] ?? '');
             $email  = trim($_POST['email']  ?? '');
-            // Un pilote ne peut pas changer le rôle de son étudiant
-            $role   = $currentRole === 'pilote' ? 'etudiant' : ($_POST['role'] ?? '');
+            // Pilote ne peut pas changer le rôle, admin ne peut pas mettre admin
+            if ($currentRole === 'pilote') {
+                $role = 'etudiant';
+            } else {
+                $role = $_POST['role'] ?? '';
+                if (!in_array($role, ['pilote', 'etudiant'], true)) {
+                    $errors[] = 'Rôle invalide.';
+                }
+            }
 
             if ($nom === '')    $errors[] = 'Le nom est obligatoire.';
             if ($prenom === '') $errors[] = 'Le prénom est obligatoire.';
             if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $errors[] = 'L\'adresse email est invalide.';
             }
-            if ($currentRole === 'admin' && !in_array($role, ['admin', 'pilote', 'etudiant'], true)) {
-                $errors[] = 'Rôle invalide.';
-            }
 
-            // Un pilote ne peut pas réassigner le pilote référent
             $id_pilote = null;
             if ($role === 'etudiant') {
                 $id_pilote = $currentRole === 'pilote'
@@ -131,15 +209,10 @@ class UserController
                 }
             }
 
-            $user = array_merge($user, [
-                'nom'       => $nom,
-                'prenom'    => $prenom,
-                'email'     => $email,
-                'role'      => $role,
-                'id_pilote' => $id_pilote,
-            ]);
+            $user = array_merge($user, compact('nom', 'prenom', 'email', 'role', 'id_pilote'));
         }
 
+        $pageTitle = 'Modifier un utilisateur — Web4All';
         require __DIR__ . '/../views/users/edit.php';
     }
 
@@ -169,7 +242,6 @@ class UserController
             return;
         }
 
-        // Un pilote ne peut supprimer que ses propres étudiants
         if ($currentRole === 'pilote') {
             if ($user['role'] !== 'etudiant' || (int)$user['id_pilote'] !== $currentId) {
                 http_response_code(403);
