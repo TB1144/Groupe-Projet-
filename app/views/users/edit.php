@@ -71,7 +71,7 @@ $currentRole = $_SESSION['role'];
                         </select>
                     </div>
                 <?php else: ?>
-                    {{-- Pilote : rôle et pilote référent verrouillés, pas affichés --}}
+                    <!-- Pilote : rôle et pilote référent verrouillés, pas affichés -->
                     <p class="td-muted" style="margin-bottom:16px;">
                         Rôle : <strong>Étudiant</strong> — Pilote référent : <strong>vous</strong>
                     </p>
