@@ -89,16 +89,16 @@ mdp:password123
 
 ### Spécifications Techniques (STx)
 - [x] **STx 1** : Architecture MVC obligatoire (Modèle - Vue - Contrôleur).
-- [ ] **STx 2** : Conformité du code (HTML5 sémantique, W3C, CSS structuré, PHP POO, PSR-12).
-- [ ] **STx 3** : Contrôle des champs de saisie des formulaires (Front HTML/JS et Back PHP).
+- [x] **STx 2** : Conformité du code (HTML5 sémantique, W3C, CSS structuré, PHP POO, PSR-12).
+- [x] **STx 3** : Contrôle des champs de saisie des formulaires (Front HTML/JS et Back PHP).
 - [x] **STx 4** : Interdiction d’utiliser les CMS (WordPress, etc.).
 - [x] **STx 5** : Interdiction d'utiliser des Frameworks front/back (React, Symfony...). Autorisation SASS/jQuery.
 - [x] **STx 6** : Stack technique (Serveur Apache, Front HTML5/CSS3/JS, Back PHP, BDD SQL).
-- [ ] **STx 7** : Moteur de template (Inclusion de fragments de page côté backend).
+- [x] **STx 7** : Moteur de template (Inclusion de fragments de page côté backend).
 - [x] **STx 8** : Utilisation de clés étrangères dans le SGBD.
 - [x] **STx 9** : Vhost spécifique pour le contenu statique (dossier `public/`).
 - [ ] **STx 10** : Responsive Design (Mobile first + Menu burger).
-- [ ] **STx 11** : Sécurité (Cookies sécurisés, mots de passe hashés, failles SQL/XSS/CSRF, HTTPS).
+- [x] **STx 11** : Sécurité (Cookies sécurisés, mots de passe hashés, failles SQL/XSS/CSRF, HTTPS).
 - [ ] **STx 12** : Optimisation SEO (Balises meta, perfs < 3s, URL propres, sitemap.xml, robots.txt).
 - [x] **STx 13** : Routage d'URL côté Backend (URLs lisibles et hiérarchisées).
 - [ ] **STx 14** : Tests unitaires (PHPUnit sur au moins un contrôleur).
