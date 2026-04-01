@@ -29,10 +29,11 @@
                 <!-- CV -->
                 <div class="input-group">
                     <label for="cv">
-                        CV <span class="label-hint">(PDF, 5 Mo max — optionnel)</span>
+                        CV <span class="required">*</span>
+                        <span class="label-hint">(PDF, 5 Mo max)</span>
                     </label>
                     <div class="file-upload-zone" id="file-upload-zone">
-                        <input type="file" id="cv" name="cv" accept=".pdf" class="file-input">
+                        <input type="file" id="cv" name="cv" accept=".pdf" class="file-input" required>
                         <div class="file-upload-content">
                             <span class="file-icon">📄</span>
                             <p>Glissez votre CV ici ou <span class="file-link">parcourez vos fichiers</span></p>
@@ -55,7 +56,7 @@
                     ><?= htmlspecialchars($_POST['lettre_motivation'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
                 </div>
 
-                <p class="required-note"><span class="required">*</span> Champ obligatoire</p>
+                <p class="required-note"><span class="required">*</span> Champs obligatoires</p>
 
                 <div class="form-actions">
                     <button type="submit" class="btn-submit">Envoyer ma candidature</button>

@@ -74,7 +74,9 @@ class CandidatureController
         }
 
         // ── Upload CV ────────────────────────────────────────────────────────
-        if (!empty($_FILES['cv']['name'])) {
+        if (empty($_FILES['cv']['name'])) {
+            $errors[] = 'Le CV est obligatoire.';
+        } else {
             $file     = $_FILES['cv'];
             $maxSize  = 5 * 1024 * 1024; // 5 Mo
             $ext      = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
