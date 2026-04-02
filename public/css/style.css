@@ -640,3 +640,12 @@ button.btn-primary {
     .search-bar { flex-direction: column; }
     .search-field { min-width: 100%; }
 }
+
+.btn-top.visible {
+    opacity: 1;
+    pointer-events: all;
+}
+.btn-top:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 7px 7px 0px var(--texte-noir);
+}
