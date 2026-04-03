@@ -56,7 +56,7 @@
                     ><?= htmlspecialchars($_POST['lettre_motivation'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
                 </div>
 
-                <p class="required-note"><span class="required">*</span> Champs obligatoires            &²HJGKURF56YDE4FTFDZFD</p>
+                <p class="required-note"><span class="required">*</span> Champs obligatoires</p>
 
                 <div class="form-actions">
                     <button type="submit" class="btn-submit">Envoyer ma candidature</button>
