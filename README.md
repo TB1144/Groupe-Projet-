@@ -97,8 +97,8 @@ mdp:password123
 - [x] **STx 7** : Moteur de template (Inclusion de fragments de page côté backend).
 - [x] **STx 8** : Utilisation de clés étrangères dans le SGBD.
 - [x] **STx 9** : Vhost spécifique pour le contenu statique (dossier `public/`).
-- [ ] **STx 10** : Responsive Design (Mobile first + Menu burger).
+- [x] **STx 10** : Responsive Design (Mobile first + Menu burger).
 - [x] **STx 11** : Sécurité (Cookies sécurisés, mots de passe hashés, failles SQL/XSS/CSRF, HTTPS).
-- [ ] **STx 12** : Optimisation SEO (Balises meta, perfs < 3s, URL propres, sitemap.xml, robots.txt).
+- [x] **STx 12** : Optimisation SEO (Balises meta, perfs < 3s, URL propres, sitemap.xml, robots.txt).
 - [x] **STx 13** : Routage d'URL côté Backend (URLs lisibles et hiérarchisées).
-- [ ] **STx 14** : Tests unitaires (PHPUnit sur au moins un contrôleur).
+- [x] **STx 14** : Tests unitaires (PHPUnit sur au moins un contrôleur).

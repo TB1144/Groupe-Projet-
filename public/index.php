@@ -20,32 +20,46 @@ class Router
 {
     private array $routes = [];
 
+    // Permet de définir une route GET avec un chemin et une action (callback)
     public function get(string $path, string $callback): void
     {
         $this->routes['GET'][$path] = $callback;
     }
 
+    // Permet de définir une route POST avec un chemin et une action (callback)
     public function post(string $path, string $callback): void
     {
         $this->routes['POST'][$path] = $callback;
     }
 
+    // Traite la requête entrante, trouve la route correspondante et exécute l'action associée
     public function run(): void
     {
         $method = $_SERVER['REQUEST_METHOD'];
         $path   = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
         $filePath = __DIR__ . $path;
+
+        // Si le chemin correspond à un fichier statique existant, le serveur web le servira directement, donc on ne fait rien ici
         if (file_exists($filePath) && !is_dir($filePath)) {
             return;
         }
 
+        // Vérifie si la méthode HTTP est supportéee par le routeur
         if (!isset($this->routes[$method])) {
             http_response_code(405);
             echo "405 - Method Not Allowed";
             return;
         }
 
+        // sitemap.xml servi en statique pour éviter de devoir le régénérer à chaque changement d'offre/entreprise
+        if ($path === '/sitemap.xml') {
+            header('Content-Type: application/xml; charset=UTF-8');
+            readfile(__DIR__ . '/sitemap.xml');
+            return;
+        }
+
+        //boucle sur les routes définies pour trouver une correspondance avec l'URL demandée, en supportant les paramètres dynamiques
         foreach ($this->routes[$method] as $routePath => $callback) {
             $regex = "@^" . preg_replace('/\{[a-zA-Z0-9]+\}/', '([a-zA-Z0-9]+)', $routePath) . "$@";
 
@@ -64,6 +78,7 @@ class Router
     }
 }
 
+// Instancie le routeur et définit les routes de l'application
 $router = new Router();
 
 $router->get('/', 'HomeController@index');

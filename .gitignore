@@ -1,0 +1,10 @@
+# Dépendances Composer
+vendor/
+
+# Uploads utilisateurs CV et lettres de contact
+public/uploads/cv/*
+public/uploads/storage/*
+
+# Conserver les dossiers vides dans git
+!public/uploads/cv/.gitignore
+!public/uploads/storage/.gitignore
