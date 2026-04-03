@@ -29,10 +29,28 @@
 
     <script>
         const btnTop = document.getElementById('btn-top');
+        const footer = document.querySelector('.main-footer');
 
         window.addEventListener('scroll', () => {
-            btnTop.style.opacity = window.scrollY > 500 ? '1' : '0';
-            btnTop.style.pointerEvents = window.scrollY > 500 ? 'all' : 'none';
+            const footerTop = footer.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+            const btnHeight = 48 + 32; // hauteur bouton + marge bottom
+
+            if (window.scrollY > 300) {
+                btnTop.style.opacity = '1';
+                btnTop.style.pointerEvents = 'all';
+            } else {
+                btnTop.style.opacity = '0';
+                btnTop.style.pointerEvents = 'none';
+            }
+
+            // Si le footer est visible, on remonte le bouton
+            if (footerTop < windowHeight) {
+                const offset = windowHeight - footerTop + 16;
+                btnTop.style.bottom = offset + 'px';
+            } else {
+                btnTop.style.bottom = '32px';
+            }
         });
 
         btnTop.addEventListener('click', () => {
